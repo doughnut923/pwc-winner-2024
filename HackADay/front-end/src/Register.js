@@ -3,8 +3,6 @@ import { Container, TextField, Button, Typography, Box, Card, CardContent } from
 import { styled } from '@mui/material/styles';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "./logo.svg"; // Adjust the path to your logo image
-import { useNavigate } from 'react-router-dom';
-
 const StyledContainer = styled(Container)(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
@@ -42,6 +40,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     padding: "5px 10px",
     borderRadius: 20, // Increase border radius
     width: 'fit-content', // Width to fit content
+
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -50,6 +49,9 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
         borderRadius: 20, // Set border radius
         fontSize: '12px', // Set text size to 12px
         padding: '10px', // Ensure padding is consistent
+    },
+    '& .MuiTextField-root': {
+        marginTop: theme.spacing(1),
     },
     '& .MuiInputLabel-root': {
         fontSize: '12px', // Set label text size to 12px
@@ -60,9 +62,10 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     marginBottom: theme.spacing(1), // Reduce the margin-bottom for the first TextField
 }));
 
-const Login = () => {
+const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [repassword, setRePassword] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,8 +73,6 @@ const Login = () => {
         console.log('Email:', email);
         console.log('Password:', password);
     };
-
-    const navigate = useNavigate();
 
     return (
         <StyledContainer maxWidth="sm">
@@ -92,10 +93,10 @@ const Login = () => {
                                 variant="outlined"
                                 margin="normal"
                                 required
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
                                 autoFocus
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -113,22 +114,26 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 mt="4px"
                             />
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                <StyledButton
-                                    type="button"
-                                    variant="text"
-                                    color="black"
-                                    onClick={() => navigate('/signup')}
-                                >
-                                    Sign Up
-                                </StyledButton>
+                            <StyledTextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                name="repassword"
+                                label="Re-Type Password"
+                                type="password"
+                                id="repassword"
+                                value={repassword}
+                                onChange={(e) => setRePassword(e.target.value)}
+                                mt="4px"
+                            />
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
                                 <StyledButton
                                     type="submit"
                                     variant="contained"
                                     color="primary"
                                     endIcon={<ArrowForwardIcon />}
                                 >
-                                    Login
+                                    Sign Up
                                 </StyledButton>
                             </Box>
                         </StyledForm>
@@ -139,4 +144,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

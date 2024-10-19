@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Login from './Login';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Register from './Register';
 
 const router = createBrowserRouter([
   {
@@ -18,12 +19,27 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login/>,
+  },
+  {
+    path: "signup",
+    element: <Register/>,
   }
 ]);
 
 const theme = createTheme({
   typography: {
-      fontFamily: 'Poppins, Arial, sans-serif',
+    fontFamily: 'Poppins, Arial, sans-serif',
+  },
+  palette: {
+    primary: {
+      main: '#005249',
+    },
+    secondary: {
+      main: '#97B002',
+    },
+    background: {
+      default: '#EBEDDF',
+    },
   },
 });
 
