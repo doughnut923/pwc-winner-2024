@@ -18,6 +18,7 @@ const Register = () => {
         console.log('Password:', password);
     };
 
+    //return the Register form
     return (
         <StyledContainer maxWidth="sm">
             <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
