@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Typography, Box, CardContent } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "./logo.svg"; // Adjust the path to your logo image
+import BiometricSetup from './Components/BiometricSetup';
 
 import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
 
@@ -11,11 +12,12 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
 
+    const [registerState, setRegisterState] = useState(0);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle login logic here
-        console.log('Email:', email);
-        console.log('Password:', password);
+        setRegisterState(1);
     };
 
     //return the Register form
@@ -26,7 +28,8 @@ const Register = () => {
             </Box>
             <StyledCard elevation={16}>
                 <CardContent>
-                    <FormContainer>
+                //checks the state of the register, shows the corresponding form
+                    {!registerState ? <FormContainer>
                         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
                             <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                         </Box>
@@ -82,7 +85,8 @@ const Register = () => {
                                 </StyledButton>
                             </Box>
                         </StyledForm>
-                    </FormContainer>
+                    </FormContainer> : 
+                    <BiometricSetup logo={logo}/>}
                 </CardContent>
             </StyledCard>
         </StyledContainer>

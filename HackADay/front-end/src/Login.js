@@ -34,7 +34,8 @@ const Login = () => {
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
             </Box>
             <StyledCard elevation={16}>
-                {loginState ? <CardContent>
+                //checks the state of the login, shows the corresponding form
+                {!loginState ? <CardContent>
                     <FormContainer>
                         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
                             <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
