@@ -5,7 +5,7 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { StyledButton } from '../LoginStyledElements';
 
 //prop function to handle the blob
-const ShowWebcam = ({handleBlob}) => {
+const ShowWebcam = ({handleBlob, message}) => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const [isStreaming, setIsStreaming] = useState(false);
@@ -17,8 +17,12 @@ const ShowWebcam = ({handleBlob}) => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 videoRef.current.srcObject = stream;
-                videoRef.current.play();
-                setIsStreaming(true);
+
+                // Listen for the loadeddata event before playing the video
+                videoRef.current.addEventListener('loadeddata', () => {
+                    videoRef.current.play();
+                    setIsStreaming(true);
+                });
             } catch (err) {
                 console.error("Error accessing webcam: ", err);
             }
@@ -82,7 +86,7 @@ const ShowWebcam = ({handleBlob}) => {
                 sx={{ marginTop: '20px' }}
                 startIcon={<CameraAltIcon />}
             >
-                Snap Photo
+                {message}
             </StyledButton>
             <Box>
                 <canvas ref={canvasRef} style={{ display: 'none' }} />

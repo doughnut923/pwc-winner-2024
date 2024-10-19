@@ -21,7 +21,7 @@ const Login = () => {
     const loginUser = (image) => {
         //code to send the image to the server
 
-        
+
         //if successful, navigate to the classList
         var isTeacher = true;
         if (isTeacher) {
@@ -48,64 +48,64 @@ const Login = () => {
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
             </Box>
             <StyledCard elevation={16}>
-                {
-                    //checks the state of the login, shows the corresponding form
-                    !loginState ? <CardContent>
-                        <FormContainer>
-                            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-                                <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
+                {/* checks the state of the login, shows the corresponding form */}
+                {!loginState ? <CardContent>
+                    <FormContainer>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                            <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
+                        </Box>
+
+                        <Typography pl="4px" component="h1" variant="h5" align="left" color='primary' sx={{ fontWeight: 600 }}>
+                            Login
+                        </Typography>
+                        <StyledForm component="form" onSubmit={handleSubmit}>
+                            <StyledTextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <StyledTextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                mt="4px"
+                            />
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                <StyledButton
+                                    type="button"
+                                    variant="text"
+                                    color="black"
+                                    onClick={() => navigate('/signup')}
+                                >
+                                    Sign Up
+                                </StyledButton>
+                                <StyledButton
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    endIcon={<ArrowForwardIcon />}
+                                >
+                                    Login
+                                </StyledButton>
                             </Box>
-                            <Typography pl="4px" component="h1" variant="h5" align="left" color='primary' sx={{ fontWeight: 600 }}>
-                                Login
-                            </Typography>
-                            <StyledForm component="form" onSubmit={handleSubmit}>
-                                <StyledTextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <StyledTextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    mt="4px"
-                                />
-                                <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                    <StyledButton
-                                        type="button"
-                                        variant="text"
-                                        color="black"
-                                        onClick={() => navigate('/signup')}
-                                    >
-                                        Sign Up
-                                    </StyledButton>
-                                    <StyledButton
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        endIcon={<ArrowForwardIcon />}
-                                    >
-                                        Login
-                                    </StyledButton>
-                                </Box>
-                            </StyledForm>
-                        </FormContainer>
-                    </CardContent> :
-                        <BiometricLogin logo={logo} />}
+                        </StyledForm>
+                    </FormContainer>
+                </CardContent> :
+                    <BiometricLogin logo={logo} />}
             </StyledCard>
         </StyledContainer>
     );
