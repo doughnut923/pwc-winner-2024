@@ -7,9 +7,10 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Login from './Login';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Login from './Login';
 import Register from './Register';
+import Dashboard from './Pages/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <Register/>,
-  }
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard/>,
+  },
 ]);
 
 const theme = createTheme({
