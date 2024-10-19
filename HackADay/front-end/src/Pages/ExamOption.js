@@ -4,11 +4,11 @@ import { styled } from '@mui/material/styles';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "../logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
-import{ StyledContainer, StyledCard, InsideContainer, CardBox } from "./DashboardStyledElements"
+import{ StyledContainer, StyledCard, InsideContainer, CardBox } from "./ExamOptionStyledElements"
 
 
 
-const Dashboard = () => {    
+const ExamOption = () => {    
 
     // Use the navigate hook to redirect the user to the signup page
     const navigate = useNavigate();
@@ -118,4 +118,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default ExamOption;

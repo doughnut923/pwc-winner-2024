@@ -10,7 +10,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from './Login';
 import Register from './Register';
-import Dashboard from './Pages/Dashboard';
+import ExamOption from './Pages/ExamOption';
 
 const router = createBrowserRouter([
   {
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
     element: <Register/>,
   },
   {
-    path: "dashboard",
-    element: <Dashboard/>,
+    path: "exam-option",
+    element: <ExamOption/>,
   },
 ]);
 
