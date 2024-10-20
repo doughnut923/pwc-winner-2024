@@ -1,11 +1,12 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { Box, Paper } from '@mui/material';
-import { useTheme, ThemeProvider } from '@mui/material/styles';
+import { useTheme, } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import CheckCamera from './Components/CheckCamera';
 import WaitingPage from './Components/WaitingPage';
 import Question from './Components/Question';
+import logo from "./logo.svg"; // Adjust the path to your logo image
 
 const ExamPage = () => {
 
@@ -20,16 +21,9 @@ const ExamPage = () => {
     const [UIState, setUIState] = React.useState("camera");
 
     //state to store the exam details
-    const [examDetails, setExamDetails] = React.useState({
-        examName: "COMP 1000",
-        examTime: "1000",
-        examQuestions: [
-            {
-                question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-            }
-        ]
-    });
+    const [examDetails, setExamDetails] = React.useState(
+
+    );
 
     const DB = {
         "test": {
@@ -37,10 +31,23 @@ const ExamPage = () => {
             examTime: "1000",
             examQuestions: [
                 {
-                    question: "Question",
+                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+                },
+                {
+                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+                },
+                {
+                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+                },
+                {
+                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
                     options: ["Option 1", "Option 2", "Option 3", "Option 4"],
                 }
             ]
+
         }
     }
     // {
@@ -79,81 +86,94 @@ const ExamPage = () => {
     const theme = useTheme();
 
     //render corresponding UI based on the UIState
-    if(UIState === "camera"){
+    if (UIState === "camera") {
         return (
             <>
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.background.default,
-                    height: '100vh',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Paper
-                    elevation={3}
+                <Box
                     sx={{
-                        borderRadius: 10,
-                        height: '90vh',
-                        width: '90vw',
+                        backgroundColor: theme.palette.background.default,
+                        height: '100vh',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
-                    <CheckCamera handleBlob={EnsureCamera}></CheckCamera>
-                </Paper>
-            </Box></>
+
+                    <Paper
+                        elevation={3}
+                        sx={{
+                            borderRadius: 5,
+                            height: '90vh',
+                            width: '90vw',
+                            position: 'relative'
+                        }}
+                    >
+                        <Box sx={{ position: 'absolute', top: 30, left: 50 }}>
+                            <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
+                        </Box>
+                        <CheckCamera handleBlob={EnsureCamera}></CheckCamera>
+                    </Paper>
+                </Box></>
         );
     }
 
-    else if(UIState =="wait"){
+    else if (UIState === "wait") {
         return (
             <>
-            <>
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.background.default,
-                    height: '100vh',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Paper
-                    elevation={3}
-                    sx={{
-                        borderRadius: 10,
-                        height: '90vh',
-                        width: '90vw',
-                    }}
-                >
-                    <WaitingPage startExam={startExam} courseTitle={examDetails.examName} examStart={examDetails.examTime}/>
-                </Paper>
-            </Box></>
+                <>
+                    <Box
+                        sx={{
+                            backgroundColor: theme.palette.background.default,
+                            height: '100vh',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Paper
+                            elevation={3}
+                            sx={{
+                                borderRadius: 5,
+                                height: '90vh',
+                                width: '90vw',
+                                position: 'relative'
+                            }}
+                        >
+                            <Box sx={{ position: 'absolute', top: 30, left: 50 }}>
+                                <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
+                            </Box>
+                            <WaitingPage startExam={startExam} courseTitle={examDetails.examName} examStart={examDetails.examTime} />
+                        </Paper>
+                    </Box></>
             </>
         );
-    }else if(UIState == "Question"){
+    } else if (UIState === "Question") {
         return (
             <>
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.background.default,
-                    height: '100vh',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Paper
-                    elevation={3}
+                <Box
                     sx={{
-                        borderRadius: 10,
-                        height: '90vh',
-                        width: '90vw',
+                        backgroundColor: theme.palette.background.default,
+                        height: '100vh',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
-                <Question></Question>        
-                </Paper>
-            </Box>
+                    <Paper
+                        elevation={3}
+                        sx={{
+                            borderRadius: 5,
+                            height: '90vh',
+                            width: '90vw',
+                            position: 'relative'
+                        }}
+                    >
+                        <Box sx={{ position: 'absolute', top: 30, left: 50 }}>
+                            <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
+                        </Box>
+                        <Question questions={examDetails.examQuestions} examTitle={examDetails.examName}></Question>
+                    </Paper>
+                </Box>
             </>
         );
     }
