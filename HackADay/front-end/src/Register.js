@@ -28,8 +28,9 @@ const Register = () => {
             </Box>
             <StyledCard elevation={16}>
                 <CardContent>
-                {/* checks the state of the register, shows the corresponding form */}
-                    {!registerState ? <FormContainer>
+                    {
+                    //checks the state of the register, shows the corresponding form
+                    !registerState ? <FormContainer>
                         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
                             <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                         </Box>

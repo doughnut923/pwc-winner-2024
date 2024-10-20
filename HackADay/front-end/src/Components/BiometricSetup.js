@@ -8,8 +8,8 @@ const BiometricSetup = ({ logo }) => {
     // Use the navigate hook to redirect the user to the signup page
     // const navigate = useNavigate();
 
+
     const handleBlob = (blob) => {
-        console.log(blob)
     }
 
     // Return the Biometric Authentication form

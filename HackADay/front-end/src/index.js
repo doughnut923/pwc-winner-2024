@@ -11,6 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from './Login';
 import Register from './Register';
 import ExamOption from './Pages/ExamOption';
+import ExamPage from './ExamPage';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
     path: "signup",
     element: <Register/>,
   },
+  {
+    path: "exam",
+    element : <ExamPage/>
+  }
+  ,
   {
     path: "exam-option",
     element: <ExamOption/>,

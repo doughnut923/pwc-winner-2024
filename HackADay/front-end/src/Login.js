@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "./logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
-import{ StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
+import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
 import BiometricLogin from './Components/BiometricLogin';
 
 
@@ -17,12 +17,26 @@ const Login = () => {
     //                     -> or 1 : Biometric Authentication
     const [loginState, setLoginState] = useState(0);
 
+
+    const loginUser = (image) => {
+        //code to send the image to the server
+
+
+        //if successful, navigate to the classList
+        var isTeacher = true;
+        if (isTeacher) {
+            navigate('/myclass', { state: { token: "" } });
+        } else {
+            navigate('/myclass', { state: { token: "" } });
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle login logic here
         setLoginState(1);
     };
-    
+
 
     // Use the navigate hook to redirect the user to the signup page
     const navigate = useNavigate();
@@ -40,6 +54,7 @@ const Login = () => {
                         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
                             <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                         </Box>
+
                         <Typography pl="4px" component="h1" variant="h5" align="left" color='primary' sx={{ fontWeight: 600 }}>
                             Login
                         </Typography>
@@ -89,8 +104,8 @@ const Login = () => {
                             </Box>
                         </StyledForm>
                     </FormContainer>
-                </CardContent> : 
-                <BiometricLogin logo={logo}/>}
+                </CardContent> :
+                    <BiometricLogin logo={logo} />}
             </StyledCard>
         </StyledContainer>
     );
