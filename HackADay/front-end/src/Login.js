@@ -10,7 +10,7 @@ import BiometricLogin from './Components/BiometricLogin';
 
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     // The Login state either be 0 : Login with email and password
@@ -34,17 +34,20 @@ const Login = () => {
 
         // Append the email and password as a JSON string
         const userCredentials = JSON.stringify({
-            email: email,
+            username: username,
             password: password,
             image : await blobToBinary(imageblob) //comment if you change your mind
         });
         formData.append('credentials', userCredentials);
 
         // Send the form data to the server using fetch
-        fetch('https://your-api-server.com/login', {
+        const result = await fetch('https://your-api-server.com/login', {
             method: 'POST',
             body: formData,
         })
+
+        // Check the result
+        
 
         //if successful, navigate to the classList
         // var isTeacher = true;
@@ -87,13 +90,13 @@ const Login = () => {
                                 variant="outlined"
                                 margin="normal"
                                 required
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
                                 autoFocus
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                             <StyledTextField
                                 variant="outlined"
