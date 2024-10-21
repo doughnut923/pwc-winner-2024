@@ -17,18 +17,42 @@ const Login = () => {
     //                     -> or 1 : Biometric Authentication
     const [loginState, setLoginState] = useState(0);
 
+    const blobToBinary = async (blob) => {
+        const buffer = await blob.arrayBuffer();
 
-    const loginUser = (image) => {
-        //code to send the image to the server
+        const view = new Int8Array(buffer);
 
+        return [...view].map((n) => n.toString(2)).join(' ');
+    };
+
+    const loginUser = async (imageblob, filename) => {
+        // Create a FormData object
+        const formData = new FormData();
+
+        // Append the image blob (Common Practice)
+        // formData.append('image', imageblob, filename);
+
+        // Append the email and password as a JSON string
+        const userCredentials = JSON.stringify({
+            email: email,
+            password: password,
+            image : await blobToBinary(imageblob) //comment if you change your mind
+        });
+        formData.append('credentials', userCredentials);
+
+        // Send the form data to the server using fetch
+        fetch('https://your-api-server.com/login', {
+            method: 'POST',
+            body: formData,
+        })
 
         //if successful, navigate to the classList
-        var isTeacher = true;
-        if (isTeacher) {
-            navigate('/myclass', { state: { token: "" } });
-        } else {
-            navigate('/myclass', { state: { token: "" } });
-        }
+        // var isTeacher = true;
+        // if (isTeacher) {
+        //     navigate('/myclass', { state: { token: "" } });
+        // } else {
+        //     navigate('/myclass', { state: { token: "" } });
+        // }
     }
 
     const handleSubmit = (e) => {
@@ -105,7 +129,7 @@ const Login = () => {
                         </StyledForm>
                     </FormContainer>
                 </CardContent> :
-                    <BiometricLogin logo={logo} />}
+                    <BiometricLogin logo={logo} loginUser={loginUser} />}
             </StyledCard>
         </StyledContainer>
     );
