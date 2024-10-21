@@ -12,6 +12,7 @@ import Login from './Login';
 import Register from './Register';
 import ExamOption from './Pages/ExamOption';
 import ExamPage from './ExamPage';
+import Complete from './Complete';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     path: "exam-option",
     element: <ExamOption/>,
   },
+  {
+    path: "complete",
+    element: <Complete/>,
+  }
 ]);
 
 const theme = createTheme({
