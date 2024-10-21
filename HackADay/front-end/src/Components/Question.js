@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Container, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Box } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
 
 const Question = ({ questions, examTitle }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -11,6 +12,8 @@ const Question = ({ questions, examTitle }) => {
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
+
+    const navigate = useNavigate();
 
     async function sendImage(formData) {
         // try {
@@ -101,6 +104,11 @@ const Question = ({ questions, examTitle }) => {
         setAnswers(newAnswers);
     };
 
+    const submitExam = () => {
+        alert('Exam Submitted!');
+        navigate('/complete');
+    }
+
     return (
         <Container maxWidth="sm" sx={{ width: '80%', margin: '0 auto', marginTop: '120px' }}>
             <Typography
@@ -150,7 +158,7 @@ const Question = ({ questions, examTitle }) => {
                             variant="contained"
                             color="primary"
                             sx={{ borderRadius: '20px' }}
-                            onClick={() => alert('Exam Submitted!')}
+                            onClick= {submitExam}
                         >
                             Submit Exam
                         </Button>)
