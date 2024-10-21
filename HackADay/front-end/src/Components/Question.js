@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Container, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Box } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -7,9 +7,78 @@ const Question = ({ questions, examTitle }) => {
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
     const currentQuestion = questions[currentQuestionIndex];
 
+    const [isStreaming, setIsStreaming] = useState(false);
+
+    const videoRef = useRef(null);
+    const canvasRef = useRef(null);
+
+    async function sendImage(formData) {
+        // try {
+        //     const response = await fetch('http://localhost:5000/upload', {
+        //         method: 'POST',
+        //         body: formData,
+        //     });
+        //     const data = await response.json();
+        //     console.log(data);
+        // } catch (err) {
+        //     console.error('Error sending image: ', err);
+        // }
+        console.log('Image sent');
+        console.log(formData.get('image'));
+    }
+
     useEffect(() => {
         console.log(answers);
     }, [answers]);
+
+    //snaps a photo from webcam and sends it to backend server
+    useEffect(() => {
+
+        const startVideo = async () => {
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoRef.current.srcObject = stream;
+
+                // Listen for the loadeddata event before playing the video
+                videoRef.current.addEventListener('loadeddata', () => {
+                    videoRef.current.play();
+                    setIsStreaming(true);
+                });
+
+            } catch (err) {
+                console.error("Error accessing webcam: ", err);
+            }
+
+        };
+
+        startVideo();
+
+        const intervalId = setInterval(() => {
+            if (canvasRef.current && videoRef.current) {
+                const context = canvasRef.current.getContext('2d');
+                canvasRef.current.width = videoRef.current.videoWidth;
+                canvasRef.current.height = videoRef.current.videoHeight;
+                context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
+
+                // Convert canvas to Blob
+                canvasRef.current.toBlob(blob => {
+                    if (blob) {
+                        // Create a FormData object to send the image
+                        const formData = new FormData();
+                        formData.append('image', blob, 'snapshot.png');
+
+                        // Send the image to the API server
+                        sendImage(formData);
+                    }
+                }, 'image/png');
+            }
+        }, 1000);
+
+
+        return () => clearInterval(intervalId);
+      }, []);
+
 
     //changes the current question to the previous question
     const handlePrevious = () => {
@@ -98,6 +167,8 @@ const Question = ({ questions, examTitle }) => {
                     </Button>
                 }
             </Box>
+            <video ref={videoRef} style={{ display: 'none' }} />
+            <canvas ref={canvasRef} style={{ display: 'none' }} />
         </Container>
     );
 };
