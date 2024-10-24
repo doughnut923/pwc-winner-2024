@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Box, CardContent } from '@mui/material';
+import { Typography, Box, CardContent, Alert, AlertTitle} from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "../logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ const Login = () => {
     // The Login state either be 0 : Login with email and password
     //                     -> or 1 : Biometric Authentication
     const [loginState, setLoginState] = useState(0);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     const blobToBinary = async (blob) => {
         const buffer = await blob.arrayBuffer();
@@ -35,26 +36,45 @@ const Login = () => {
         const userCredentials = JSON.stringify({
             username: username,
             password: password,
-            image : await blobToBinary(imageblob) //comment if you change your mind
+            image: await blobToBinary(imageblob) //comment if you change your mind
         });
         formData.append('credentials', userCredentials);
 
         // Send the form data to the server using fetch
-        const result = await fetch('https://your-api-server.com/login', {
-            method: 'POST',
-            body: formData,
-        })
+        try {
+            const result = await fetch('https://your-api-server.com/login', {
+                method: 'POST',
+                body: formData,
+            })
 
-        // Check the result
-        
+            // Check the result
+            // format of result data: {
+            //     isTeacher: true/false,
+            //     token: 'your-token}
 
-        //if successful, navigate to the classList
-        // var isTeacher = true;
-        // if (isTeacher) {
-        //     navigate('/myclass', { state: { token: "" } });
-        // } else {
-        //     navigate('/myclass', { state: { token: "" } });
-        // }
+            if (result.ok) {
+                const data = await result.json();
+                const token = data.token; // Assuming the token is in the 'token' field of the response
+                localStorage.setItem('token', token);
+                const isTeacher = data.isTeacher; // Assuming the isTeacher field is in the response
+                // If successful, navigate to the classList
+                if (isTeacher) {
+                    navigate('/TeacherDashboard', { state: { token: token } });
+                } else {
+                    navigate('/StudentDashboard', { state: { token: token } });
+                }
+            } else {
+                console.error('Login failed:', result.statusText);
+                // Handle login failure (e.g., show an error message to the user)
+                setLoginState(0);
+                setShowErrorMessage(true);
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+            // Handle login failure (e.g., show an error message to the user)
+            setLoginState(0);
+            setShowErrorMessage(true);
+        }
     }
 
     const handleSubmit = (e) => {
@@ -72,6 +92,15 @@ const Login = () => {
         <StyledContainer maxWidth="sm">
             <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
+            </Box>
+
+            <Box sx={{ position: 'absolute', top: "16px", left: "50%", transform: "TranslateX(-50%)" }}>
+                {showErrorMessage &&
+                    <Alert severity="error" onClose={(e) =>{
+                        setShowErrorMessage(false);
+                    }} sx={{ display: 'flex', alignItems: 'center', borderRadius:"30px" }}>
+                        <Typography variant='body'>Login Failed. Please try again.</Typography>
+                    </Alert>}
             </Box>
             <StyledCard elevation={16}>
                 {/* checks the state of the login, shows the corresponding form */}

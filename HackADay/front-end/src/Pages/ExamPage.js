@@ -12,7 +12,8 @@ const ExamPage = () => {
 
     //data from the previous page
     const location = useLocation();
-    const { examID } = location.state || {};
+    const { className } = location.state || {};
+
 
     //3 states to manage the UI:
     // 1. camera    : setup the camera
@@ -68,16 +69,45 @@ const ExamPage = () => {
         setUIState("wait");
     }
 
-    const startExam = () => {
+    const startExam = async () => {
+        //fetch questions from the backend with token and classname
+        const result = await fetch(`https://api.example.com/exam/?className${className}` + "token=" + localStorage.getItem('token'));
+
+        if (result.ok) {
+            const data = result.json();
+            const temp = examDetails;
+            setExamDetails({
+                examName: temp.examName,
+                examTime: temp.examTime,
+                examQuestions: data.examQuestions
+
+            });
+        }
         setUIState("Question");
     }
 
 
-    useEffect(() => {
+    useEffect(async () => {
+
+        const formData = new FormData();
+        const result = await fetch(`https://api.example.com/exam/?className${className}` + "token=" + localStorage.getItem('token'));
+
+        if (result.ok) {
+            const data = await result.json();
+            setExamDetails({
+                examName: data.examName,
+                examTime: data.examTime,
+                examQuestions: []
+            });
+        } else {
+            //return to student/teacher dashboard
+            console.log("Error fetching exam details");
+        }
+
         //fetch the exam details
-        const data = DB["test"];
-        console.log(data);
-        setExamDetails(data);
+        // const data = DB["test"];
+        // console.log(data);
+        // setExamDetails(data);
         // const data = await fetch(`https://api.example.com/exam/${examID}`);
     },
         []
