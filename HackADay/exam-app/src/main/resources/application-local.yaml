@@ -1,0 +1,7 @@
+examapp:
+  db:
+    host: localhost
+logging:
+  level:
+    root: info
+
