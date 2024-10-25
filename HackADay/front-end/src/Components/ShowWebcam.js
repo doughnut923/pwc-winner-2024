@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { StyledButton } from '../LoginStyledElements';
+import { StyledButton } from '../Pages/LoginStyledElements';
 
 //prop function to handle the blob
 const ShowWebcam = ({handleBlob, message}) => {
@@ -49,25 +48,7 @@ const ShowWebcam = ({handleBlob, message}) => {
 
             // Convert canvas to Blob
             canvasRef.current.toBlob(blob => {
-                //     if (blob) {
-                //         // Create a FormData object to send the image
-                //         const formData = new FormData();
-                //         formData.append('image', blob, 'snapshot.png');
-
-                //         // Send the image to the API server
-                //         fetch('https://your-api-server.com/upload', {
-                //             method: 'POST',
-                //             body: formData,
-                //         })
-                //         .then(response => response.json())
-                //         .then(data => {
-                //             console.log('Success:', data);
-                //         })
-                //         .catch(error => {
-                //             console.error('Error:', error);
-                //         });
-                //     }
-                // }
+                //send the blob to the parent component
                 handleBlob(blob, 'snapshot.png');
             }, 'image/png');
         }

@@ -1,27 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Login from './Login';
-import Register from './Register';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
 import ExamOption from './Pages/ExamOption';
+
 import ExamDashboard from './Pages/Teachers/ExamDashboard';
-import ExamPage from './ExamPage';
-import Complete from './Complete';
+// import ExamPage from './ExamPage';
+// import Complete from './Complete';
+
+import ExamPage from './Pages/ExamPage';
+import Complete from './Pages/Complete';
+import AssignClass from './Pages/AssignClass';
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
-  },
-  {
-    path: "login",
     element: <Login/>,
   },
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "complete",
     element: <Complete/>,
+  },
+  {
+    path: "assign-class",
+    element: <AssignClass/>, 
   }
 ]);
 

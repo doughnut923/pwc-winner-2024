@@ -4,17 +4,8 @@ import MoodIcon from '@mui/icons-material/Mood';
 import ShowWebcam from './ShowWebcam';
 
 
-const BiometricLogin = ({ logo }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle login logic here
-        console.log('Email:', email);
-        console.log('Password:', password);
-    };
-
+const BiometricLogin = ({ logo, loginUser}) => {
+    
     // Use the navigate hook to redirect the user to the signup page
     // const navigate = useNavigate();
 
@@ -31,7 +22,7 @@ const BiometricLogin = ({ logo }) => {
                 </Typography>
                 <MoodIcon sx={{ fontSize: 30, ml: 1 }} />
             </Box>
-            <ShowWebcam/>
+            <ShowWebcam handleBlob={loginUser} />
         </>
     );
 };
