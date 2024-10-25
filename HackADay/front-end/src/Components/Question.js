@@ -16,20 +16,16 @@ const Question = ({ questions, examTitle }) => {
     const navigate = useNavigate();
 
     async function sendImage(formData) {
-
-        formData.append('token', localStorage.getItem('token'));
-
-        try {
-            const response = await fetch('http://localhost:5000/upload', {
-                method: 'POST',
-                body: formData,
-            });
-            const data = await response.json();
-            console.log(data);
-        } catch (err) {
-            console.error('Error sending image: ', err);
-            return;
-        }
+        // try {
+        //     const response = await fetch('http://localhost:5000/upload', {
+        //         method: 'POST',
+        //         body: formData,
+        //     });
+        //     const data = await response.json();
+        //     console.log(data);
+        // } catch (err) {
+        //     console.error('Error sending image: ', err);
+        // }
         console.log('Image sent');
         console.log(formData.get('image'));
     }
@@ -108,27 +104,9 @@ const Question = ({ questions, examTitle }) => {
         setAnswers(newAnswers);
     };
 
-    const submitExam = async () => {
-
-        // Send the answers to the backend with token attached to the body
-
-        const formData = new FormData();
-
-        formData.append('examCompleteData', JSON.stringify({
-            answers: answers,
-            token: localStorage.getItem('token')
-        }));
-
-        const result = await fetch('http://localhost:5000/submitAnswers',{
-            method: 'POST',
-            body: formData
-        });
-
-        if (!result.ok) {
-            navigate('/complete');
-        }else{
-            console.log('Error submitting answers');
-        }
+    const submitExam = () => {
+        alert('Exam Submitted!');
+        navigate('/complete');
     }
 
     return (
