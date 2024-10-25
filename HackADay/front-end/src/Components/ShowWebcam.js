@@ -49,7 +49,7 @@ const ShowWebcam = ({handleBlob, message}) => {
             // Convert canvas to Blob
             canvasRef.current.toBlob(blob => {
                 //send the blob to the parent component
-                handleBlob(blob, 'snapshot.png');
+                handleBlob(blob);
             }, 'image/png');
         }
     };
