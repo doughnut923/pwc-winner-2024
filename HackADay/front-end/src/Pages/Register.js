@@ -5,20 +5,53 @@ import logo from "../logo.svg"; // Adjust the path to your logo image
 import BiometricSetup from '../Components/BiometricSetup';
 
 import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
 
     const [registerState, setRegisterState] = useState(0);
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle login logic here
         setRegisterState(1);
     };
+
+    const registerUser = async (imageblob) => {
+        const formData = new FormData();
+
+        // Append the image blob (Common Practice)
+        // formData.append('image', imageblob, filename);
+
+        // Append the email and password as a JSON string
+        const userCredentials = JSON.stringify({
+            'username': username,
+            'password': password,
+        });
+
+        formData.append('user', userCredentials);
+        formData.append('imageFile', await imageblob);
+
+        // Send the form data to the server using fetch
+        const result = await fetch('http://localhost:8081/user/register', {
+            method: 'POST',
+            body: formData,
+        })
+
+        console.log(result);
+
+        // Check the result
+
+        if(result.ok){
+            navigate('/');
+        }
+    }
 
     //return the Register form
     return (
@@ -47,8 +80,8 @@ const Register = () => {
                                 name="username"
                                 autoComplete="username"
                                 autoFocus
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                             <StyledTextField
                                 variant="outlined"
@@ -87,7 +120,7 @@ const Register = () => {
                             </Box>
                         </StyledForm>
                     </FormContainer> : 
-                    <BiometricSetup logo={logo}/>}
+                    <BiometricSetup handleBlob={registerUser} logo={logo}/>}
                 </CardContent>
             </StyledCard>
         </StyledContainer>

@@ -4,13 +4,9 @@ import MoodIcon from '@mui/icons-material/Mood';
 import ShowWebcam from './ShowWebcam';
 
 
-const BiometricSetup = ({ logo }) => {
+const BiometricSetup = ({ logo, handleBlob}) => {
     // Use the navigate hook to redirect the user to the signup page
     // const navigate = useNavigate();
-
-
-    const handleBlob = (blob) => {
-    }
 
     // Return the Biometric Authentication form
     return (

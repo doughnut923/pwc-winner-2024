@@ -17,14 +17,6 @@ const Login = () => {
     //                     -> or 1 : Biometric Authentication
     const [loginState, setLoginState] = useState(0);
 
-    const blobToBinary = async (blob) => {
-        const buffer = await blob.arrayBuffer();
-
-        const view = new Int8Array(buffer);
-
-        return [...view].map((n) => n.toString(2)).join(' ');
-    };
-
     const loginUser = async (imageblob, filename) => {
         // Create a FormData object
         const formData = new FormData();
@@ -34,19 +26,29 @@ const Login = () => {
 
         // Append the email and password as a JSON string
         const userCredentials = JSON.stringify({
-            username: username,
-            password: password,
-            image : await blobToBinary(imageblob) //comment if you change your mind
+            'username': username,
+            'password': password,
         });
-        formData.append('credentials', userCredentials);
+
+        formData.append('user', userCredentials);
+        formData.append('imageFile', await imageblob);
 
         // Send the form data to the server using fetch
-        const result = await fetch('https://your-api-server.com/login', {
+        const result = await fetch('http://localhost:8081/user/login', {
             method: 'POST',
             body: formData,
         })
 
         // Check the result
+
+        if(result.ok){
+            const data = await result.text();
+            console.log(data);
+            localStorage.setItem('token', data);
+        }else{
+            console.log("Login Failed");
+
+        }
         
 
         //if successful, navigate to the classList
