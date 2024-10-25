@@ -12,6 +12,7 @@ import Register from './Pages/Register';
 import ExamOption from './Pages/ExamOption';
 import ExamPage from './Pages/ExamPage';
 import Complete from './Pages/Complete';
+import AssignClass from './Pages/AssignClass';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "complete",
     element: <Complete/>,
+  },
+  {
+    path: "assign-class",
+    element: <AssignClass/>, 
   }
 ]);
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import logo from "../logo.svg"; // Adjust the path to your logo image
-import { useNavigate } from 'react-router-dom';
 import { StyledContainer, StyledCard, InsideContainer, CardBox } from "./ExamOptionStyledElements"
 
 
 
 const ExamOption = () => {
-
 
     // Return the Dashboard form
     return (

@@ -28,7 +28,7 @@ const ExamPage = () => {
     const DB = {
         "test": {
             examName: "COMP 1000 - Introduction to Computer Science",
-            examTime: "1000",
+            examTime: Date.now() + 10000,
             examQuestions: [
                 {
                     question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
