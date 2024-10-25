@@ -11,6 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from './Login';
 import Register from './Register';
 import ExamOption from './Pages/ExamOption';
+import ExamDashboard from './Pages/Teachers/ExamDashboard';
 import ExamPage from './ExamPage';
 import Complete from './Complete';
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "exam-option",
     element: <ExamOption/>,
+  },
+  {
+    path: "exam-dashboard",
+    element: <ExamDashboard/>,
   },
   {
     path: "complete",
