@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
+
+//ExamStart will be in a Date format
 const WaitingPage = ({startExam, examStart, courseTitle }) => {
     const [timeLeft, setTimeLeft] = useState('');
 

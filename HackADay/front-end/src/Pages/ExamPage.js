@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { Box, Paper } from '@mui/material';
 import { useTheme, } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
-import CheckCamera from './Components/CheckCamera';
-import WaitingPage from './Components/WaitingPage';
-import Question from './Components/Question';
-import logo from "./logo.svg"; // Adjust the path to your logo image
+import CheckCamera from '../Components/CheckCamera';
+import WaitingPage from '../Components/WaitingPage';
+import Question from '../Components/Question';
+import logo from "../logo.svg"; // Adjust the path to your logo image
 
 const ExamPage = () => {
 
@@ -28,7 +28,7 @@ const ExamPage = () => {
     const DB = {
         "test": {
             examName: "COMP 1000 - Introduction to Computer Science",
-            examTime: "1000",
+            examTime: Date.now() + 10000,
             examQuestions: [
                 {
                     question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",

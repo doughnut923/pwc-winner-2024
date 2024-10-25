@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Typography, Box, CardContent } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import logo from "./logo.svg"; // Adjust the path to your logo image
-import BiometricSetup from './Components/BiometricSetup';
+import logo from "../logo.svg"; // Adjust the path to your logo image
+import BiometricSetup from '../Components/BiometricSetup';
 
 import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
 

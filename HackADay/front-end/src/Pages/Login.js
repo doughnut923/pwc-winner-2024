@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box, Card, CardContent } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Typography, Box, CardContent } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import logo from "./logo.svg"; // Adjust the path to your logo image
+import logo from "../logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
 import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
-import BiometricLogin from './Components/BiometricLogin';
+import BiometricLogin from '../Components/BiometricLogin';
 
 
 

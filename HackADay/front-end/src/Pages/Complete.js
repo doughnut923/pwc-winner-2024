@@ -1,6 +1,6 @@
 
 import {Typography, Box} from '@mui/material';
-import logo from "./logo.svg"; // Adjust the path to your logo image
+import logo from "../logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
 import { StyledContainer, StyledCard, StyledButton } from "./LoginStyledElements"
 

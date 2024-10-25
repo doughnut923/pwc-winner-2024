@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { StyledButton } from '../LoginStyledElements';
+import { StyledButton } from '../Pages/LoginStyledElements';
 
 //prop function to handle the blob
 const ShowWebcam = ({handleBlob, message}) => {

@@ -2,7 +2,7 @@ services:
   front:
     build: ./HackADay/front-end
     ports:
-      - "8000:3000"
+      - "3000:3000"
 
   # The follwoing service is commented out because it is not yet implemented
   # back:
