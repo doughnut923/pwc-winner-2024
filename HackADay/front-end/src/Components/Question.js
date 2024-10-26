@@ -1,12 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Container, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Box } from '@mui/material';
+import { Container, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Box, Alert } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
 
-const Question = ({ questions, examTitle }) => {
+
+// const [examDetails, setExamDetails] = React.useState(
+//     {
+//         examName: "",
+//         examTime: "",
+//         examEndTime: "",
+//         examQuestions: []
+//     }
+// );
+const Question = ({exam}) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState(Array(questions.length).fill(null));
-    const currentQuestion = questions[currentQuestionIndex];
+    const [answers, setAnswers] = useState(Array(exam.examQuestions.length).fill(null));
+    const currentQuestion = exam.examQuestions[currentQuestionIndex];
 
     const [isStreaming, setIsStreaming] = useState(false);
 
@@ -15,11 +24,21 @@ const Question = ({ questions, examTitle }) => {
 
     const navigate = useNavigate();
 
+    const [timeLeft, setTimeLeft] = useState(() => {
+        const examEndTime = new Date(exam.examEndTime).getTime();
+        const examTime = new Date(exam.examTime).getTime();
+        return Math.floor((examEndTime - examTime) / 1000); // Time difference in seconds
+    });
+
     async function sendImage(formData) {
+
         // try {
         //     const response = await fetch('http://localhost:5000/upload', {
         //         method: 'POST',
         //         body: formData,
+        //         headers:{
+        //             Authorization: 'Bearer ' + localStorage.getItem('token')
+        //         }
         //     });
         //     const data = await response.json();
         //     console.log(data);
@@ -29,6 +48,29 @@ const Question = ({ questions, examTitle }) => {
         console.log('Image sent');
         console.log(formData.get('image'));
     }
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime <= 1) {
+                    clearInterval(timer);
+                    submitExam();
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
+
+    //formats the time
+    const formatTime = (seconds) => {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        return `${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+    };
 
     useEffect(() => {
         console.log(answers);
@@ -80,7 +122,7 @@ const Question = ({ questions, examTitle }) => {
 
 
         return () => clearInterval(intervalId);
-      }, []);
+    }, []);
 
 
     //changes the current question to the previous question
@@ -92,7 +134,7 @@ const Question = ({ questions, examTitle }) => {
 
     //changes the current question to the next question
     const handleNext = () => {
-        if (currentQuestionIndex < questions.length - 1) {
+        if (currentQuestionIndex < exam.examQuestions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         }
     };
@@ -104,22 +146,39 @@ const Question = ({ questions, examTitle }) => {
         setAnswers(newAnswers);
     };
 
-    const submitExam = () => {
-        alert('Exam Submitted!');
-        navigate('/complete');
-    }
+    const submitExam = async () => {
+        // Send answers to the API
+        // const result = await fetch('https://your-api-server.com/submit', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({ answers }),
+        // })
+        
+        if(/*result.ok*/true){
+            navigate('/complete');
+        }
+        return;
+
+    };
 
     return (
-        <Container maxWidth="sm" sx={{ width: '80%', margin: '0 auto', marginTop: '120px' }}>
+        <Container maxWidth="70%" sx={{ position:'relative', width: '80%', margin: '0 auto', marginTop: '120px' }}>
+            <Box sx={{ position: 'absolute', top: 16, right: 16 }}>
+                <Typography variant="h6" component="div">
+                    {formatTime(timeLeft)}
+                </Typography>
+            </Box>
             <Typography
                 variant="body1"
                 component="h1"
                 gutterBottom
                 sx={{ color: 'secondary.main', marginBottom: '0px' }}
             >
-                {examTitle}
+                {exam.examName}
             </Typography>
-            <Typography variant="h4" component="h1" gutterBottom>
+            <Typography variant="h4" component="h1" gutterBottom mb={"36px"}>
                 Question {currentQuestionIndex + 1}
             </Typography>
             <Typography variant="body1" gutterBottom>
@@ -152,28 +211,20 @@ const Question = ({ questions, examTitle }) => {
                 >
                     Previous Question
                 </Button>
-                {
-                    currentQuestionIndex === questions.length - 1 ? (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{ borderRadius: '20px' }}
-                            onClick= {submitExam}
-                        >
-                            Submit Exam
-                        </Button>)
-                        :
-                        <Button
+
+                {currentQuestionIndex !== exam.examQuestions.length - 1 ? (
+
+                    <Button
                         variant="contained"
                         color="primary"
                         onClick={handleNext}
-                        disabled={currentQuestionIndex === questions.length - 1}
                         sx={{ borderRadius: '20px' }}
                         endIcon={<ArrowForwardIcon />}
                     >
                         Next Question
-                    </Button>
-                }
+                    </Button>)
+                    :
+                    <Alert variant='text' sx={{padding: "1px",color:"grey", fontSize: "14px" }}>Answers Will be submitted once the exam end.</Alert>}
             </Box>
             <video ref={videoRef} style={{ display: 'none' }} />
             <canvas ref={canvasRef} style={{ display: 'none' }} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Typography, Box, Fade } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
 
@@ -30,7 +30,8 @@ const WaitingPage = ({startExam, examStart, courseTitle }) => {
     const theme = useTheme();
 
     return (
-        <Container>
+        
+        <Fade in={true}>
             <Box sx={{ 
                 textAlign: 'center',
                 width: "100%", 
@@ -46,9 +47,12 @@ const WaitingPage = ({startExam, examStart, courseTitle }) => {
                 }}>{courseTitle}
                 </Typography>
                 <Typography variant="h3">The Exam Will Start Soon</Typography>
-                <Typography variant="h4">{timeLeft}</Typography>
+                <Typography variant="h1" sx={{
+                    color: theme.palette.secondary.main,
+                    fontWeight: 'bold'
+                }}>{timeLeft? timeLeft : "..."}</Typography>
             </Box>
-        </Container>
+        </Fade>
     );
 };
 

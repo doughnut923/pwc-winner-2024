@@ -11,6 +11,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 const AssignClass = ({handleBack}) => {
 
     const navigate = useNavigate();
+    const [refresh, setRefresh] = useState(false); // State variable to trigger useEffect
 
     //is refreshed when the page is loaded or the student list is updated
     const [students, setStudents] = useState([{
@@ -45,33 +46,33 @@ const AssignClass = ({handleBack}) => {
 
     const loadStudents = async () => {
         //then fetch all the student data and store to local array
-        // try {
-        //     const result = await fetch('api-link');
-        //     if(result.ok){
-        //         const data = await result.json();
-        //         setStudents(data.students);
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        //     alert("Could not fetch Students:\n" + error);
-        // }
+        try {
+            const result = await fetch('api-link', {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                    'Content-Type': 'application/json'
+                }
+            });
+            if(result.ok){
+                const data = await result.json();
+                setStudents(data.students);
+            }
+        } catch (error) {
+            console.log(error);
+            alert("Could not fetch Students:\n" + error);
+        }
     }
 
 
-    // useEffect(async () => {
-
-    //     // }catch(e){
-    //     //     console.log(e);
-    //     //     navigate("/");
-    //     // }
-
-    //     loadStudents();
-    // }, [])
+    useEffect(() => {
+        loadStudents();
+    }, [refresh])
 
     const assignStudent = async (student, clsName) => {
-        //send the studentID and classID to the server
+        // send the studentID and classID to the server
 
-        console.log(student, clsName);
+        // console.log(student, clsName);
         // try {
         //     const result = await fetch('api-link', {
         //         method: 'POST',
@@ -80,11 +81,13 @@ const AssignClass = ({handleBack}) => {
         //             classID: clsName
         //         }),
         //         headers: {
+        //             Authorization: 'Bearer ' + localStorage.getItem('token'),
         //             'Content-Type': 'application/json'
         //         }
         //     });
         //     if(result.ok){
         //         alert("Student Assigned to Class");
+        //         setRefresh(!refresh); // Toggle refresh state to trigger useEffect
         //     }
         // } catch (error) {
         //     console.log(error);
