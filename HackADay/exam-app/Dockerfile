@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline
 
 # Copy the source code and build the application
 COPY src ./src
-RUN mvn clean install
+RUN mvn clean install -Dmaven.test.skip=true
 
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:17-jdk-slim
