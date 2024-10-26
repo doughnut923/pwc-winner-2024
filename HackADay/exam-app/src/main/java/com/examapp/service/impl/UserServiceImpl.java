@@ -17,11 +17,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.Map;
 
-/**
-* @author jkyli
-* @description 针对表【t_user】的数据库操作Service实现
-* @createDate 2024-10-21 00:21:49
-*/
+
 @Service
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>

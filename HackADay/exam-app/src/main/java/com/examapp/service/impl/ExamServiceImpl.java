@@ -11,11 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.List;
 
-/**
-* @author jkyli
-* @description 针对表【t_exam】的数据库操作Service实现
-* @createDate 2024-10-24 23:48:04
-*/
+
 @Service
 public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
     implements ExamService{

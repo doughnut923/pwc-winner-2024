@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/authority/**").authenticated()
                         .requestMatchers("/exam/**").authenticated()
+                        .requestMatchers("/status/**").authenticated()
                         .requestMatchers("/exam/update", "authority/setAuthorities").hasAuthority(TEACHER)
                 )
                 .sessionManagement(auth ->
