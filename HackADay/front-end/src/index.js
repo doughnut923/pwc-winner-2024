@@ -10,9 +10,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import ExamOption from './Pages/ExamOption';
+
+import ExamDashboard from './Pages/Teachers/ExamDashboard';
+// import ExamPage from './ExamPage';
+// import Complete from './Complete';
+
 import ExamPage from './Pages/ExamPage';
 import Complete from './Pages/Complete';
 import AssignClass from './Pages/AssignClass';
+
 
 const router = createBrowserRouter([
   {
@@ -31,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "exam-option",
     element: <ExamOption/>,
+  },
+  {
+    path: "exam-dashboard",
+    element: <ExamDashboard/>,
   },
   {
     path: "complete",
