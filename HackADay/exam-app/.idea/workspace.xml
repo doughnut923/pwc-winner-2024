@@ -5,23 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/examapp/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/examapp/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Components/BiometricLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Components/BiometricLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Components/BiometricSetup.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Components/BiometricSetup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Components/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Components/Question.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Components/WaitingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Components/WaitingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/AssignClass.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/AssignClass.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Complete.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Complete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/ExamPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/ExamPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Register.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,26 +27,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ExamAppApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;backend-integration&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/GitHub/pwc-winner-2024/HackADay/back-end/exam-app&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.ExamAppApplication.executor": "Run",
+    "git-widget-placeholder": "docker-jonas-test",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/user/GitHub/pwc-winner-2024/HackADay/back-end/exam-app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ExamAppApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/Downloads/openjdk-17_windows-x64_bin/jdk-17" />
@@ -97,7 +85,7 @@
       <workItem from="1729858561465" duration="1055000" />
       <workItem from="1729860200486" duration="2336000" />
       <workItem from="1729863558510" duration="42000" />
-      <workItem from="1729955042827" duration="43000" />
+      <workItem from="1729955042827" duration="5017000" />
     </task>
     <servers />
   </component>
