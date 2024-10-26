@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Typography, Box, CardContent } from '@mui/material';
+import { Typography, Box, CardContent, Alert, Grow } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "../logo.svg"; // Adjust the path to your logo image
 import BiometricSetup from '../Components/BiometricSetup';
+import Slide from '@mui/material/Slide';
 
 import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +13,8 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
+
+    const [showRegisterAlert, setShowRegisterAlert] = useState(false);
 
     const [registerState, setRegisterState] = useState(0);
 
@@ -56,9 +59,17 @@ const Register = () => {
     //return the Register form
     return (
         <StyledContainer maxWidth="sm">
+            {showRegisterAlert &&
+                <Slide in={showRegisterAlert}>
+                    <Alert variant={"filled"} onClose={() => setShowRegisterAlert(false)} severity={"error"} sx={{ position: 'absolute', top: 24, borderRadius: "30px", padding: "3px 10px" }}>
+                        Login Failed
+                    </Alert>
+                </Slide>
+            }
             <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
             </Box>
+            <Grow in={true}>
             <StyledCard elevation={16}>
                 <CardContent>
                     {
@@ -123,6 +134,7 @@ const Register = () => {
                     <BiometricSetup handleBlob={registerUser} logo={logo}/>}
                 </CardContent>
             </StyledCard>
+            </Grow>
         </StyledContainer>
     );
 };

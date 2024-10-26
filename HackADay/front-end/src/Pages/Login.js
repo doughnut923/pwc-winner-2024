@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box, Card, CardContent } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Card, CardContent, Alert, Fade, Slide, Grow } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "../logo.svg"; // Adjust the path to your logo image
@@ -16,6 +16,8 @@ const Login = () => {
     // The Login state either be 0 : Login with email and password
     //                     -> or 1 : Biometric Authentication
     const [loginState, setLoginState] = useState(0);
+
+    const [showLoginAlert, setShowLoginAlert] = useState(false);
 
     const loginUser = async (imageblob, filename) => {
         // Create a FormData object
@@ -41,15 +43,21 @@ const Login = () => {
 
         // Check the result
 
-        if(result.ok){
-            const data = await result.text();
+        if (result.ok) {
+            const data = await result.json();
             console.log(data);
-            localStorage.setItem('token', data);
-        }else{
+            localStorage.setItem('token', data.token);
+            if (data.authority === "teacher") {
+                navigate('/TeacherDashboard');
+            } else {
+                navigate('/StudentDashboard');
+            }
+        } else {
             console.log("Login Failed");
-
+            setShowLoginAlert(true);
+            setLoginState(0);
         }
-        
+
 
         //if successful, navigate to the classList
         // var isTeacher = true;
@@ -73,69 +81,78 @@ const Login = () => {
     // Return the login form
     return (
         <StyledContainer maxWidth="sm">
+            {showLoginAlert &&
+                <Slide in={showLoginAlert}>
+                    <Alert variant={"filled"} onClose={() => setShowLoginAlert(false)} severity={"error"} sx={{ position: 'absolute', top: 24, borderRadius: "30px", padding: "3px 10px" }}>
+                        Login Failed
+                    </Alert>
+                </Slide>
+            }
             <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
             </Box>
-            <StyledCard elevation={16}>
-                {/* checks the state of the login, shows the corresponding form */}
-                {!loginState ? <CardContent>
-                    <FormContainer>
-                        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-                            <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
-                        </Box>
-
-                        <Typography pl="4px" component="h1" variant="h5" align="left" color='primary' sx={{ fontWeight: 600 }}>
-                            Login
-                        </Typography>
-                        <StyledForm component="form" onSubmit={handleSubmit}>
-                            <StyledTextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                id="username"
-                                label="Username"
-                                name="username"
-                                autoComplete="username"
-                                autoFocus
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                            <StyledTextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                mt="4px"
-                            />
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                <StyledButton
-                                    type="button"
-                                    variant="text"
-                                    color="black"
-                                    onClick={() => navigate('/signup')}
-                                >
-                                    Sign Up
-                                </StyledButton>
-                                <StyledButton
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    endIcon={<ArrowForwardIcon />}
-                                >
-                                    Login
-                                </StyledButton>
+            <Grow in={true}>
+                <StyledCard elevation={16}>
+                    {/* checks the state of the login, shows the corresponding form */}
+                    {!loginState ? <CardContent>
+                        <FormContainer>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                                <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                             </Box>
-                        </StyledForm>
-                    </FormContainer>
-                </CardContent> :
-                    <BiometricLogin logo={logo} loginUser={loginUser} />}
-            </StyledCard>
+
+                            <Typography pl="4px" component="h1" variant="h5" align="left" color='primary' sx={{ fontWeight: 600 }}>
+                                Login
+                            </Typography>
+                            <StyledForm component="form" onSubmit={handleSubmit}>
+                                <StyledTextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
+                                    autoFocus
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <StyledTextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    mt="4px"
+                                />
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                    <StyledButton
+                                        type="button"
+                                        variant="text"
+                                        color="black"
+                                        onClick={() => navigate('/signup')}
+                                    >
+                                        Sign Up
+                                    </StyledButton>
+                                    <StyledButton
+                                        type="submit"
+                                        variant="contained"
+                                        color="primary"
+                                        endIcon={<ArrowForwardIcon />}
+                                    >
+                                        Login
+                                    </StyledButton>
+                                </Box>
+                            </StyledForm>
+                        </FormContainer>
+                    </CardContent> :
+                        <BiometricLogin logo={logo} loginUser={loginUser} />}
+                </StyledCard>
+            </Grow>
         </StyledContainer>
     );
 };
