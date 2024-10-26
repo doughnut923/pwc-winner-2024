@@ -18,6 +18,8 @@ import ExamDashboard from './Pages/Teachers/ExamDashboard';
 import ExamPage from './Pages/ExamPage';
 import Complete from './Pages/Complete';
 import AssignClass from './Pages/AssignClass';
+import StudentExamOption from './Pages/Students/StudentExamOption';
+import TeacherExamOption from './Pages/Teachers/TeacherExamOption';
 
 
 const router = createBrowserRouter([
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
     element: <ExamOption/>,
   },
   {
+    path: "teacher-exam-option",
+    element: <TeacherExamOption/>,
+  },
+  {
+    path: "student-exam-option",
+    element: <StudentExamOption/>,
+  },
+  {
     path: "exam-dashboard",
     element: <ExamDashboard/>,
   },
@@ -46,10 +56,6 @@ const router = createBrowserRouter([
     path: "complete",
     element: <Complete/>,
   },
-  {
-    path: "assign-class",
-    element: <AssignClass/>, 
-  }
 ]);
 
 const theme = createTheme({
