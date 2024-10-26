@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Box, Paper } from '@mui/material';
+import { Box, checkboxClasses, Fade, Grow, Paper } from '@mui/material';
 import { useTheme, } from '@mui/material/styles';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CheckCamera from '../Components/CheckCamera';
 import WaitingPage from '../Components/WaitingPage';
 import Question from '../Components/Question';
@@ -12,7 +12,12 @@ const ExamPage = () => {
 
     //data from the previous page
     const location = useLocation();
-    const { examID } = location.state || {};
+    // const { examName, examStartTime } = location.state || {};
+    const examName = "Computer Science";
+    const examStartTime = Date.now() + 10000;
+    const examEndTime = Date.now() + 100000;
+
+    const navigate = useNavigate();
 
     //3 states to manage the UI:
     // 1. camera    : setup the camera
@@ -22,13 +27,19 @@ const ExamPage = () => {
 
     //state to store the exam details
     const [examDetails, setExamDetails] = React.useState(
-
+        {
+            examName: "",
+            examTime: "",
+            examEndTime: "",
+            examQuestions: []
+        }
     );
 
     const DB = {
         "test": {
             examName: "COMP 1000 - Introduction to Computer Science",
             examTime: Date.now() + 10000,
+            examEndTime: Date.now() + 100000,
             examQuestions: [
                 {
                     question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
@@ -63,22 +74,83 @@ const ExamPage = () => {
     // }
     // }
 
+    const getExamQuestions = async () => {
+
+
+        // // fetch the exam details
+        // const data = await fetch(`https://api.example.com/exam/${examName}`);
+        // const temp = examDetails;
+        // temp.examQuestions = data.questions;
+        // setExamDetails(temp);
+
+        setExamDetails(DB.test);
+
+        return;
+
+        // const data = DB["test"];
+        // console.log(data);
+        // setExamDetails(data);
+    }
+
     //checks whether camera have a person
     const EnsureCamera = () => {
         setUIState("wait");
     }
 
-    const startExam = () => {
+    const startExam = async () => {
+        await getExamQuestions();
         setUIState("Question");
     }
 
+    async function checkAuthority() {
+        // const result = await fetch("https://api.example.com/authoritystudent", {
+        //     headers:{
+        //         Authorization: "Bearer" + localStorage.getItem("token")
+        //     }
+        // });
+
+        if (true /*result.ok*/) {
+            return true;
+        }
+        else {
+            return false
+        }
+
+    }
+
+    const initExamDetails = () => {
+
+        if (examName && examStartTime) {
+            localStorage.setItem("examName", examName);
+            localStorage.setItem("examStartTime", examStartTime);
+            localStorage.setItem("examEndTime", examEndTime);
+        }
+
+        if(localStorage.getItem("examName") === null){
+            navigate('/StudentDashboard');
+            return;
+        }
+
+        setExamDetails({
+            examName: localStorage.getItem("examName"),
+            examTime: localStorage.getItem("examStartTime"),
+            examEndTime: localStorage.getItem("examEndTime"),
+            examQuestions: []
+        });
+    }
 
     useEffect(() => {
-        //fetch the exam details
-        const data = DB["test"];
-        console.log(data);
-        setExamDetails(data);
-        // const data = await fetch(`https://api.example.com/exam/${examID}`);
+        //check if user have authority to access the page
+        //if yes, fetch the exam details
+        //if not, redirect to the login page
+
+        const haveAuthority = checkAuthority();
+        if (!haveAuthority) {
+            navigate('/login');
+            return;
+        }
+
+        initExamDetails();
     },
         []
     )
@@ -120,31 +192,30 @@ const ExamPage = () => {
     else if (UIState === "wait") {
         return (
             <>
-                <>
-                    <Box
+                <Box
+                    sx={{
+                        backgroundColor: theme.palette.background.default,
+                        height: '100vh',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Paper
+                        elevation={3}
                         sx={{
-                            backgroundColor: theme.palette.background.default,
-                            height: '100vh',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
+                            borderRadius: 5,
+                            height: '90vh',
+                            width: '90vw',
+                            position: 'relative'
                         }}
                     >
-                        <Paper
-                            elevation={3}
-                            sx={{
-                                borderRadius: 5,
-                                height: '90vh',
-                                width: '90vw',
-                                position: 'relative'
-                            }}
-                        >
-                            <Box sx={{ position: 'absolute', top: 30, left: 50 }}>
-                                <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
-                            </Box>
-                            <WaitingPage startExam={startExam} courseTitle={examDetails.examName} examStart={examDetails.examTime} />
-                        </Paper>
-                    </Box></>
+                        <Box sx={{ position: 'absolute', top: 30, left: 50 }}>
+                            <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
+                        </Box>
+                        <WaitingPage startExam={startExam} courseTitle={examDetails.examName} examStart={examDetails.examTime} />
+                    </Paper>
+                </Box>
             </>
         );
     } else if (UIState === "Question") {
@@ -171,7 +242,7 @@ const ExamPage = () => {
                         <Box sx={{ position: 'absolute', top: 30, left: 50 }}>
                             <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                         </Box>
-                        <Question questions={examDetails.examQuestions} examTitle={examDetails.examName}></Question>
+                        <Question exam={examDetails}></Question>
                     </Paper>
                 </Box>
             </>

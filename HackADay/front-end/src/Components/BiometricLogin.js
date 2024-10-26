@@ -22,7 +22,7 @@ const BiometricLogin = ({ logo, loginUser}) => {
                 </Typography>
                 <MoodIcon sx={{ fontSize: 30, ml: 1 }} />
             </Box>
-            <ShowWebcam handleBlob={loginUser} />
+            <ShowWebcam message={"Done"} handleBlob={loginUser} />
         </>
     );
 };

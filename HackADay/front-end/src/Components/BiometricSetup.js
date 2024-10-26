@@ -21,7 +21,7 @@ const BiometricSetup = ({ logo, handleBlob}) => {
                 </Typography>
                 <MoodIcon sx={{ fontSize: 30, ml: 1 }} />
             </Box>
-            <ShowWebcam handleBlob={handleBlob}/>
+            <ShowWebcam message={"Done"} handleBlob={handleBlob}/>
         </>
     );
 };
