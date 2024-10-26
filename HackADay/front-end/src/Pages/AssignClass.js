@@ -8,7 +8,7 @@ import { useTheme } from '@emotion/react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 //List out all students in the system, teacher is allowed to click the student and assign him to an avaliable class.
-const AssignClass = () => {
+const AssignClass = ({handleBack}) => {
 
     const navigate = useNavigate();
 
@@ -114,7 +114,8 @@ const AssignClass = () => {
                             position: 'absolute',
                             top: 78,
                             left: 30
-                        }}>Back</Button>
+                        }}
+                        onClick={handleBack}>Back</Button>
                         
                         <Typography color={theme.palette.primary.main} variant="h5" fontWeight={500} gutterBottom align='center' mb={"40px"} mt={"64px"}>
                             Class assignment
