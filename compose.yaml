@@ -34,10 +34,10 @@ services:
       AWS_SECRET_KEY: y/fQ73XkyLpQyA2/zopZtptesMNhbn/qEdRsy49Z
     
   frontend:
-    build: ./HackADay/frontend
+    build: ./HackADay/front-end
     container_name: frontend-container
     ports:
-      - "8080:8080"
+      - "3000:3000"
     depends_on:
       - springboot-backend
 
