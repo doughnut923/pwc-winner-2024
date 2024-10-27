@@ -18,6 +18,12 @@
     <sql id="Base_Column_List">
         id,username,permission
     </sql>
+    <select id="getPermissionByUsername" resultType="java.lang.String">
+        select permission from t_authority where username = #{username}
+    </select>
+    <select id="getStudentListByClassname" resultType="java.lang.String">
+        select username from t_authority where permission = #{classname}
+    </select>
 
 
 </mapper>

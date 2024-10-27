@@ -8,7 +8,7 @@
         <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.baizhi</groupId>
+    <groupId>com.examapp</groupId>
     <artifactId>exam-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>exam-app</name>

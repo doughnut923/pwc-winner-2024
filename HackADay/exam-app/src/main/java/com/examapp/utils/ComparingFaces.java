@@ -30,7 +30,7 @@ public class ComparingFaces {
     @Resource
     private AwsBasicCredentials awsCredentials;
     @Resource
-    private S3Utils s3Utils;
+    private S3Util s3Utils;
 
     private float similarityThreshold;
 

@@ -5,11 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
-/**
-* @author jkyli
-* @description 针对表【t_exam】的数据库操作Service
-* @createDate 2024-10-24 23:48:04
-*/
+
 public interface ExamService extends IService<Exam> {
 
     /**

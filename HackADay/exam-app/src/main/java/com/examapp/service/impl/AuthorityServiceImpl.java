@@ -15,11 +15,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
-* @author jkyli
-* @description 针对表【t_authority】的数据库操作Service实现
-* @createDate 2024-10-21 00:21:44
-*/
+import static com.examapp.predefinedConstant.AuthorityConstants.STUDENT;
+import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
+
+
 @Service
 public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority>
     implements AuthorityService{
@@ -46,6 +45,15 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
         }
         saveBatch(authorityList);
         return true;
+    }
+
+    @Override
+    public String checkTeacherOrStudentByUsername(String username) {
+        Set<String> permissionList = authorityMapper.getPermissionByUsername(username);
+        if(permissionList.contains(TEACHER)){
+            return TEACHER;
+        }
+        return STUDENT;
     }
 }
 

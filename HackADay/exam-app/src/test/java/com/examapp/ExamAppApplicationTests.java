@@ -99,14 +99,7 @@ class ExamAppApplicationTests {
 //            throw e; // Rethrow the exception if needed
 //        }
 //    }
-    void testImage() throws Exception {
-        byte[] bytes = userServiceImpl.getImageByUsername("Mr Chan");
 
-
-//        User user = new User();
-//        user.setUsername("Mr Chan");
-//        comparingFaces.comparingFaces(user);
-    }
     @Test
     void svaeImageToS3() throws Exception {
 

@@ -2,6 +2,7 @@ package com.examapp.controllers;
 
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.examapp.entity.Authority;
 import com.examapp.entity.User;
 import com.examapp.predefinedConstant.AuthorityConstants;
@@ -9,7 +10,7 @@ import com.examapp.service.AuthorityService;
 import com.examapp.service.UserService;
 import com.examapp.utils.ComparingFaces;
 import com.examapp.utils.JwtUtil;
-import com.examapp.utils.S3Utils;
+import com.examapp.utils.S3Util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +23,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -43,16 +47,61 @@ public class UserController {
     @Lazy
     private PasswordEncoder passwordEncoder;
     @Resource
-    private S3Utils s3Utils;
+    private S3Util s3Utils;
 
-
+    /**
+     * POST - User login requests with image verification.
+     *
+     * This method processes POST requests to the "/login" endpoint, expecting a
+     * multipart form-data request that includes an image file and user information
+     * in JSON format. It first checks if the uploaded image file is empty and
+     * returns a 400 Bad Request response if it is. If the file is valid, it prepares
+     * a User object from the provided JSON and retrieves the corresponding stored
+     * image from S3 using the user's username.
+     *
+     * The method then compares the uploaded image with the stored image. If the
+     * faces do not match, it returns a 403 Forbidden response. If the faces match,
+     * it authenticates the user and retrieves their role (either Teacher or Student).
+     * Finally, it returns a response containing an authentication token and the user's role.
+     *
+     * <p>Return values:</p>
+     * <ul>
+     *     <li>200 OK with a map containing the authentication token and user role if
+     *         login is successful.</li>
+     *     <li>400 Bad Request if the image file is empty.</li>
+     *     <li>403 Forbidden if the faces do not match.</li>
+     * </ul>
+     *
+     * @param imageFile The image file uploaded as part of the request, representing
+     *                  the user's face for verification.
+     * @param userJson A JSON string containing user information, which is converted
+     *                 to a User object for authentication purposes. Example JSON format:
+     *                 <pre>
+     *                 {
+     *                     "username": "john_doe",
+     *                     "password": "securePassword123"
+     *                 }
+     *                 </pre>
+     * @return A ResponseEntity containing a map with the authentication token and
+     *         user role, or appropriate error responses based on validation checks.
+     * @throws Exception If any error occurs during user object creation, image
+     *                   retrieval, face comparison, or authentication.
+     *
+     * <p>Example response for successful login:</p>
+     * <pre>
+     * {
+     *     "token": "abc123xyz",
+     *     "role": "Teacher"
+     * }
+     * </pre>
+     */
     @PostMapping(value = "/login", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> login(
+    public ResponseEntity<Map> login(
             @RequestParam("imageFile") MultipartFile imageFile,
             @RequestPart("user") String  userJson
     ) throws Exception {
         if (imageFile.isEmpty()) {
-            return ResponseEntity.badRequest().body("Photo needed.");
+            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
         }
 
         // prepare user object
@@ -66,20 +115,42 @@ public class UserController {
             return ResponseEntity.status(HttpServletResponse.SC_FORBIDDEN).build();
         }
         String token = userService.authenticate(user);
-        return ResponseEntity.ok(token);
+        String role = authorityService.checkTeacherOrStudentByUsername(user.getUsername());
+        Map map = new HashMap();
+        map.put("token", token);
+        map.put("role", role);
+        return ResponseEntity.ok(map);
     }
+
     /**
-     * Registers a new user with an uploaded image.
+     * POST - Registers a new user with an uploaded image.
+     *
+     * Username with ':' is not allowed to avoid conflicts in Redis or S3.
+     *
+     * This method processes POST requests to the "/register" endpoint, expecting a
+     * multipart form-data request that includes an image file and user details in JSON format.
+     * It checks if the uploaded image file is present and validates the username before
+     * proceeding with the registration process.
      *
      * @param imageFile the image file uploaded by the user (required)
-     * @param userJson  the user details in JSON format (required)
-     * @return ResponseEntity with the registration status and message
-     * @throws Exception if there is an error processing the registration
+     * @param userJson  the user details in JSON format (required). Example JSON format:
+     *                  <pre>
+     *                  {
+     *                      "username": "john_doe",
+     *                      "password": "securePassword123",
+     *                  }
+     *                  </pre>
+     * @return ResponseEntity with the registration status and message.
+     * @throws Exception if there is an error processing the registration.
      *
-     * Expected Status Codes:
-     * - 201 Created: User registered successfully
-     * - 400 Bad Request: If the image file is missing
-     * - 409 Conflict: If the username already exists
+     * <p>Expected Status Codes:</p>
+     * <ul>
+     *     <li>201 Created: User registered successfully.</li>
+     *     <li>400 Bad Request: If the image file is missing.</li>
+     *     <li>409 Conflict: If the username already exists.</li>
+     * </ul>
+     *
+     * </pre>
      */
     @PostMapping(value = "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Void> register(
@@ -88,9 +159,13 @@ public class UserController {
     ) throws Exception{
 
         if (imageFile.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
         }
         User user = objectMapper.readValue(userJson, User.class);
+        // not allowing username with ':' to avoid conflicts
+        if(user.getUsername().contains(":")){
+            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
+        }
         s3Utils.storeInS3(imageFile.getBytes(), user.getUsername());
         /*
          synchronized according to username
