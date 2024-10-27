@@ -47,10 +47,10 @@ const Login = () => {
             const data = await result.json();
             console.log(data);
             localStorage.setItem('token', data.token);
-            if (data.authority === "teacher") {
-                navigate('/TeacherDashboard');
+            if (data.role === "teacher") {
+                navigate('/teacher-exam-option');
             } else {
-                navigate('/StudentDashboard');
+                navigate('/student-exam-option');
             }
         } else {
             console.log("Login Failed");
