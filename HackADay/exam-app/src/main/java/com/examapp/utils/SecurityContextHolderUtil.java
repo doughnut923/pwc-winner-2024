@@ -21,7 +21,7 @@ public class SecurityContextHolderUtil {
      *
      * @return A list of authority strings granted to the authenticated user.
      */
-    public static List<String> getAuthoritiesFromSecurityContextHolder(){
+    public static List<String> getPermissionsFromSecurityContextHolder(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // should be checked already by security filters, this is a double check
         if (authentication == null) {

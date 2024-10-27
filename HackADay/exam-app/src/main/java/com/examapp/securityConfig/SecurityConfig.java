@@ -41,7 +41,12 @@ public class SecurityConfig {
                         .requestMatchers("/authority/**").authenticated()
                         .requestMatchers("/exam/**").authenticated()
                         .requestMatchers("/status/**").authenticated()
-                        .requestMatchers("/exam/update", "authority/setAuthorities").hasAuthority(TEACHER)
+                        .requestMatchers("/exam/update",
+                                "/authority/setAuthorities",
+                                "/status/suspiciousImage",
+                                "/status/suspicious/list",
+                                "/user/studentWithClasses"
+                                ).hasAuthority(TEACHER)
                 )
                 .sessionManagement(auth ->
                         auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
