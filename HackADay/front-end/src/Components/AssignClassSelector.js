@@ -13,17 +13,15 @@ const AssignClassSelector = ({ setOnAdd, student, assignclasss }) => {
             return;
         }
 
-        const result = await fetch('http://localhost:8081/exam/examContent/Linear algebra', {
-            method: 'GET',
+        const result = await fetch('http://localhost:8081/exam/examList', {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token'),
-                'content-type': 'application/json'
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         });
         if (result.ok) {
             const data = await result.json();
-            console.log(data);
             setClasses(data);
+            setLoading(false);
             return;
         }
         if (result.status === 403) {
@@ -58,6 +56,7 @@ const AssignClassSelector = ({ setOnAdd, student, assignclasss }) => {
                         width: 'fit-content',
                         padding: "5px 10px",
                         borderRadius: "20px",
+                        marginBottom: "5px",
                         backgroundColor: "#f1f1f1",
                         ":hover": {
                             cursor: "pointer",
