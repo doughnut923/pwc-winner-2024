@@ -5,11 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../back-end/exam-app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/exam-app/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/ExamAppApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/ExamAppApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/controllers/AuthorityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/controllers/AuthorityController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/controllers/ExamController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/controllers/ExamController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/Authority.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/Authority.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/Exam.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/Exam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/mapper/AuthorityMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/mapper/AuthorityMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/mapper/ExamMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/mapper/ExamMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/predefinedConstant/AuthorityConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/predefinedConstant/AuthorityConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/authentications/CustomAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/authentications/CustomAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/filters/FaceRecognitionFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/filters/FaceRecognitionFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityAuthority.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityAuthority.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/AuthorityService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/AuthorityService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/ExamService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/ExamService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/AuthorityServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/AuthorityServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/ExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/ExamServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/utils/ComparingFaces.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/utils/ComparingFaces.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/utils/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/utils/JwtUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/examapp/ExamAppApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/examapp/ExamAppApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/Components/AssignClassSelector.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Components/AssignClassSelector.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../../compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/StudentDashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/TeacherDashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/AssignClass.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/AssignClass.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,10 +48,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -42,6 +71,10 @@
   "keyToString": {
     "HTTP Request.generated-requests | #1.executor": "Run",
     "HTTP Request.generated-requests | #2.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "HTTP Request.generated-requests | #5.executor": "Run",
+    "HTTP Request.generated-requests | #6.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -58,13 +91,27 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.ExamAppApplication">
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="2" requestIdentifier="#2" runType="Run single request">
+    <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="4" requestIdentifier="#4" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="5" requestIdentifier="#5" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="6" requestIdentifier="#6" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="ExamAppApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -85,8 +132,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests | #2" />
+        <item itemvalue="HTTP Request.generated-requests | #6" />
         <item itemvalue="HTTP Request.generated-requests | #1" />
+        <item itemvalue="HTTP Request.generated-requests | #5" />
+        <item itemvalue="HTTP Request.generated-requests | #4" />
+        <item itemvalue="HTTP Request.generated-requests | #3" />
       </list>
     </recent_temporary>
   </component>

@@ -1,24 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, List, ListItem, ListItemText, CircularProgress, Box } from '@mui/material';
 
-const AssignClassSelector = ({setOnAdd, student, assignclasss }) => {
-    const [classes, setClasses] = useState(["test 1"]);
+const AssignClassSelector = ({ setOnAdd, student, assignclasss }) => {
+    const [classes, setClasses] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const fetchClasses = async () => {
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error("No token found in localStorage");
+            return;
+        }
+
+        const result = await fetch('http://localhost:8081/exam/examContent/Linear algebra', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+                'content-type': 'application/json'
+            }
+        });
+        if (result.ok) {
+            const data = await result.json();
+            console.log(data);
+            setClasses(data);
+            return;
+        }
+        if (result.status === 403) {
+            console.log("Unauthorized");
+            return;
+        }
+
+    };
+
     useEffect(() => {
-        // const fetchClasses = async () => {
-        //     try {
-        //         const response = await fetch('/api/classes'); // Adjust the URL as needed
-        //         const data = await response.json();
-        //         setClasses(data);
-        //     } catch (error) {
-        //         console.error('Error fetching classes:', error);
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // };
-        setLoading(false);
-        // fetchClasses();
+        setLoading(true);
+        fetchClasses();
     }, []);
 
     const handleClassClick = (selectedClass) => {
