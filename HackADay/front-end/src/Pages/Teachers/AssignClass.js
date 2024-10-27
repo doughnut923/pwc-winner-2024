@@ -128,26 +128,55 @@ const AssignClass = ({ handleBack }) => {
     //     classes : [List of classes]
     // }
 
+    const handleStudentAPIData = (data) => {
+        console.log(data);
+        let temp = [];
+        for (let i = 0; i < data.length; i++) {
+            let student = {
+                id: i,
+                name: data[i].username,
+                classes: []
+            }
+            for (let j = 0; j < data[i].authorities.length; j++) {
+                student.classes.push(data[i].authorities[j].permission);
+            }
+            temp.push(student);
+        }
+        return temp;
+    }
+
     const loadStudents = async () => {
 
-        setStudents(DB.slice(currentPage, currentPage + 5));
-        //then fetch all the student data and store to local array
-        // try {
-        //     const result = await fetch(`api-link/?currentPage=${currentPage}`, {
-        //         method: 'GET',
-        //         headers: {
-        //             Authorization: 'Bearer ' + localStorage.getItem('token'),
-        //             'Content-Type': 'application/json'
-        //         }
-        //     });
-        //     if(result.ok){
-        //         const data = await result.json();
-        //         setStudents(data.students);
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        //     alert("Could not fetch Students:\n" + error);
-        // }
+        // setStudents(DB.slice(currentPage, currentPage + 5));
+        // then fetch all the student data and store to local array
+        console.log("Fetching Students");
+        try {
+            const result = await fetch(`http://localhost:8081/user/studentWithClasses?pageNum=${currentPage}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                }
+            });
+
+            if(result.ok){
+                const data = await result.json();
+                if(data.length === 0){
+                    alert("No more students to display");
+                    setPage(0);
+                    return 0;
+
+                }
+                const temp = handleStudentAPIData(data);
+                console.log(temp);
+                setStudents(temp);
+            }
+        } catch (error) {
+            console.log(error);
+            alert("Could not fetch Students:\n" + error);
+            setPage(0);
+            return 0;
+        }
+        return 1;
     }
 
     const handleNextPage = () => {
