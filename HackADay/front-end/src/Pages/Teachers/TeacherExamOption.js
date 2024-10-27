@@ -83,7 +83,7 @@ const TeacherExamOption = () => {
                                         </div>
                                         <div style={{ textAlign: 'right' }}>
                                             <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>Student</div>
-                                            <div style={{ fontSize: 14 }}>{examOption.student}</div>
+                                            <div style={{ fontSize: 14 }}>{exams.student}</div>
                                         </div>
                                     </div>
                                 </StyledCard>
