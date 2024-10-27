@@ -220,38 +220,34 @@ const AssignClass = ({ handleBack }) => {
         console.log(`Assign ${student.name} to class ${clsName}?`);
         // send the studentID and classID to the server
 
-        // console.log(student, clsName);
-        // try {
-        //     const result = await fetch('api-link', {
-        //         method: 'PUT',
-        //         body: JSON.stringify({
-        //             studentName: student.name,
-        //             permission: clsName
-        //         }),
-        //         headers: {
-        //             Authorization: 'Bearer ' + localStorage.getItem('token'),
-        //             'Content-Type': 'application/json'
-        //         }
-        //     });
-        //     if(result.ok){
-        //         alert("Student Assigned to Class");
-        //         setRefresh(!refresh); // Toggle refresh state to trigger useEffect
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        //     alert("Could not assign student to class:\n" + error);
-        // }
-
-        let temp = DB;
-        for (let i = 0; i < temp.length; i++) {
-            if (temp[i].name === student.name) {
-                temp[i].classes.push(clsName);
-                break;
+        try {
+            const result = await fetch('http://localhost:8081/authority/setAuthorities', {
+                method: 'PUT',
+                body: JSON.stringify([{
+                    username: student.name,
+                    permission: clsName
+                }]),
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                    'Content-Type': 'application/json'
+                }
+            });
+            if(result.ok){
+                alert("Student Assigned to Class");
+                setRefresh(!refresh); // Toggle refresh state to trigger useEffect
             }
+        } catch (error) {
+            console.log(error);
+            alert("Could not assign student to class:\n" + error);
         }
 
-        setDB(temp);
-        setRefresh(!refresh);
+        // let temp = DB;
+        // for (let i = 0; i < temp.length; i++) {
+        //     if (temp[i].name === student.name) {
+        //         temp[i].classes.push(clsName);
+        //         break;
+        //     }
+        // }
     }
 
     const theme = useTheme();
