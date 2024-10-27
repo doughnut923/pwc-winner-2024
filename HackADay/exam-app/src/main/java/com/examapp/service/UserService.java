@@ -4,13 +4,14 @@ import com.examapp.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 
 public interface UserService extends IService<User> {
     public User getUserByUsername(@Validated String name);
 
-//    int register(User user);
-
     String authenticate(User user);
 
-//    byte[] getImageByUsername(@Validated String name);
+    List<User> getStudentWithClasses(int pageNum, int pageSize);
+
 }

@@ -55,6 +55,11 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
         }
         return STUDENT;
     }
+
+    @Override
+    public List<String> getStudentListByClassname(String className) {
+        return authorityMapper.getStudentListByClassname(className);
+    }
 }
 
 

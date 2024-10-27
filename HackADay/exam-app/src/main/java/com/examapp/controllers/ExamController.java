@@ -3,16 +3,12 @@ package com.examapp.controllers;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.examapp.entity.Exam;
 import com.examapp.mapper.ExamMapper;
-import com.examapp.securityConfig.securityDto.SecurityAuthority;
 import com.examapp.service.ExamService;
 import com.examapp.utils.SecurityContextHolderUtil;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -38,6 +34,9 @@ public class ExamController {
      * If the operation is successful, it returns a 200 OK response. If the operation
      * fails due to an unexpected condition (e.g., server crash or programming bug),
      * it returns a 500 Internal Server Error response.
+     *
+     *      <p>Note: This operation can only be performed by a teacher.</p>
+     *
      * @param exam The Exam object containing the exam details to be updated.
      *             Example JSON representation:
      *             <pre>
@@ -93,34 +92,36 @@ public class ExamController {
      */
     @GetMapping("examList")
     public ResponseEntity<List<String>> getExamList() {
-        List<String> authorityList = SecurityContextHolderUtil.getAuthoritiesFromSecurityContextHolder();
-        if(authorityList.isEmpty()) {
+        List<String> permissionlist = SecurityContextHolderUtil.getPermissionsFromSecurityContextHolder();
+        if(permissionlist.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        if(authorityList.contains(TEACHER)){
+        if(permissionlist.contains(TEACHER)){
             LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
             wrapper.select(Exam::getClassname);
-            authorityList = examService.list(wrapper).stream()
+            permissionlist = examService.list(wrapper).stream()
                     .map(Exam::getClassname).toList();
         }else{
             /*
-             authority store info exam options and the role as teacher / student
-             exam options are authority list with student / teacher removed
+             permission field in Authority store info exam options and the role as teacher / student
+             exam options are permission list with student / teacher removed
              */
-            authorityList.remove(STUDENT);
+            permissionlist.remove(STUDENT);
         }
-        return ResponseEntity.ok(authorityList);
+        return ResponseEntity.ok(permissionlist);
     }
     /**
-     * GET - Retrieve exam content for a specified class.
+     * POST - Retrieve exam content for a specified class.
      *
-     * This method checks the user's authority and determines whether the request
-     * is made by a teacher or a student, then fetches the corresponding exam content.
+     * This method processes POST requests to the "examContent" endpoint. It checks
+     * the user's authority to determine whether the request is made by a teacher or a student,
+     * and then fetches the corresponding exam content.
      *
-     * @param className The name of the class for which the exam content is requested.
-     * @return A ResponseEntity containing the Exam object if found and accessible,
-     *         or an appropriate HTTP status code:
+     * @param inputExam An Exam object containing the class name for which the exam content
+     *                  is requested (required).
+     * @return A ResponseEntity containing the Exam object if found and accessible, or
+     *         an appropriate HTTP status code:
      *         <ul>
      *             <li>200 OK if the exam is successfully retrieved.</li>
      *             <li>401 UNAUTHORIZED if the user has no authority.</li>
@@ -131,20 +132,22 @@ public class ExamController {
      * <pre>
      * {
      *     "className": "Mathematics",
-     *     "content": "Algebra and Geometry questions",
-     *     "date": "2024-10-30"
+     *     "startingTime": "2024-10-01T09:00:00.000+00:00",
+     *     "endingTime": "2024-11-25T11:00:00.000+00:00",
+     *     "content": "Final Exam covering chapters 1-10."
      * }
      * </pre>
      */
-    @GetMapping("examContent/{className}")
-    public ResponseEntity<Exam> getExamContent(@PathVariable("className") String className) {
-        List<String> authorityList = SecurityContextHolderUtil.getAuthoritiesFromSecurityContextHolder();
+    @PostMapping("examContent")
+    public ResponseEntity<Exam> getExamContent(@RequestBody Exam inputExam) {
+       String className = inputExam.getClassname();
+        List<String> authorityList = SecurityContextHolderUtil.getPermissionsFromSecurityContextHolder();
         if(authorityList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         // call corresponding method for teachers and students
-        Exam exam = null;
+        Exam exam = new Exam();
         if(authorityList.contains(TEACHER)){
              exam = examService.getExamContentAsTeacher(className);
         }else{

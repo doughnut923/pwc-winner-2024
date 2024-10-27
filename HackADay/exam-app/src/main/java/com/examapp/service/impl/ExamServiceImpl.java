@@ -31,12 +31,13 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
         if(!authorityList.contains(className)){
             return null;
         }
+        
         LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Exam::getClassname, className);
         Exam exam = getOne(wrapper);
         Instant now = Instant.now();
         // check if the exam is in time range
-        if(now.isBefore(exam.getStartingTime().toInstant()) && now.isAfter(exam.getEndingTime().toInstant())) {
+        if(now.isAfter(exam.getStartingTime().toInstant()) && now.isBefore(exam.getEndingTime().toInstant())) {
             return exam;
         }
         return null;

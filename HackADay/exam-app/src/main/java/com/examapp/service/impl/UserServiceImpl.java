@@ -1,6 +1,8 @@
 package com.examapp.service.impl;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.examapp.entity.User;
 import com.examapp.mapper.UserMapper;
@@ -15,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -58,6 +61,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         );
         User retrievedUser = userMapper.getUserByUsername(user.getUsername());
         return jwtUtil.generateToken(new SecurityUser(retrievedUser));
+    }
+
+    @Override
+    public List<User> getStudentWithClasses(int pageNum, int pageSize) {
+        IPage<User> userIPage = new Page<>(pageNum, pageSize);
+        List<User> userListWithClasses = userMapper.getStudentWithClasses(userIPage);
+        return userListWithClasses;
     }
 }
 

@@ -3,6 +3,7 @@ package com.examapp.controllers;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.examapp.entity.Authority;
 import com.examapp.entity.User;
 import com.examapp.predefinedConstant.AuthorityConstants;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -195,5 +198,9 @@ public class UserController {
         authority.setPermission(AuthorityConstants.STUDENT);
         return authorityService.save(authority);
     }
-
+    @GetMapping("studentWithClasses")
+    public ResponseEntity<List<User>> getStudentWithClasses(@RequestParam int pageNum){
+        List<User> userListWithClasses = userService.getStudentWithClasses(pageNum, AuthorityConstants.pageSize);
+        return ResponseEntity.ok(userListWithClasses);
+    }
 }

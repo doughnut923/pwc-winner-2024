@@ -23,8 +23,7 @@ public class AuthorityController {
     private AuthorityService authorityService;
     @Resource
     private JwtUtil jwtUtil;
-    @Autowired
-    private AuthorityMapper authorityMapper;
+
     /**
      * GET - Handles requests to retrieve a list of students for a specified class.
      *
@@ -60,7 +59,7 @@ public class AuthorityController {
      */
     @GetMapping("studentList/{className}")
     public ResponseEntity<List<String>> getStudentList(@PathVariable("className") String className) {
-        List<String> studentList = authorityMapper.getStudentListByClassname(className);
+        List<String> studentList = authorityService.getStudentListByClassname(className);
         return ResponseEntity.ok(studentList);
     }
 
