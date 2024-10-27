@@ -9,7 +9,7 @@ const StudentExamOption = () => {
 
     // const examOption = await fetch("");
 
-    const examOption = useState([
+    const examOption = [
         {
             id: 0,
             code: 'CSCI1000',
@@ -45,7 +45,7 @@ const StudentExamOption = () => {
             start: '10:00',
             student: 90,
         },
-    ]);
+    ];
 
     // Return the Dashboard form
     return (

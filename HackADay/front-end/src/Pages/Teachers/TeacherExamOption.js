@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import logo from "../../logo.svg"; // Adjust the path to your logo image
 import { StyledContainer, StyledCard, InsideContainer, CardBox } from "./TeacherExamOptionStyledElements"
@@ -21,7 +21,7 @@ const TeacherExamOption = () => {
 
     // const examOption = await fetch("");
 
-    const [examOption, setExamOption] = useState([
+    const examOption = [
         {
             id: 0,
             code: 'CSCI1000',
@@ -57,7 +57,7 @@ const TeacherExamOption = () => {
             start: '10:00',
             student: 90,
         },
-    ]);
+    ];
 
     // Return the Dashboard form
     return (
