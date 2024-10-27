@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import logo from "../../logo.svg"; // Adjust the path to your logo image
 import { StyledContainer, StyledCard, InsideContainer, CardBox } from "./TeacherExamOptionStyledElements"
-import AssignClass from '../AssignClass';
+import AssignClass from './AssignClass';
 
 
 

@@ -17,7 +17,7 @@ import ExamDashboard from './Pages/Teachers/ExamDashboard';
 
 import ExamPage from './Pages/ExamPage';
 import Complete from './Pages/Complete';
-import AssignClass from './Pages/AssignClass';
+import AssignClass from './Pages/Teachers/AssignClass'; 
 import StudentExamOption from './Pages/Students/StudentExamOption';
 import TeacherExamOption from './Pages/Teachers/TeacherExamOption';
 
@@ -56,6 +56,10 @@ const router = createBrowserRouter([
     path: "complete",
     element: <Complete/>,
   },
+  {
+    path: "assign-class",
+    element: <AssignClass/>,
+  }
 ]);
 
 const theme = createTheme({
