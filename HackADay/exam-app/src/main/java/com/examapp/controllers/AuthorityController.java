@@ -27,7 +27,7 @@ public class AuthorityController {
     /**
      * GET - Handles requests to retrieve a list of students for a specified class.
      *
-     * This method maps to the endpoint "/studentList/{className}" and retrieves
+     * This method maps to the endpoint "/studentList/{classname}" and retrieves
      * the student list associated with the provided class name. It uses the
      * authorityMapper to access the data layer and fetch the relevant
      * student information.
@@ -54,12 +54,12 @@ public class AuthorityController {
      * []
      * </pre>
      *
-     * @param className The name of the class for which to retrieve the student list.
+     * @param classname The name of the class for which to retrieve the student list.
      * @return A ResponseEntity containing a list of student names as strings.
      */
-    @GetMapping("studentList/{className}")
-    public ResponseEntity<List<String>> getStudentList(@PathVariable("className") String className) {
-        List<String> studentList = authorityService.getStudentListByClassname(className);
+    @GetMapping("studentList/{classname}")
+    public ResponseEntity<List<String>> getStudentList(@PathVariable("classname") String classname) {
+        List<String> studentList = authorityService.getStudentListByClassname(classname);
         return ResponseEntity.ok(studentList);
     }
 

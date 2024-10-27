@@ -112,14 +112,14 @@ public class ExamController {
         return ResponseEntity.ok(permissionlist);
     }
     /**
-     * POST - Retrieve exam content for a specified class.
+     * GET - Retrieve exam content for a specified class.
      *
      * This method processes POST requests to the "examContent" endpoint. It checks
      * the user's authority to determine whether the request is made by a teacher or a student,
      * and then fetches the corresponding exam content.
      *
-     * @param inputExam An Exam object containing the class name for which the exam content
-     *                  is requested (required).
+     * @param classname
+     *
      * @return A ResponseEntity containing the Exam object if found and accessible, or
      *         an appropriate HTTP status code:
      *         <ul>
@@ -138,21 +138,21 @@ public class ExamController {
      * }
      * </pre>
      */
-    @PostMapping("examContent")
-    public ResponseEntity<Exam> getExamContent(@RequestBody Exam inputExam) {
-       String className = inputExam.getClassname();
+    @GetMapping("examContent/{classname}")
+    public ResponseEntity<Exam> getExamContent(@PathVariable String classname) {
+
         List<String> authorityList = SecurityContextHolderUtil.getPermissionsFromSecurityContextHolder();
         if(authorityList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         // call corresponding method for teachers and students
-        Exam exam = new Exam();
+        Exam exam = null;
         if(authorityList.contains(TEACHER)){
-             exam = examService.getExamContentAsTeacher(className);
+             exam = examService.getExamContentAsTeacher(classname);
         }else{
             authorityList.remove(STUDENT);
-                exam = examService.getExamContentAsStudent(className, authorityList);
+                exam = examService.getExamContentAsStudent(classname, authorityList);
         }
         if(exam == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
