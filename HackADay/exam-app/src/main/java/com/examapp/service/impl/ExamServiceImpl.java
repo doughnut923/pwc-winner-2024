@@ -18,22 +18,22 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
 
 
     @Override
-    public Exam getExamContentAsTeacher(String className) {
+    public Exam getExamContentAsTeacher(String classname) {
         LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Exam::getClassname, className);
+        wrapper.eq(Exam::getClassname, classname);
         Exam exam = getOne(wrapper);
         return exam;
     }
 
     @Override
     @Transactional
-    public Exam getExamContentAsStudent(String className, List<String> authorityList) {
-        if(!authorityList.contains(className)){
+    public Exam getExamContentAsStudent(String classname, List<String> authorityList) {
+        if(!authorityList.contains(classname)){
             return null;
         }
         
         LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Exam::getClassname, className);
+        wrapper.eq(Exam::getClassname, classname);
         Exam exam = getOne(wrapper);
         Instant now = Instant.now();
         // check if the exam is in time range

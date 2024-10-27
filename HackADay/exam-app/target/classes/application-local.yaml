@@ -1,8 +1,0 @@
-examapp:
-  db:
-    host: localhost
-logging:
-  level:
-    root: debug
-
-
