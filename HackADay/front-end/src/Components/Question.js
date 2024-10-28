@@ -25,9 +25,9 @@ const Question = ({exam}) => {
     const navigate = useNavigate();
 
     const [timeLeft, setTimeLeft] = useState(() => {
-        const examEndTime = new Date(exam.examEndTime).getTime();
-        const examTime = new Date(exam.examTime).getTime();
-        return Math.floor((examEndTime - examTime) / 1000); // Time difference in seconds
+        const examEndTime = new Date(parseInt(exam.examEndTime)).getTime();
+        const examTime = new Date(parseInt(exam.examTime)).getTime();
+        return Math.floor((examEndTime - new Date()) / 1000); // Time difference in seconds
     });
 
     async function sendImage(formData) {

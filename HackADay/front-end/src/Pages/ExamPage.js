@@ -35,55 +35,65 @@ const ExamPage = () => {
         }
     );
 
-    const DB = {
-        "test": {
-            examName: "COMP 1000 - Introduction to Computer Science",
-            examTime: new Date(examStartTime).getTime(),
-            examEndTime: new Date(examEndTime).getTime(),
-            examQuestions: [
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                },
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                },
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                },
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                }
-            ]
+    // const DB = {
+    //     "test": {
+    //         examName: "COMP 1000 - Introduction to Computer Science",
+    //         examTime: new Date(examStartTime).getTime(),
+    //         examEndTime: new Date(examEndTime).getTime(),
+    //         examQuestions: [
+    //             {
+    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+    //             },
+    //             {
+    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+    //             },
+    //             {
+    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+    //             },
+    //             {
+    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+    //             }
+    //         ]
 
-        }
-    }
-    // {
-    //examDetails should be an object with the following properties
-    // {
-    // examName: "",
-    // examTime: "EST 1000",
-    // examQuestions: [
-    //     {
-    //         question: "Question",
-    //         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
     //     }
     // }
-    // }
+    // // {
+    // //examDetails should be an object with the following properties
+    // // {
+    // // examName: "",
+    // // examTime: "EST 1000",
+    // // examQuestions: [
+    // //     {
+    // //         question: "Question",
+    // //         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+    // //     }
+    // // }
+    // // }
 
     const getExamQuestions = async () => {
 
 
-        // // fetch the exam details
-        // const data = await fetch(`https://api.example.com/exam/${examName}`);
-        // const temp = examDetails;
-        // temp.examQuestions = data.questions;
-        // setExamDetails(temp);
+        // fetch the exam details
+        const response = await fetch(`http://localhost:8081/exam/examContent/${examName}`,
+            {
+                method : "GET",
+                headers:{
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                }
+            }
+        );
 
-        setExamDetails(DB.test);
+        const data = await response.json();
+
+        console.log(JSON.parse(data.content));
+
+        const temp = examDetails;
+        temp.examQuestions = JSON.parse(data.content);
+        setExamDetails(temp);
 
         return;
 
@@ -120,10 +130,10 @@ const ExamPage = () => {
 
     const initExamDetails = () => {
 
-        if (examName && examStartTime) {
+        if (examName && examStartTime && examEndTime) {
             localStorage.setItem("examName", examName);
-            localStorage.setItem("examStartTime", new Date(examStartTime).getTime());
-            localStorage.setItem("examEndTime", new Date(examEndTime).getTime());
+            localStorage.setItem("examStartTime", Date.parse(examStartTime));
+            localStorage.setItem("examEndTime", Date.parse(examEndTime));
         }
 
         if(localStorage.getItem("examName") === null){
