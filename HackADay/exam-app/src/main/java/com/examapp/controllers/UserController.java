@@ -173,7 +173,7 @@ public class UserController {
         User user = objectMapper.readValue(userJson, User.class);
         // not allowing username with ':' to avoid conflicts
         if(user.getUsername().contains(":")){
-            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
+            return ResponseEntity.status(HttpServletResponse.SC_CONFLICT).build();
         }
         s3Utils.storeInS3(imageFile.getBytes(), user.getUsername());
         /*
@@ -181,21 +181,25 @@ public class UserController {
          prevent racing of multiple user with same username
          user proxy to avoid self invoke of transactional
          */
-        synchronized (user.getUsername().intern()){
-            UserController proxy =
-                    (UserController) AopContext.currentProxy();
-            ;
-            if (proxy.handleRegister(user)) {
-                return ResponseEntity.ok(null);
-            }else {
-                return ResponseEntity.status(HttpServletResponse.SC_CONFLICT).build();
+        try {
+            synchronized (user.getUsername().intern()){
+                UserController proxy =
+                        (UserController) AopContext.currentProxy();
+                if (proxy.handleRegister(user)) {
+                    return ResponseEntity.ok(null);
+                }else {
+                    return ResponseEntity.status(HttpServletResponse.SC_CONFLICT).build();
+                }
             }
+        } catch (org.springframework.dao.DuplicateKeyException e) {
+            return ResponseEntity.status(HttpServletResponse.SC_CONFLICT).build();
         }
     }
     @Transactional
     protected boolean handleRegister(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        boolean flag = userService.save(user);
+        boolean flag = false;
+        flag = userService.save(user);
         if(!flag){
             return false;
         }
