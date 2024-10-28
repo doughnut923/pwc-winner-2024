@@ -18,9 +18,9 @@
             a.id AS authority_id,
             a.permission AS permission
         FROM
-            t_user u
-                LEFT JOIN
-            t_authority a ON u.username = a.username
+            t_authority a
+            LEFT JOIN
+            t_user u ON u.username = a.username
         WHERE
             u.username = #{username}
     </select>
