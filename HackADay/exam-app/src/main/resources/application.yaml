@@ -47,5 +47,5 @@ aws:
 
 ddosconfig:
   ddos-on: true
-  ddos-time-limit: 5000
-#  in milli , set in 5 sec now
+  ddos-time-limit: 500
+#  in milli , set in 0.5 sec now
