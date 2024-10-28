@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9f024e8-55ad-4f7d-af3c-5dcaad88da08" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../front-end/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../front-end/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../exam-app/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../exam-app/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../exam-app/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../exam-app/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../exam-app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../exam-app/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../front-end/src/Pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../front-end/src/Pages/Login.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,10 +15,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2nxzmDtshz2TLFuwkVtui11rC4S" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,7 +27,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "backend-integration",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/user/GitHub/pwc-winner-2024/HackADay/exam-app",
     "nodejs_package_manager_path": "npm",
@@ -49,6 +51,7 @@
       <option name="presentableId" value="Default" />
       <updated>1729929672861</updated>
       <workItem from="1729929675202" duration="18000" />
+      <workItem from="1730034570918" duration="118000" />
     </task>
     <servers />
   </component>

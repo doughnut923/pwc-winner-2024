@@ -1,11 +1,45 @@
+version: '3.8'
+
 services:
-  front:
+
+  # MySQL Serice
+  examapp-mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: 232005
+      MYSQL_DATABASE: examappdb
+    ports:
+      - "3301:3306"
+    # Presets the database with the backup file
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./HackADay/examappdb-backup.sql:/docker-entrypoint-initdb.d/examappdb-backup.sql
+
+  # Backend Service
+  springboot-backend:
+    build: ./HackADay/exam-app
+    container_name: backend-container
+    ports:
+      - "8081:8081"
+    depends_on:
+      - examapp-mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://examapp-mysql:3306/examappdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 232005
+      SPRING_DATASOURCE_PORT: 3306
+      JWT_SECRET_KEY : 2cc0031b9ed662092196437bd9e215020037f51b9db6057676f4d864e143d05e16204294de78820e0eabeafd7e171763dbe0c1044ef224fa0ce37296e63ea10134d0182a485937a4d7ad5dde38925d70b6a2af269d081d6e78b614a8bcb275b548c2687b97c9f3fc356566f43c3f478bf82d2901930920497babaccefd2646ee43f07dbc3be51663399e7704ef9154770c63bed8b40594026627358a776e1944e713991abf9b41fc0cc3b247d45a1be5ad180810cf2653738920702d6dd7104674d59f05d20e6f4d81f4eb8de4f5701f49e65dcbb76adc96dda4edb1ddd18a7c9c6a1170a02ad0d2b9abad34eddf94d734888855a8297a2d97ab56938bf3800d
+      AWS_ACCESS_KEY: AKIA4MI2KCBUPITXQN7W
+      AWS_SECRET_KEY: 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
+    
+  frontend:
     build: ./HackADay/front-end
+    container_name: frontend-container
     ports:
       - "3000:3000"
+    depends_on:
+      - springboot-backend
 
-  # The follwoing service is commented out because it is not yet implemented
-  # back:
-  #   build: ./HackADay/back-end
-  #   ports:
-  #     - "8001:8000"
+volumes:
+  mysql-data:

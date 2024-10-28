@@ -12,4 +12,6 @@ public interface AuthorityService extends IService<Authority> {
     boolean insertAuthorityWithChecking(List<Authority> authorityList);
 
     String checkTeacherOrStudentByUsername(String username);
+
+    List<String> getStudentListByClassname(String className);
 }

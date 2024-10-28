@@ -13,13 +13,14 @@ import AssignClassSelector from './AssignClassSelector';
 // }
 
 
-const MyTableRow = ({ student, assignStudent }) => {
+const MyTableRow = ({ index, student, assignStudent }) => {
 
     const [onAdd, setOnAdd] = React.useState(false);
 
     return (
         // <></>
         <TableRow>
+            <TableCell>{index}</TableCell>
             <TableCell>{student.name}</TableCell>
             <TableCell>
                 {
