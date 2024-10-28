@@ -24,11 +24,12 @@ spring:
           max-idle: 10
           min-idle: 1
           time-between-eviction-runs: 10s
-
 server:
   port: 8081
+
 jwt:
   secret-key: 2cc0031b9ed662092196437bd9e215020037f51b9db6057676f4d864e143d05e16204294de78820e0eabeafd7e171763dbe0c1044ef224fa0ce37296e63ea10134d0182a485937a4d7ad5dde38925d70b6a2af269d081d6e78b614a8bcb275b548c2687b97c9f3fc356566f43c3f478bf82d2901930920497babaccefd2646ee43f07dbc3be51663399e7704ef9154770c63bed8b40594026627358a776e1944e713991abf9b41fc0cc3b247d45a1be5ad180810cf2653738920702d6dd7104674d59f05d20e6f4d81f4eb8de4f5701f49e65dcbb76adc96dda4edb1ddd18a7c9c6a1170a02ad0d2b9abad34eddf94d734888855a8297a2d97ab56938bf3800d
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
@@ -36,9 +37,15 @@ mybatis-plus:
     db-config:
       table-prefix: "t_"
   mapper-locations: "classpath:/mapper/*.xml"
+
 aws:
   credentials:
     accessKey: "AKIA4MI2KCBUPITXQN7W"
     secretKey: "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"
   settings:
     similarityThreshold: 70.0
+
+ddosconfig:
+  ddos-on: true
+  ddos-time-limit: 5000
+#  in milli , set in 5 sec now

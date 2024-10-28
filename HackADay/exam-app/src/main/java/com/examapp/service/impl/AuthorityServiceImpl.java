@@ -30,14 +30,17 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
     @Override
     @Transactional
     public boolean insertAuthorityWithChecking(List<Authority> authorityList) {
+        /* check if the authorityList actually contain any valid classname that is present in Exam Table,
+        those with valid classname is included in validTargetList
+        */
         Set<String> permissionSet = authorityList.stream().map(Authority::getPermission).collect(Collectors.toSet());
         LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
         wrapper.in(Exam::getClassname, permissionSet).select(Exam::getClassname);
-
         List<Exam> validTargetList =  examMapper.selectList(wrapper);
         if(validTargetList == null || validTargetList.isEmpty()){
             return false;
         }
+
         Set<String> validTargetSet = validTargetList.stream().map(Exam::getClassname).collect(Collectors.toSet());
         List<String> nameList = authorityList.stream().map(Authority::getPermission).toList();
         if( !validTargetSet.containsAll(nameList)) {
