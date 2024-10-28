@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../../logo.svg"; // Adjust the path to your logo image
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StyledContainer, InsideContainer } from "./ExamDashboardStyledElements";
 import { MenuItem, TextField, Box, TableHead, TableRow, Table, TableBody, TableCell, Checkbox, IconButton, Button, Stack, Modal } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
@@ -20,6 +20,8 @@ const style = {
 
 const ExamDashboard = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { examName, examStartTime, examEndTime } = location.state || {};
     const [status, setStatus] = useState('');
     const [selectedIds, setSelectedIds] = useState([]);
     const [open, setOpen] = useState(false);
@@ -28,6 +30,66 @@ const ExamDashboard = () => {
     const handleStatusChange = (event) => {
         setStatus(event.target.value);
     };
+
+    const [studentList, setStudentList] = useState([]);
+
+    const role = localStorage.getItem('role');
+    if (role != "teacher") navigate('/');
+
+    // useEffect(() => {
+    //     const fetchExams = async () => {
+    //         const token = localStorage.getItem('token');
+    
+    //         if (!token) {
+    //             console.error("Token not found.");
+    //             return;
+    //         }
+    
+    //         try {
+    //             let response = await fetch("API-LINK", {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Authorization': `Bearer ${token}`,
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             });
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             let data = await response.json();
+    //             console.log(data);
+    
+    //             const contentPromises = data.map(async (exam) => {
+    //                 let resp = await fetch(`http://localhost:8081/exam/examContent/${exam}`, {
+    //                     method: 'GET',
+    //                     headers: {
+    //                         'Authorization': `Bearer ${token}`,
+    //                         'Content-Type': 'application/json',
+    //                     }
+    //                 });
+    //                 if (!resp.ok) {
+    //                     throw new Error('Network response was not ok');
+    //                 }
+    //                 let contentData = await resp.json();
+    //                 console.log(contentData);
+    //                 return contentData;
+    //             });
+    
+    //             const results = await Promise.all(contentPromises);
+    //             setExamList(results);
+    
+    //         } catch (error) {
+    //             console.error("Error fetching exams:", error);
+    //         }
+    //     };
+    
+    //     fetchExams();
+    
+    //     const interval = setInterval(fetchExams, 60000);
+    
+    //     return () => clearInterval(interval);
+    // }, []);
+
 
     const [itemList, setItemList] = useState([
         { id: 0, name: 'Attribute One', status: '0', alerts: '0', alertContent: [{}] },
@@ -98,7 +160,7 @@ const ExamDashboard = () => {
         <StyledContainer>
             <InsideContainer maxWidth="xl" style={{ padding: '60px' }}>
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
-                <div style={{ color: 'gray', fontSize: 20, marginLeft: 30, marginTop: 20, wordSpacing: 10, fontWeight: 700, fontFamily: 'monospace' }}>{'< BACK'}</div>
+                <div onClick={() => navigate('/teacher-exam-option')} style={{ color: 'gray', fontSize: 20, marginLeft: 30, marginTop: 20, wordSpacing: 10, fontWeight: 700, fontFamily: 'monospace', cursor: 'pointer' }}>{'< BACK'}</div>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ fontSize: 30, fontWeight: 400, color: 'teal' }}>Time Left</div>
                     <div style={{ fontSize: 100, fontWeight: 200 }}>00:00:00</div>
@@ -209,7 +271,7 @@ const ExamDashboard = () => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            minHeight: '100vh', // Ensure the box takes up the full viewport height
+                            minHeight: '100vh',
                         }}
                     >
                         <Box
@@ -221,7 +283,7 @@ const ExamDashboard = () => {
                                 p: 4,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                justifyContent: 'center', // Center content vertically within the modal
+                                justifyContent: 'center',
                                 textAlign: 'center',
                                 color: 'GrayText'
                             }}
