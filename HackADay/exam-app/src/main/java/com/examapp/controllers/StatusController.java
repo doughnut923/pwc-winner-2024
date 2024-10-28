@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("status")
 public class StatusController {
@@ -55,7 +56,7 @@ public class StatusController {
         List<String> permission = SecurityContextHolderUtil.getPermissionsFromSecurityContextHolder();
 
         if(! permission.contains(classname)){
-            // student not in the class
+            // student not in the class t_user
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
         }
         if (imageFile.isEmpty()) {

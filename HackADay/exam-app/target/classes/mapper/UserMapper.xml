@@ -25,20 +25,24 @@
             u.username = #{username}
     </select>
     <select id="getStudentWithClasses" resultMap="getStudentWithClasses">
+
         SELECT
             u.username AS username,
-            a.permission AS permission
+            CASE
+                WHEN a.permission = 'student' THEN NULL
+                ELSE a.permission
+                END AS permission
         FROM
             t_user u
                 LEFT JOIN
             t_authority a ON u.username = a.username
         WHERE
-            a.permission != "student" and a.permission != "teacher"
+            a.permission != 'teacher'
     </select>
 
     <resultMap id="getStudentWithClasses" type="com.examapp.entity.User">
         <result property="username" column="username" jdbcType="VARCHAR"/>
-        <result property="password" column="password" jdbcType="CHAR"/>
+
 
         <collection property="authorities" ofType="com.examapp.entity.Authority">
             <result property="permission" column="permission" jdbcType="VARCHAR"/>
