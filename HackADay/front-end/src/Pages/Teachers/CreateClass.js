@@ -11,8 +11,16 @@ const AddClass = () => {
     const [questions, setQuestions] = useState([]);
 
     const addClassToServer = async () => {
+
+        console.log(JSON.stringify({
+            classname: classname,
+            startingTime: startTime,
+            endingTime: endTime,
+            content: JSON.stringify(questions),
+        }),)
+
         try {
-            const response = await fetch("http://localhost:8081/authority/update", {
+            const response = await fetch("http://localhost:8081/exam/update", {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
