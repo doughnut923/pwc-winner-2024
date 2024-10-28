@@ -35,47 +35,7 @@ const ExamPage = () => {
         }
     );
 
-    // const DB = {
-    //     "test": {
-    //         examName: "COMP 1000 - Introduction to Computer Science",
-    //         examTime: new Date(examStartTime).getTime(),
-    //         examEndTime: new Date(examEndTime).getTime(),
-    //         examQuestions: [
-    //             {
-    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    //             },
-    //             {
-    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    //             },
-    //             {
-    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    //             },
-    //             {
-    //                 question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-    //                 options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    //             }
-    //         ]
-
-    //     }
-    // }
-    // // {
-    // //examDetails should be an object with the following properties
-    // // {
-    // // examName: "",
-    // // examTime: "EST 1000",
-    // // examQuestions: [
-    // //     {
-    // //         question: "Question",
-    // //         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    // //     }
-    // // }
-    // // }
-
     const getExamQuestions = async () => {
-
 
         // fetch the exam details
         const response = await fetch(`http://localhost:8081/exam/examContent/${examName}`,
