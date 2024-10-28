@@ -43,6 +43,9 @@ const StudentExamOption = () => {
                 console.log(data);
     
                 const contentPromises = data.map(async (exam) => {
+                    // if(exam === "student" || exam ==="teacher"){
+                    //     return
+                    // }
                     let resp = await fetch(`http://localhost:8081/exam/examContent/${exam}`, {
                         method: 'GET',
                         headers: {
