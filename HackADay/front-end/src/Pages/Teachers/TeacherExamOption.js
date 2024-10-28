@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import logo from "../../logo.svg";
 import { StyledContainer, StyledCard, InsideContainer, CardBox } from "./TeacherExamOptionStyledElements"
 import AssignClass from './AssignClass';
@@ -93,7 +93,10 @@ const TeacherExamOption = () => {
                 <div>
                     <Box sx={{ position: 'absolute', top: 16, left: 16, display: 'flex', alignItems: 'center', gap: 3 }}>
                         <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
-                        <div onClick={handleClick}>Assign Class</div>
+                        <Button variant='text' onClick={handleClick}>Assign Class</Button>
+                        <Button variant='text' onClick={() => {
+                            navigate("/create-class")
+                        }}>Create Class</Button>
                     </Box>
                     <InsideContainer maxWidth="xl">
                         <div style={{ marginBottom: '30px', textAlign: 'center', width: '100%' }}>My Exams</div>

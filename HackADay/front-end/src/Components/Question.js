@@ -30,23 +30,28 @@ const Question = ({exam}) => {
         return Math.floor((examEndTime - new Date()) / 1000); // Time difference in seconds
     });
 
-    async function sendImage(formData) {
+    async function sendImage(blob) {
 
-        // try {
-        //     const response = await fetch('http://localhost:5000/upload', {
-        //         method: 'POST',
-        //         body: formData,
-        //         headers:{
-        //             Authorization: 'Bearer ' + localStorage.getItem('token')
-        //         }
-        //     });
-        //     const data = await response.json();
-        //     console.log(data);
-        // } catch (err) {
-        //     console.error('Error sending image: ', err);
-        // }
-        console.log('Image sent');
-        console.log(formData.get('image'));
+        try {
+
+            const formData = new FormData();
+            formData.append('imageFile', await blob);
+            formData.append('classname', exam.examName);
+
+            const response = await fetch('http://localhost:8081/status/checkFaces', {
+                method: 'POST',
+                body: formData,
+                headers:{
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+            if(response.ok){
+                const data = await response.json();
+                console.log('Status ' + data)
+            }
+        } catch (err) {
+            console.error('Error sending image: ', err);
+        }
     }
 
     useEffect(() => {
@@ -110,15 +115,12 @@ const Question = ({exam}) => {
                 canvasRef.current.toBlob(blob => {
                     if (blob) {
                         // Create a FormData object to send the image
-                        const formData = new FormData();
-                        formData.append('image', blob, 'snapshot.png');
-
                         // Send the image to the API server
-                        sendImage(formData);
+                        sendImage(blob);
                     }
                 }, 'image/png');
             }
-        }, 1000);
+        }, 1000 * 30);
 
 
         return () => clearInterval(intervalId);
