@@ -6,7 +6,29 @@
   <component name="ChangeListManager">
     <list default="true" id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/examapp/predefinedConstant/AuthorityConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/examapp/predefinedConstant/AuthorityConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/ExamAppApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/ExamAppApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/Authority.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/Authority.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/Exam.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/Exam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/mapper/AuthorityMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/mapper/AuthorityMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/mapper/ExamMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/mapper/ExamMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/predefinedConstant/AuthorityConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/predefinedConstant/AuthorityConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/authentications/CustomAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/authentications/CustomAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/filters/FaceRecognitionFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/filters/FaceRecognitionFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityAuthority.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityAuthority.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/securityDto/SecurityUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/AuthorityService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/AuthorityService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/AuthorityServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/AuthorityServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/utils/ComparingFaces.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/utils/ComparingFaces.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/utils/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/utils/JwtUtil.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/AssignClass.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/AssignClass.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,38 +57,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.generated-requests | #1.executor": "Run",
-    "HTTP Request.generated-requests | #10.executor": "Run",
-    "HTTP Request.generated-requests | #2.executor": "Run",
-    "HTTP Request.generated-requests | #3.executor": "Run",
-    "HTTP Request.generated-requests | #4.executor": "Run",
-    "HTTP Request.generated-requests | #5.executor": "Run",
-    "HTTP Request.generated-requests | #6.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.ExamAppApplication.executor": "Run",
-    "git-widget-placeholder": "backend-integration",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/user/GitHub/pwc-winner-2024/HackADay/exam-app",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #10.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #6.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ExamAppApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;backend-integration&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/GitHub/pwc-winner-2024/HackADay/exam-app&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Spring Boot.ExamAppApplication">
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
@@ -133,6 +155,9 @@
       <workItem from="1730034690759" duration="8313000" />
       <workItem from="1730058657630" duration="295000" />
       <workItem from="1730082671153" duration="645000" />
+      <workItem from="1730091379831" duration="3119000" />
+      <workItem from="1730096638500" duration="719000" />
+      <workItem from="1730101476093" duration="404000" />
     </task>
     <servers />
   </component>
