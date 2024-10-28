@@ -5,7 +5,7 @@ We created a platform for teachers to monitor students in an online exam and che
 The application consists of a SQL Database, a Redis Cache, a Springboot Backend and a React Frontend. Which could be simply ran with docker compose.
 1. Open the terminal and clone the repository.
 ```sh
-git clone https://github.com/chemistrying/cuhk-ctf-2024-web-demo
+git clone https://github.com/doughnut923/pwc-winner-2024.git
 ```
 2. Install [docker](https://docs.docker.com/get-started/get-docker/). 
 3. Run the server.
