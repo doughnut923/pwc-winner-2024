@@ -160,6 +160,7 @@ const AssignClass = ({ handleBack }) => {
 
             if(result.ok){
                 const data = await result.json();
+                console.log(data);
                 if(data.length === 0){
                     alert("No more students to display");
                     setPage(0);

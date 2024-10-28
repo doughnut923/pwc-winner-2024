@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/examapp/securityConfig/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/examapp/securityConfig/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/securityConfig/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/ExamService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/ExamService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/ExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/ExamServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/Components/AssignClassSelector.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Components/AssignClassSelector.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/AssignClass.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/AssignClass.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,42 +35,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #5.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #6.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ExamAppApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;backend-integration&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/GitHub/pwc-winner-2024/HackADay/exam-app&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #10.executor": "Run",
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "HTTP Request.generated-requests | #5.executor": "Run",
+    "HTTP Request.generated-requests | #6.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.ExamAppApplication.executor": "Run",
+    "git-widget-placeholder": "backend-integration",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/user/GitHub/pwc-winner-2024/HackADay/exam-app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Spring Boot.ExamAppApplication">
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="Run single request">
+    <configuration name="generated-requests | #10" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="10" requestIdentifier="#10" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="generated-requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="4" requestIdentifier="#4" runType="Run single request">
@@ -105,11 +101,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests | #10" />
         <item itemvalue="HTTP Request.generated-requests | #1" />
         <item itemvalue="HTTP Request.generated-requests | #6" />
         <item itemvalue="HTTP Request.generated-requests | #5" />
         <item itemvalue="HTTP Request.generated-requests | #4" />
-        <item itemvalue="HTTP Request.generated-requests | #3" />
       </list>
     </recent_temporary>
   </component>
@@ -135,6 +131,8 @@
       <workItem from="1729863558510" duration="42000" />
       <workItem from="1729955042827" duration="43000" />
       <workItem from="1730034690759" duration="8313000" />
+      <workItem from="1730058657630" duration="295000" />
+      <workItem from="1730082671153" duration="645000" />
     </task>
     <servers />
   </component>
