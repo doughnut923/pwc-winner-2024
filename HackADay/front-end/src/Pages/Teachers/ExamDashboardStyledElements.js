@@ -52,19 +52,19 @@ const ControlPanel = styled(Card)(({ theme }) => ({
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
-    width: '100%', // Make the text field span the entire container
+    width: '100%',
     '& .MuiOutlinedInput-root': {
-        borderRadius: 20, // Set border radius
-        fontSize: '12px', // Set text size to 12px
-        padding: '10px', // Ensure padding is consistent
+        borderRadius: 20,
+        fontSize: '12px',
+        padding: '10px',
     },
     '& .MuiInputLabel-root': {
-        fontSize: '12px', // Set label text size to 12px
+        fontSize: '12px',
     },
     '& .MuiInputBase-input': {
-        padding: '5px', // Set padding to ensure text alignment
+        padding: '5px',
     },
-    marginBottom: theme.spacing(1), // Reduce the margin-bottom for the first TextField
+    marginBottom: theme.spacing(1),
 }));
 
 
