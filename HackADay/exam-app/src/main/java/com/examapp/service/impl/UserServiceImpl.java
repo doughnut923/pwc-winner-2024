@@ -38,20 +38,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user = userMapper.getUserByUsername(username);
         return user;
     }
-//    public byte[] getImageByUsername(@Validated String username) {
-//        try {
-//            Map result = userMapper.getImageByUsername(username);
-//            return (byte[]) result.get("imageData");
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-//    @Override
-//    public int register(User user) {
-//        return userMapper.register(user);
-//    }
 
     @Override
     public String authenticate(User user) {

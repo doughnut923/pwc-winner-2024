@@ -30,9 +30,9 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
     @Override
     @Transactional
     public boolean insertAuthorityWithChecking(List<Authority> authorityList) {
-        Set<String> authoritySet = authorityList.stream().map(Authority::getPermission).collect(Collectors.toSet());
+        Set<String> permissionSet = authorityList.stream().map(Authority::getPermission).collect(Collectors.toSet());
         LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
-        wrapper.in(Exam::getClassname, authoritySet).select(Exam::getClassname);
+        wrapper.in(Exam::getClassname, permissionSet).select(Exam::getClassname);
 
         List<Exam> validTargetList =  examMapper.selectList(wrapper);
         if(validTargetList == null || validTargetList.isEmpty()){
@@ -43,7 +43,9 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
         if( !validTargetSet.containsAll(nameList)) {
             return false;
         }
-        saveBatch(authorityList);
+        for(Authority authority : authorityList) {
+            saveOrUpdate(authority);
+        }
         return true;
     }
 
