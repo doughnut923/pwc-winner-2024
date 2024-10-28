@@ -12,10 +12,10 @@ const ExamPage = () => {
 
     //data from the previous page
     const location = useLocation();
-    // const { examName, examStartTime } = location.state || {};
-    const examName = "Computer Science";
-    const examStartTime = Date.now() + 10000;
-    const examEndTime = Date.now() + 100000;
+    const { examName, examStartTime, examEndTime } = location.state || {};
+    // const examName = "Computer Science";
+    // const examStartTime = Date.now() + 10000;
+    // const examEndTime = Date.now() + 100000;
 
     const navigate = useNavigate();
 
@@ -38,8 +38,8 @@ const ExamPage = () => {
     const DB = {
         "test": {
             examName: "COMP 1000 - Introduction to Computer Science",
-            examTime: Date.now() + 10000,
-            examEndTime: Date.now() + 100000,
+            examTime: new Date(examStartTime).getTime(),
+            examEndTime: new Date(examEndTime).getTime(),
             examQuestions: [
                 {
                     question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
@@ -122,12 +122,12 @@ const ExamPage = () => {
 
         if (examName && examStartTime) {
             localStorage.setItem("examName", examName);
-            localStorage.setItem("examStartTime", examStartTime);
-            localStorage.setItem("examEndTime", examEndTime);
+            localStorage.setItem("examStartTime", new Date(examStartTime).getTime());
+            localStorage.setItem("examEndTime", new Date(examEndTime).getTime());
         }
 
         if(localStorage.getItem("examName") === null){
-            navigate('/StudentDashboard');
+            navigate('/student-exam-option');
             return;
         }
 
