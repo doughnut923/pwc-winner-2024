@@ -1,6 +1,10 @@
-version: '3.8'
-
 services:
+
+  redis-db:
+    image: redis:latest
+    container_name: redis-container
+    ports:
+      - "6378:6379"
 
   # MySQL Serice
   examapp-mysql:
@@ -43,3 +47,4 @@ services:
 
 volumes:
   mysql-data:
+  redis-data:
