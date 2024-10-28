@@ -83,7 +83,7 @@ const TeacherExamOption = () => {
     }
 
     const handleExam = (i, y, z) => {
-        navigate('/exam-dashboard', { state: { examName: i, examStartTime: y, examEndTime: z } })
+        navigate('/exam-dashboard', { state: { examName: i} }); 
     }
 
     // Return the Dashboard form
