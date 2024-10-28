@@ -4,6 +4,7 @@ package com.examapp.securityConfig.filters;
 
 
 import com.examapp.entity.User;
+import com.examapp.predefinedConstant.RedisConstant;
 import com.examapp.securityConfig.securityDto.SecurityUser;
 import com.examapp.service.UserService;
 import com.examapp.utils.ComparingFaces;
@@ -13,6 +14,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
+import java.time.Duration;
+
 @Component
 public class TokenFilter extends OncePerRequestFilter {
     @Resource
@@ -30,6 +34,8 @@ public class TokenFilter extends OncePerRequestFilter {
     private UserService userService;
     @Resource
     private ComparingFaces comparingFaces;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -40,7 +46,13 @@ public class TokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
         jwtToken = authHeader.substring(7);
+        if(!stringRedisTemplate.hasKey(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + jwtToken)){
+            filterChain.doFilter(request, response);
+            return;
+        }
+        stringRedisTemplate.expire(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + jwtToken, Duration.ofSeconds(RedisConstant.TOKEN_STORAGE_DURATION));
         username = jwtUtil.extractUsername(jwtToken);
         // not authenticated before
         if (username != null &&

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.examapp.entity.Authority;
 import com.examapp.entity.User;
 import com.examapp.predefinedConstant.AuthorityConstants;
+import com.examapp.predefinedConstant.RedisConstant;
 import com.examapp.service.AuthorityService;
 import com.examapp.service.UserService;
 import com.examapp.utils.ComparingFaces;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +54,8 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     @Resource
     private S3Util s3Utils;
-
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
     /**
      * POST - User login requests with image verification.
      *
@@ -118,6 +122,8 @@ public class UserController {
             return ResponseEntity.status(HttpServletResponse.SC_FORBIDDEN).build();
         }
         String token = userService.authenticate(user);
+        // redis control expiration of token
+        stringRedisTemplate.opsForValue().set(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + token, "1", Duration.ofSeconds(RedisConstant.TOKEN_STORAGE_DURATION));
         String role = authorityService.checkTeacherOrStudentByUsername(user.getUsername());
         Map map = new HashMap();
         map.put("token", token);

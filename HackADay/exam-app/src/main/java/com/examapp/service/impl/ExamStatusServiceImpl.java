@@ -38,12 +38,10 @@ public class ExamStatusServiceImpl implements ExamStatusService {
         // check if faces match
         if (!comparingFaces.compareFaces(inputImage, retrievedImage)) {
             String listKey = encodeRedisKeyForSuspiciousImageList(username, classname);// key for storing list of suspicious image according to username and password in redis
-//            stringRedisTemplate.multi();
             ListOperations<String, String> listOps = stringRedisTemplate.opsForList();
             String imagePath = encodeImagePath(username,classname); // path for storing individual image in S3
             stringRedisTemplate.opsForList().rightPush(listKey, imagePath);
             stringRedisTemplate.expire(listKey, Duration.ofSeconds(RedisConstant.IMAGE_STORAGE_DURATION));
-//            stringRedisTemplate.exec();
             s3Utils.storeInS3(inputImage, imagePath);
             // signal faces not matches
             return false;
