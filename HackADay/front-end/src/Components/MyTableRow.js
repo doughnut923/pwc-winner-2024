@@ -20,7 +20,7 @@ const MyTableRow = ({ index, student, assignStudent }) => {
     return (
         // <></>
         <TableRow>
-            <TableCell>{index}</TableCell>
+            <TableCell>{index + 1}</TableCell>
             <TableCell>{student.name}</TableCell>
             <TableCell>
                 {

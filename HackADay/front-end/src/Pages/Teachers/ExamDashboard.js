@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from "../../logo.svg"; // Adjust the path to your logo image
 import { useNavigate, useLocation } from 'react-router-dom';
 import { StyledContainer, InsideContainer } from "./ExamDashboardStyledElements";
-import { MenuItem, TextField, Box, TableHead, TableRow, Table, TableBody, TableCell, Checkbox, IconButton, Button, Stack, Modal } from '@mui/material';
+import { TextField, Box, TableHead, TableRow, Table, TableBody, TableCell,  IconButton, Modal } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 

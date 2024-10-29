@@ -47,10 +47,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
     },
 }));
 
-const ControlPanel = styled(Card)(({ theme }) => ({
-    
-}));
-
 const StyledTextField = styled(TextField)(({ theme }) => ({
     width: '100%',
     '& .MuiOutlinedInput-root': {
@@ -69,4 +65,4 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 
 
-export { StyledContainer, InsideContainer, ControlPanel, StyledTextField, StyledCard, CardBox };
+export { StyledContainer, InsideContainer, StyledTextField, StyledCard, CardBox };
