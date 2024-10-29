@@ -16,14 +16,13 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+};
 
 const ExamDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const role = localStorage.getItem('role');
     if (role != "teacher") navigate('/');
-    
     const token = localStorage.getItem('token');
 
     const { examName } = location.state || {};
@@ -32,7 +31,7 @@ const ExamDashboard = () => {
     const [timeLeft, setTimeLeft] = useState("");
     const [timeStatus, setTimeStatus] = useState("Not Started!");
 
-    const examContent = async() => {
+    const examContent = async () => {
         const token = localStorage.getItem('token');
         let resp = await fetch(`http://localhost:8081/exam/examContent/${examName}`, {
             method: 'GET',
@@ -124,26 +123,32 @@ const ExamDashboard = () => {
         }
     };
 
+    const fetchAllSuspiciousImages = async () => {
+        const imagePromises = students.map(async (student) => {
+            const images = await fetchSuspiciousImagesForStudent(student);
+            return { student, images };
+        });
+        const imageResults = await Promise.all(imagePromises);
+
+        const newItemList = imageResults.map((result, index) => ({
+            id: index,
+            name: result.student,
+            alerts: result.images.length.toString(),
+            alertContent: result.images.map(image => ({ image }))
+        }));
+
+        setItemList(newItemList);
+    };
+
     useEffect(() => {
-        const fetchAllSuspiciousImages = async () => {
-            const imagePromises = students.map(async (student) => {
-                const images = await fetchSuspiciousImagesForStudent(student);
-                return { student, images };
-            });
-            const imageResults = await Promise.all(imagePromises);
-
-            const newItemList = imageResults.map((result, index) => ({
-                id: index,
-                name: result.student,
-                alerts: result.images.length.toString(),
-                alertContent: result.images.map(image => ({ image }))
-            }));
-
-            setItemList(newItemList);
-        };
-
         if (students.length) {
-            fetchAllSuspiciousImages();
+            fetchAllSuspiciousImages(); // Initial fetch
+
+            const intervalId = setInterval(() => {
+                fetchAllSuspiciousImages();
+            }, 30000); // 30 seconds
+
+            return () => clearInterval(intervalId); // Cleanup interval on unmount
         }
     }, [students]);
 
@@ -158,7 +163,7 @@ const ExamDashboard = () => {
     };
 
     const handleCheckboxChange = (id) => {
-        setSelectedIds(prevSelectedIds => 
+        setSelectedIds(prevSelectedIds =>
             prevSelectedIds.includes(id)
                 ? prevSelectedIds.filter(selectedId => selectedId !== id)
                 : [...prevSelectedIds, id]
@@ -191,8 +196,8 @@ const ExamDashboard = () => {
                 <div onClick={() => navigate('/teacher-exam-option')} style={{ color: 'gray', fontSize: 20, marginLeft: 30, marginTop: 20, wordSpacing: 10, fontWeight: 700, fontFamily: 'monospace', cursor: 'pointer' }}>{'< BACK'}</div>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ fontSize: 30, fontWeight: 400, color: 'teal' }}>Time Left</div>
-                    {timeStatus === "Exam in Progress" ? <div style={{fontSize: 100, fontWeight: 200}}>{timeLeft}</div> :
-                        <div style={{fontSize: 80, fontWeight: 200}}>{timeStatus}</div>}
+                    {timeStatus === "Exam in Progress" ? <div style={{ fontSize: 100, fontWeight: 200 }}>{timeLeft}</div> :
+                        <div style={{ fontSize: 80, fontWeight: 200 }}>{timeStatus}</div>}
                 </div>
                 <Box
                     component="form"
@@ -223,7 +228,7 @@ const ExamDashboard = () => {
                             <TableCell>Alerts</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody style={{ alignItems: 'center'}}>
+                    <TableBody style={{ alignItems: 'center' }}>
                         {filteredItems.map((item, index) => (
                             <TableRow key={index}>
                                 <TableCell>{item.name}</TableCell>
@@ -265,11 +270,24 @@ const ExamDashboard = () => {
                         >
                             Press 'ESC' key to exit the modal!
                             <Carousel autoPlay={false}>
-                                {itemList[modelId] && itemList[modelId].alertContent.map((item, i) => (
-                                    <div key={i} style={{ textAlign: 'center', alignContent: 'center', color: 'black' }}>
-                                        <img src={`data:image/jpeg;base64,${item.image}`} alt={`Suspicious activity - ${i}`} />
-                                    </div>
-                                ))}
+                                {
+                                    itemList[modelId] && itemList[modelId].alertContent.map((item, i) => {
+                                        console.log(item.image)
+                                        return (
+                                            <div key={i} style={{ textAlign: 'center', alignContent: 'center', color: 'black' }}>
+                                                <img src={`data:image/jpeg;base64,${item.image.imageFile}`} alt={`Suspicious activity - ${i} @ ${item.image.timestamp}`} />
+                                                <p>{`Suspicious activity - ${i} @ ${new Date(item.image.timestamp).toLocaleString('en-us', {
+                                                    year : 'numeric',
+                                                    month : 'long',
+                                                    day : 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    second: '2-digit'
+                                                })}`}</p>
+                                            </div>
+                                        );
+                                    })
+                                }
                             </Carousel>
                         </Box>
                     </Box>

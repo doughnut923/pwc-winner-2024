@@ -18,3 +18,5 @@ You may need to add sudo in front of the command if you haven't set up docker us
 To access the `assign-class` page correctly, you need to have the teacher authority your registered account.
 1. Connect to the SQL Database named `examappdb` with `localhost:3306` with the password and username shown in `compose.yaml` using a method of interest(e.g. [sqlyog](https://github.com/webyog/sqlyog-community/wiki/Downloads))
 2. Under the `t_authority` table, change the value of `permission` to teacher in the corresponding user's row
+
+
