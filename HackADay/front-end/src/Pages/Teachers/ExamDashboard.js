@@ -23,6 +23,7 @@ const ExamDashboard = () => {
     const location = useLocation();
     const role = localStorage.getItem('role');
     if (role != "teacher") navigate('/');
+
     const token = localStorage.getItem('token');
 
     const { examName } = location.state || {};

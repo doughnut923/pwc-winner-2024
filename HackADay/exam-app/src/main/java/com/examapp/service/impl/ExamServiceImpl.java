@@ -55,6 +55,9 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
             String examJson = objectMapper.writeValueAsString(exam);
             String key = encodingKey(exam.getClassname());
             Instant storageEndTime = exam.getEndingTime().toInstant().plus(Duration.ofSeconds(RedisConstant.EXAM_STORAGE_DURATION));
+            if(storageEndTime.isBefore(Instant.now())) {
+                storageEndTime = Instant.now().plusSeconds(RedisConstant.EXAM_STORAGE_DURATION);
+            }
             Duration expire = Duration.between(Instant.now(), storageEndTime);
             stringRedisTemplate.opsForValue().set(key, examJson, expire);
         } catch (JsonProcessingException e) {

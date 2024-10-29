@@ -48,10 +48,10 @@ public class TokenFilter extends OncePerRequestFilter {
         }
 
         jwtToken = authHeader.substring(7);
-        if(!stringRedisTemplate.hasKey(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + jwtToken)){
-            filterChain.doFilter(request, response);
-            return;
-        }
+//        if(!stringRedisTemplate.hasKey(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + jwtToken)){
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
         stringRedisTemplate.expire(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + jwtToken, Duration.ofSeconds(RedisConstant.TOKEN_STORAGE_DURATION));
         username = jwtUtil.extractUsername(jwtToken);
         // not authenticated before
