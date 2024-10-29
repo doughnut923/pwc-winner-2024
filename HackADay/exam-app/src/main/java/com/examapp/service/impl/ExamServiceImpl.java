@@ -44,6 +44,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
         if(now.isAfter(exam.getStartingTime().toInstant()) && now.isBefore(exam.getEndingTime().toInstant())) {
             return exam;
         }
+
         exam.setContent(null);
         return exam;
     }
