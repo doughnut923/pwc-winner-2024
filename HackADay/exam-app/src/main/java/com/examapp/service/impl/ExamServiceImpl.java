@@ -44,9 +44,37 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
         if(now.isAfter(exam.getStartingTime().toInstant()) && now.isBefore(exam.getEndingTime().toInstant())) {
             return exam;
         }
-
         exam.setContent(null);
         return exam;
+    }
+
+    @Override
+    public void cacheExamContent(Exam exam) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String examJson = objectMapper.writeValueAsString(exam);
+            String key = encodingKey(exam.getClassname());
+            Instant storageEndTime = exam.getEndingTime().toInstant().plus(Duration.ofSeconds(RedisConstant.EXAM_STORAGE_DURATION));
+            Duration expire = Duration.between(Instant.now(), storageEndTime);
+            stringRedisTemplate.opsForValue().set(key, examJson, expire);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+    protected Exam getExamFromCache(String classname) {
+        String key = encodingKey(classname);
+        String examJson = stringRedisTemplate.opsForValue().get(key);
+        if(examJson == null){
+            return null;
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Exam exam = objectMapper.readValue(examJson, Exam.class);
+            return exam;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     private String encodingKey(String classname){
         return RedisConstant.KEY_PREFIX_EXAM  + classname + ":" + RedisConstant.KEY_POSTFIX_EXAM_CONTENT;
