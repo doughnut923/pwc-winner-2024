@@ -82,13 +82,13 @@ const StudentExamOption = () => {
 
     // Return the Dashboard form
     return (
-        <StyledContainer maxWidth="sm">
+        <StyledContainer maxWidth="sm" maxHeight="xl">
             <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
             </Box>
             <InsideContainer maxWidth="xl">
                 <div style={{ marginBottom: '30px', textAlign: 'center', width: '100%' }}>My Exams</div>
-                <CardBox maxWidth="xl">
+                <CardBox sx={{ maxWidth: '90vw' }}>
                 {examList.map(exams => (
                     <StyledCard elevation={16} key={exams.id} onClick={() => handleExam(exams.classname, exams.startingTime, exams.endingTime)}>
                         {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
@@ -106,6 +106,157 @@ const StudentExamOption = () => {
                         </div>
                     </StyledCard>
                 ))}
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+                    <StyledCard elevation={16} key={0}>
+                        {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
+                        <div style={{ fontSize: 25, textAlign: 'left', width: '100%', marginBottom: '10px', color: 'teal', height: '80px', alignContent: 'center' }}>Test</div>
+                        <hr style={{ height: '1px', width: '100%', border: 0, marginBottom: '20px', backgroundColor: 'teal' }} />
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '100%' }}>
+                            <div style={{ textAlign: 'left' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'green' }}>Start</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: 18, fontWeight: 400, color: 'red' }}>End</div>
+                                <div style={{ fontSize: 14 }}>{new Date(Date().now).toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    </StyledCard>
+
                 </CardBox>
             </InsideContainer>
         </StyledContainer>

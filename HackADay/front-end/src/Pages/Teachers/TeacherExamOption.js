@@ -100,7 +100,7 @@ const TeacherExamOption = () => {
                     </Box>
                     <InsideContainer maxWidth="xl">
                         <div style={{ marginBottom: '30px', textAlign: 'center', width: '100%' }}>My Exams</div>
-                        <CardBox maxWidth="xl">
+                        <CardBox sx={{ maxWidth: '90vw' }}>
                             {examList.map(exams => (
                                 <StyledCard elevation={16} key={exams.id} onClick={() => handleExam(exams.classname, exams.startingTime, exams.endingTime)}>
                                     {/* <div style={{ fontSize: 15, textAlign: 'left', width: '100%', marginBottom: '10px' }}>{exams.code}</div> */}
