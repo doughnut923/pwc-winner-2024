@@ -12,15 +12,19 @@ const Complete = () => {
     const navigate = useNavigate();
 
     const returnToMenu = () => {
-        navigate("/exam-option");
+        if (localStorage.getItem("role") === 'teacher') {
+            navigate("/teacher-exam-option");
+        } else {
+            navigate("/student-exam-option");
+        }
     }
 
     return (
         <>
             <StyledContainer maxWidth="sm">
-            <>
-                <ConfettiExplosion style={{position:"absolute"}} />
-            </>
+                <>
+                    <ConfettiExplosion style={{ position: "absolute" }} />
+                </>
                 <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
                     <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                 </Box>

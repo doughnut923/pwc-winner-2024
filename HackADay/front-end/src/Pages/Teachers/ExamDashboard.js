@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../../logo.svg"; // Adjust the path to your logo image
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StyledContainer, InsideContainer } from "./ExamDashboardStyledElements";
 import { MenuItem, TextField, Box, TableHead, TableRow, Table, TableBody, TableCell, Checkbox, IconButton, Button, Stack, Modal } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
@@ -16,41 +16,155 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+};
 
 const ExamDashboard = () => {
     const navigate = useNavigate();
-    const [status, setStatus] = useState('');
+    const location = useLocation();
+    const role = localStorage.getItem('role');
+    if (role != "teacher") navigate('/');
+
+    const token = localStorage.getItem('token');
+
+    const { examName } = location.state || {};
+    const [examStartTime, setExamStartTime] = useState();
+    const [examEndTime, setExamEndTime] = useState();
+    const [timeLeft, setTimeLeft] = useState("");
+    const [timeStatus, setTimeStatus] = useState("Not Started!");
+
+    const examContent = async () => {
+        const token = localStorage.getItem('token');
+        let resp = await fetch(`http://localhost:8081/exam/examContent/${examName}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        let contentData = await resp.json();
+        setExamStartTime(contentData.startingTime);
+        setExamEndTime(contentData.endingTime);
+    }
+
+    examContent();
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = new Date();
+            const start = new Date(examStartTime);
+            const end = new Date(examEndTime);
+
+            if (now < start) {
+                setTimeStatus("Not Started!");
+                setTimeLeft("");
+            } else if (now >= start && now <= end) {
+                setTimeStatus("Exam in Progress");
+                const totalSeconds = Math.floor((end - now) / 1000);
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
+            } else {
+                setTimeStatus("Exam Ended");
+                setTimeLeft("");
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [examStartTime, examEndTime]);
+
     const [selectedIds, setSelectedIds] = useState([]);
     const [open, setOpen] = useState(false);
     const [modelId, setModelId] = useState(0);
 
-    const handleStatusChange = (event) => {
-        setStatus(event.target.value);
+
+    const [students, setStudents] = useState([]);
+    const [itemList, setItemList] = useState([]);
+
+    useEffect(() => {
+        const fetchStudentList = async () => {
+            try {
+                let response = await fetch(`http://localhost:8081/authority/studentList/${examName}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                let data = await response.json();
+                setStudents(data);
+            } catch (error) {
+                console.error("Error fetching student list:", error);
+            }
+        };
+
+        fetchStudentList();
+    }, [examName, token]);
+
+    const fetchSuspiciousImagesForStudent = async (studentName) => {
+        try {
+            let response = await fetch(`http://localhost:8081/status/suspiciousImage?classname=${examName}&username=${studentName}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            let data = await response.json();
+            return data; // Expecting an array of images
+        } catch (error) {
+            console.error(`Error fetching suspicious images for ${studentName}:`, error);
+            return [];
+        }
     };
 
-    const [itemList, setItemList] = useState([
-        { id: 0, name: 'Attribute One', status: '0', alerts: '0', alertContent: [{}] },
-        { id: 1, name: 'Attribute Two', status: '0', alerts: '0', alertContent: [{}] },
-        { id: 2, name: 'Attribute Three', status: '0', alerts: '0', alertContent: [] },
-        { id: 3, name: 'Another Attribute', status: '0', alerts: '3', alertContent: [{title: "One", image: "none", time: "00:11:00"}, {title: "Two", image: "none", time: "00:11:00"}, {title: "Three", image: "none", time: "00:11:00"}] },
-        { id: 4, name: 'Filterable Item', status: '0', alerts: '2', alertContent: [{title: "Two", image: "none", time: "00:11:00"}, {title: "One", image: "none", time: "00:11:00"}] }
-    ]);
+    const fetchAllSuspiciousImages = async () => {
+        const imagePromises = students.map(async (student) => {
+            const images = await fetchSuspiciousImagesForStudent(student);
+            return { student, images };
+        });
+        const imageResults = await Promise.all(imagePromises);
+
+        const newItemList = imageResults.map((result, index) => ({
+            id: index,
+            name: result.student,
+            alerts: result.images.length.toString(),
+            alertContent: result.images.map(image => ({ image }))
+        }));
+
+        setItemList(newItemList);
+    };
+
+    useEffect(() => {
+        if (students.length) {
+            fetchAllSuspiciousImages(); // Initial fetch
+
+            const intervalId = setInterval(() => {
+                fetchAllSuspiciousImages();
+            }, 30000); // 30 seconds
+
+            return () => clearInterval(intervalId); // Cleanup interval on unmount
+        }
+    }, [students]);
 
     const [searchTerm, setSearchTerm] = useState('');
 
     const filteredItems = itemList.filter(item =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (status === '' || item.status === status)
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const clearFilters = () => {
         setSearchTerm('');
-        setStatus('');
     };
 
     const handleCheckboxChange = (id) => {
-        setSelectedIds(prevSelectedIds => 
+        setSelectedIds(prevSelectedIds =>
             prevSelectedIds.includes(id)
                 ? prevSelectedIds.filter(selectedId => selectedId !== id)
                 : [...prevSelectedIds, id]
@@ -64,24 +178,6 @@ const ExamDashboard = () => {
             return;
         }
         setSelectedIds([]);
-    };
-
-    const suspendSelectedItems = () => {
-        setItemList(prevItemList => 
-            prevItemList.map(item => 
-                selectedIds.includes(item.id) ? { ...item, previousStatus: item.status, status: '1' } : item
-            )
-        );
-        setSelectedIds([]); // Clear the selected items
-    };
-
-    const unsuspendSelectedItems = () => {
-        setItemList(prevItemList => 
-            prevItemList.map(item => 
-                selectedIds.includes(item.id) && item.status === '1' ? { ...item, status: item.previousStatus } : item
-            )
-        );
-        setSelectedIds([]); // Clear the selected items
     };
 
     const handleOpen = (id) => {
@@ -98,17 +194,18 @@ const ExamDashboard = () => {
         <StyledContainer>
             <InsideContainer maxWidth="xl" style={{ padding: '60px' }}>
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
-                <div style={{ color: 'gray', fontSize: 20, marginLeft: 30, marginTop: 20, wordSpacing: 10, fontWeight: 700, fontFamily: 'monospace' }}>{'< BACK'}</div>
+                <div onClick={() => navigate('/teacher-exam-option')} style={{ color: 'gray', fontSize: 20, marginLeft: 30, marginTop: 20, wordSpacing: 10, fontWeight: 700, fontFamily: 'monospace', cursor: 'pointer' }}>{'< BACK'}</div>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ fontSize: 30, fontWeight: 400, color: 'teal' }}>Time Left</div>
-                    <div style={{ fontSize: 100, fontWeight: 200 }}>00:00:00</div>
+                    {timeStatus === "Exam in Progress" ? <div style={{ fontSize: 100, fontWeight: 200 }}>{timeLeft}</div> :
+                        <div style={{ fontSize: 80, fontWeight: 200 }}>{timeStatus}</div>}
                 </div>
                 <Box
                     component="form"
                     sx={{
                         '& .MuiTextField-root': { m: 1, width: '25ch' },
                         display: 'flex',
-                        alignItems: 'center'
+                        alignItems: 'center',
                     }}
                     noValidate
                     autoComplete="off"
@@ -119,80 +216,26 @@ const ExamDashboard = () => {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <TextField
-                        id="outlined-attribute"
-                        select
-                        value={status}
-                        label="Status"
-                        onChange={handleStatusChange}
-                    >
-                        <MenuItem value="">All</MenuItem>
-                        <MenuItem value="0">Active</MenuItem>
-                        <MenuItem value="1">Suspended</MenuItem>
-                    </TextField>
-                    <Box sx={{ marginRight: "100px" }}>
+                    <Box>
                         <IconButton onClick={clearFilters}>
                             <FilterAltOffIcon />
                         </IconButton>
                     </Box>
-                    <Stack spacing={2} direction="row">
-                        <Button variant="outlined" color="black" onClick={unsuspendSelectedItems}>UNSUSPEND</Button>
-                        <Button variant="contained" color="error" onClick={suspendSelectedItems}>SUSPEND</Button>
-                    </Stack>
                 </Box>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell width='3%'>
-                                <Checkbox 
-                                    indeterminate={selectedIds.length > 0 && selectedIds.length < filteredItems.length}
-                                    checked={filteredItems.length > 0 && selectedIds.length === filteredItems.length}
-                                    onChange={handleSelectAllClick}
-                                />
-                            </TableCell>
-                            <TableCell width='45%'>User</TableCell>
-                            <TableCell align='center'>Account Status</TableCell>
+                            <TableCell width='70%'>User</TableCell>
                             <TableCell>Alerts</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody style={{ alignItems: 'center'}}>
+                    <TableBody style={{ alignItems: 'center' }}>
                         {filteredItems.map((item, index) => (
                             <TableRow key={index}>
-                                <TableCell>
-                                    <Checkbox 
-                                        checked={selectedIds.includes(item.id)}
-                                        onChange={() => handleCheckboxChange(item.id)}
-                                    />
-                                </TableCell>
                                 <TableCell>{item.name}</TableCell>
-                                <TableCell align='center'>
-                                    {item.status === "0" ? (
-                                        <div style={{
-                                            background: "green",
-                                            paddingTop: "3px",
-                                            paddingBottom: "3px",
-                                            borderRadius: "100px",
-                                            color: "white",
-                                            width: "120px",
-                                            margin: "auto",
-                                            textAlign: "center",
-                                        }}>Active</div>
-                                    ) : item.status === "1" ? (
-                                        <div style={{
-                                            background: "red",
-                                            paddingTop: "3px",
-                                            paddingBottom: "3px",
-                                            borderRadius: "100px",
-                                            color: "white",
-                                            width: "120px",
-                                            margin: "auto",
-                                            textAlign: "center",
-                                        }}>Suspended</div>
-                                    ) : ""}
-                                </TableCell>
                                 <TableCell>
-                                    {item.alerts !== "0" ? 
-                                        (<a style={{ color: "red" }} onClick={() => handleOpen(item.id)}>{item.alerts}</a>) : <a>{item.alerts}</a>}
+                                    {item.alerts !== "0" ?
+                                        (<a style={{ color: "red", cursor: "pointer" }} onClick={() => handleOpen(item.id)}>{item.alerts}</a>) : <a>{item.alerts}</a>}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -209,7 +252,7 @@ const ExamDashboard = () => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            minHeight: '100vh', // Ensure the box takes up the full viewport height
+                            minHeight: '100vh',
                         }}
                     >
                         <Box
@@ -221,25 +264,35 @@ const ExamDashboard = () => {
                                 p: 4,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                justifyContent: 'center', // Center content vertically within the modal
+                                justifyContent: 'center',
                                 textAlign: 'center',
                                 color: 'GrayText'
                             }}
                         >
                             Press 'ESC' key to exit the modal!
                             <Carousel autoPlay={false}>
-                                {itemList[modelId].alertContent.map((item, i) => (
-                                    <div key={i} style={{textAlign: 'center', alignContent: 'center', color: 'black'}}>
-                                        <h2>{item.title}</h2>
-                                        <img src=""/>
-                                        <p>{item.time}</p>
-                                    </div>
-                                ))}
+                                {
+                                    itemList[modelId] && itemList[modelId].alertContent.map((item, i) => {
+                                        console.log(item.image)
+                                        return (
+                                            <div key={i} style={{ textAlign: 'center', alignContent: 'center', color: 'black' }}>
+                                                <img src={`data:image/jpeg;base64,${item.image.imageFile}`} alt={`Suspicious activity - ${i} @ ${item.image.timestamp}`} />
+                                                <p>{`Suspicious activity - ${i} @ ${new Date(item.image.timestamp).toLocaleString('en-us', {
+                                                    year : 'numeric',
+                                                    month : 'long',
+                                                    day : 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    second: '2-digit'
+                                                })}`}</p>
+                                            </div>
+                                        );
+                                    })
+                                }
                             </Carousel>
                         </Box>
                     </Box>
                 </Modal>
-
             </InsideContainer>
         </StyledContainer>
     );

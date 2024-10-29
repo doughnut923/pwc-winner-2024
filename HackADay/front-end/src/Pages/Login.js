@@ -43,9 +43,11 @@ const Login = () => {
         // Check the result
 
         if (result.ok) {
+
             const data = await result.json();
             console.log(data);
             localStorage.setItem('token', data.token);
+            localStorage.setItem('role', data.role);
             if (data.role === "teacher") {
                 navigate('/teacher-exam-option');
             } else {
