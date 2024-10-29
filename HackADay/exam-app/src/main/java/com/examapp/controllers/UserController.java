@@ -124,6 +124,7 @@ public class UserController {
         String token = userService.authenticate(user);
         // redis control expiration of token
         stringRedisTemplate.opsForValue().set(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + token, "1", Duration.ofSeconds(RedisConstant.TOKEN_STORAGE_DURATION));
+
         String role = authorityService.checkTeacherOrStudentByUsername(user.getUsername());
         Map map = new HashMap();
         map.put("token", token);
