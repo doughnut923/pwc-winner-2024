@@ -1,7 +1,8 @@
 package com.examapp.securityConfig;
 
 
-import com.examapp.securityConfig.filters.FaceRecognitionFilter;
+import com.examapp.securityConfig.filters.DdosFilter;
+import com.examapp.securityConfig.filters.TokenFilter;
 import com.examapp.securityConfig.securityDto.SecurityUser;
 import com.examapp.service.UserService;
 import jakarta.annotation.Resource;
@@ -28,7 +29,9 @@ import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
 @EnableWebSecurity
 public class SecurityConfig {
     @Resource
-    private FaceRecognitionFilter faceRegFilter;
+    private TokenFilter tokenFilter;
+    @Resource
+    private DdosFilter ddosFilter;
     @Resource
     private UserService userService;
 
@@ -53,7 +56,8 @@ public class SecurityConfig {
                 .sessionManagement(auth ->
                         auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterAt(faceRegFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(tokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(ddosFilter, TokenFilter.class)
                 .build();
 
     }

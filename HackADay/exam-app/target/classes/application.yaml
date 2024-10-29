@@ -5,7 +5,7 @@ spring:
     active: local
   datasource:
     username: root
-    url: jdbc:mysql://127.0.0.1:3300/examappdb
+    url: jdbc:mysql://${examapp.db.host}:3300/examappdb
     password: 232005
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:

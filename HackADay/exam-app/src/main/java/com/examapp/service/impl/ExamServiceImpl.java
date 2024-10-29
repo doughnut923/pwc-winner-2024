@@ -3,38 +3,42 @@ package com.examapp.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.examapp.entity.Exam;
+import com.examapp.predefinedConstant.RedisConstant;
 import com.examapp.service.ExamService;
 import com.examapp.mapper.ExamMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
 
 @Service
+@Slf4j
 public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
     implements ExamService{
 
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
 
     @Override
-    public Exam getExamContentAsTeacher(String className) {
-        LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Exam::getClassname, className);
-        Exam exam = getOne(wrapper);
-        return exam;
+    public Exam getExamContentAsTeacher(String classname) {
+        return handlingExamRetrieval(classname);
     }
 
     @Override
-    @Transactional
-    public Exam getExamContentAsStudent(String className, List<String> authorityList) {
-        if(!authorityList.contains(className)){
+    public Exam getExamContentAsStudent(String classname, List<String> authorityList) {
+        if(!authorityList.contains(classname)){
             return null;
         }
-        
-        LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Exam::getClassname, className);
-        Exam exam = getOne(wrapper);
+
+        Exam exam = handlingExamRetrieval(classname);
         Instant now = Instant.now();
         // check if the exam is in time range
         if(now.isAfter(exam.getStartingTime().toInstant()) && now.isBefore(exam.getEndingTime().toInstant())) {
@@ -42,6 +46,23 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam>
         }
 
         exam.setContent(null);
+        return exam;
+    }
+    private String encodingKey(String classname){
+        return RedisConstant.KEY_PREFIX_EXAM  + classname + ":" + RedisConstant.KEY_POSTFIX_EXAM_CONTENT;
+    }
+    private Exam handlingExamRetrieval(String classname){
+        Exam exam = getExamFromCache(classname);
+        // if in cache, return from cache
+        if (exam != null) {
+            return exam;
+        }
+        log.info("Exam content not in cache");
+        // if not in cache, get from sql and update cache
+        LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Exam::getClassname, classname);
+        exam = getOne(wrapper);
+        cacheExamContent(exam);
         return exam;
     }
 

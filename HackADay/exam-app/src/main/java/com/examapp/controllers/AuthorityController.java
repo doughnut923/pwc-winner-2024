@@ -15,8 +15,8 @@ import java.util.List;
 
 
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("authority")
 public class AuthorityController {
     @Resource

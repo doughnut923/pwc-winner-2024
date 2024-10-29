@@ -2,7 +2,6 @@ package com.examapp.service.impl;
 
 import com.examapp.predefinedConstant.RedisConstant;
 import com.examapp.service.AuthorityService;
-import com.examapp.service.ExamService;
 import com.examapp.service.ExamStatusService;
 import com.examapp.utils.ComparingFaces;
 import com.examapp.utils.S3Util;
@@ -10,9 +9,7 @@ import com.examapp.utils.SecurityContextHolderUtil;
 import jakarta.annotation.Resource;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -38,12 +35,10 @@ public class ExamStatusServiceImpl implements ExamStatusService {
         // check if faces match
         if (!comparingFaces.compareFaces(inputImage, retrievedImage)) {
             String listKey = encodeRedisKeyForSuspiciousImageList(username, classname);// key for storing list of suspicious image according to username and password in redis
-//            stringRedisTemplate.multi();
             ListOperations<String, String> listOps = stringRedisTemplate.opsForList();
             String imagePath = encodeImagePath(username,classname); // path for storing individual image in S3
             stringRedisTemplate.opsForList().rightPush(listKey, imagePath);
-            stringRedisTemplate.expire(listKey, Duration.ofSeconds(RedisConstant.IMAGE_STORAGE_DURATION));
-//            stringRedisTemplate.exec();
+            stringRedisTemplate.expire(listKey, Duration.ofSeconds(RedisConstant.EXAM_STORAGE_DURATION));
             s3Utils.storeInS3(inputImage, imagePath);
             // signal faces not matches
             return false;
@@ -51,7 +46,7 @@ public class ExamStatusServiceImpl implements ExamStatusService {
         // signal faces matches
         return true;
     }
-
+    @Override
     public List<Map> getSuspiciousImageList(String classname, String username){
         String listKey= encodeRedisKeyForSuspiciousImageList(username, classname);
         List<String> imagePathList = stringRedisTemplate.opsForList().range(listKey, 0, -1);

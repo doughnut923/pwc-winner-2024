@@ -56,6 +56,7 @@ public class ExamController {
     @PutMapping("update")
     public ResponseEntity<Void> update(@RequestBody Exam exam) {
         boolean flag = examService.saveOrUpdate(exam);
+        examService.cacheExamContent(exam);
         if (flag) {
             return ResponseEntity.ok().build();
         }
@@ -98,6 +99,7 @@ public class ExamController {
         }
 
         if(permissionlist.contains(TEACHER)){
+            // Teacher has access to all exam, retrieve all exam classes from Exam table
             LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
             wrapper.select(Exam::getClassname);
             permissionlist = examService.list(wrapper).stream()
@@ -105,7 +107,8 @@ public class ExamController {
         }else{
             /*
              permission field in Authority store info exam options and the role as teacher / student
-             exam options are permission list with student / teacher removed
+             exam options are permission list with student / teacher removed,
+             this only left the exam that the student has permission
              */
             permissionlist.remove(STUDENT);
         }
