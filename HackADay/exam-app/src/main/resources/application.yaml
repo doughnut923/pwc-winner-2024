@@ -5,8 +5,8 @@ spring:
     active: local
   datasource:
     username: root
-    url: jdbc:mysql://127.0.0.1:3300/examappdb
-    password: 232005
+    url: jdbc:mysql:///examappdb
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
     multipart:
@@ -17,7 +17,7 @@ spring:
     redis:
       port: 6379
       password: 123456
-      host: localhost
+      host: 192.168.91.129
       lettuce:
         pool:
           max-active: 10

@@ -18,8 +18,8 @@ import java.util.List;
 import static com.examapp.predefinedConstant.AuthorityConstants.STUDENT;
 import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("exam")
 public class ExamController {
     @Resource

@@ -9,4 +9,5 @@ public class RedisConstant {
     public static final long TOKEN_STORAGE_DURATION = 3600; // 1 hour expiration for token
     public static final String KEY_PREFIX_EXAM = "exam:";
     public static final String KEY_POSTFIX_EXAM_CONTENT = "examContent:";
+    public static final Long MAXREQUESTS = 100L;
 }
