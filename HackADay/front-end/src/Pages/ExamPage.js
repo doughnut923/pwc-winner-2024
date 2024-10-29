@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Box, checkboxClasses, Fade, Grow, Paper } from '@mui/material';
 import { useTheme, } from '@mui/material/styles';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { redirect, useLocation, useNavigate } from 'react-router-dom';
 import CheckCamera from '../Components/CheckCamera';
 import WaitingPage from '../Components/WaitingPage';
 import Question from '../Components/Question';
@@ -40,20 +40,27 @@ const ExamPage = () => {
         // fetch the exam details
         const response = await fetch(`http://localhost:8081/exam/examContent/${examName}`,
             {
-                method : "GET",
-                headers:{
+                method: "GET",
+                headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
                 }
             }
         );
 
-        const data = await response.json();
+        if (response.ok) {
+            const data = await response.json();
 
-        console.log(JSON.parse(data.content));
+            if(data.content === null){
+                navigate("/student-exam-option")
+            }
 
-        const temp = examDetails;
-        temp.examQuestions = JSON.parse(data.content);
-        setExamDetails(temp);
+            console.log(JSON.parse(data.content));
+
+            const temp = examDetails;
+            temp.examQuestions = JSON.parse(data.content);
+            setExamDetails(temp);
+        }
+
 
         return;
 
@@ -97,7 +104,7 @@ const ExamPage = () => {
             localStorage.setItem("examEndTime", Date.parse(examEndTime));
         }
 
-        if(localStorage.getItem("examName") === null){
+        if (localStorage.getItem("examName") === null) {
             navigate('/student-exam-option');
             return;
         }
