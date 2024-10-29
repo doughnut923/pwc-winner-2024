@@ -3,6 +3,6 @@ examapp:
     host: localhost
 logging:
   level:
-    root: warn
+    root: info
 
 
