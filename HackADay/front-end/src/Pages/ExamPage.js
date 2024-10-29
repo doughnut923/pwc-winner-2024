@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Box, checkboxClasses, Fade, Grow, Paper } from '@mui/material';
 import { useTheme, } from '@mui/material/styles';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { redirect, useLocation, useNavigate } from 'react-router-dom';
 import CheckCamera from '../Components/CheckCamera';
 import WaitingPage from '../Components/WaitingPage';
 import Question from '../Components/Question';
@@ -12,10 +12,10 @@ const ExamPage = () => {
 
     //data from the previous page
     const location = useLocation();
-    // const { examName, examStartTime } = location.state || {};
-    const examName = "Computer Science";
-    const examStartTime = Date.now() + 10000;
-    const examEndTime = Date.now() + 100000;
+    const { examName, examStartTime, examEndTime } = location.state || {};
+    // const examName = "Computer Science";
+    // const examStartTime = Date.now() + 10000;
+    // const examEndTime = Date.now() + 100000;
 
     const navigate = useNavigate();
 
@@ -35,55 +35,32 @@ const ExamPage = () => {
         }
     );
 
-    const DB = {
-        "test": {
-            examName: "COMP 1000 - Introduction to Computer Science",
-            examTime: Date.now() + 10000,
-            examEndTime: Date.now() + 100000,
-            examQuestions: [
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                },
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                },
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                },
-                {
-                    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
-                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-                }
-            ]
-
-        }
-    }
-    // {
-    //examDetails should be an object with the following properties
-    // {
-    // examName: "",
-    // examTime: "EST 1000",
-    // examQuestions: [
-    //     {
-    //         question: "Question",
-    //         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    //     }
-    // }
-    // }
-
     const getExamQuestions = async () => {
 
+        // fetch the exam details
+        const response = await fetch(`http://localhost:8081/exam/examContent/${examName}`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                }
+            }
+        );
 
-        // // fetch the exam details
-        // const data = await fetch(`https://api.example.com/exam/${examName}`);
-        // const temp = examDetails;
-        // temp.examQuestions = data.questions;
-        // setExamDetails(temp);
+        if (response.ok) {
+            const data = await response.json();
 
-        setExamDetails(DB.test);
+            if(data.content === null){
+                navigate("/student-exam-option")
+            }
+
+            console.log(JSON.parse(data.content));
+
+            const temp = examDetails;
+            temp.examQuestions = JSON.parse(data.content);
+            setExamDetails(temp);
+        }
+
 
         return;
 
@@ -103,9 +80,10 @@ const ExamPage = () => {
     }
 
     async function checkAuthority() {
-        // const result = await fetch("https://api.example.com/authoritystudent", {
+        // const result = await fetch("http://localhost:8081/status/checkFaces", {
+        //     method: 'POST',
         //     headers:{
-        //         Authorization: "Bearer" + localStorage.getItem("token")
+        //         Authorization: "Bearer" + localStorage.getItem("token"),
         //     }
         // });
 
@@ -120,14 +98,14 @@ const ExamPage = () => {
 
     const initExamDetails = () => {
 
-        if (examName && examStartTime) {
+        if (examName && examStartTime && examEndTime) {
             localStorage.setItem("examName", examName);
-            localStorage.setItem("examStartTime", examStartTime);
-            localStorage.setItem("examEndTime", examEndTime);
+            localStorage.setItem("examStartTime", Date.parse(examStartTime));
+            localStorage.setItem("examEndTime", Date.parse(examEndTime));
         }
 
-        if(localStorage.getItem("examName") === null){
-            navigate('/StudentDashboard');
+        if (localStorage.getItem("examName") === null) {
+            navigate('/student-exam-option');
             return;
         }
 
@@ -141,6 +119,8 @@ const ExamPage = () => {
 
     useEffect(() => {
         //check if user have authority to access the page
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
         //if yes, fetch the exam details
         //if not, redirect to the login page
 

@@ -16,6 +16,7 @@ const ShowWebcam = ({handleBlob, message}) => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 videoRef.current.srcObject = stream;
+                window.localStream = stream;
 
                 // Listen for the loadeddata event before playing the video
                 videoRef.current.addEventListener('loadeddata', () => {
@@ -31,8 +32,8 @@ const ShowWebcam = ({handleBlob, message}) => {
 
         // Stop the webcam stream when the component unmounts
         return () => {
-            if (videoRef.current && videoRef.current.srcObject) {
-                videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+            if (window.localStream) {
+                window.localStream.getTracks().forEach(track => track.stop());
             }
         };
     }, []);
