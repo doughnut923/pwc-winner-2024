@@ -73,7 +73,6 @@ const ExamDashboard = () => {
         return () => clearInterval(interval);
     }, [examStartTime, examEndTime]);
 
-    const [selectedIds, setSelectedIds] = useState([]);
     const [open, setOpen] = useState(false);
     const [modelId, setModelId] = useState(0);
 
@@ -161,23 +160,6 @@ const ExamDashboard = () => {
 
     const clearFilters = () => {
         setSearchTerm('');
-    };
-
-    const handleCheckboxChange = (id) => {
-        setSelectedIds(prevSelectedIds =>
-            prevSelectedIds.includes(id)
-                ? prevSelectedIds.filter(selectedId => selectedId !== id)
-                : [...prevSelectedIds, id]
-        );
-    };
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelectedIds = filteredItems.map((item) => item.id);
-            setSelectedIds(newSelectedIds);
-            return;
-        }
-        setSelectedIds([]);
     };
 
     const handleOpen = (id) => {
