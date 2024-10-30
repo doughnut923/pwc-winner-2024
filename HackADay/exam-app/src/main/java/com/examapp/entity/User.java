@@ -12,8 +12,18 @@ import lombok.NoArgsConstructor;
 
 
 /**
- * @TableName t_user
- */
+ * Represents a user in the system.
+ *
+ * <p>This class maps to the <code>t_user</code> table in the SQL database.</p>
+ *
+ * <h3>Fields:</h3>
+ * <ul>
+ *     <li><code>Long id</code>: The unique identifier for the user.</li>
+ *     <li><code>String username</code>: The username of the user.</li>
+ *     <li><code>String password</code>: The password of the user (will be encrypted by bcrypt in sql for security).</li>
+ *     <li><code>Set&lt;{@link Authority}&gt; authorities</code>: A set of authorities/roles assigned to the user (not persisted in the database).</li>
+ * </ul>
+ **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/status/**").authenticated()
                         .requestMatchers("/exam/update",
                                 "/authority/setAuthorities",
+                                "/authority/studentList/*",
                                 "/status/suspiciousImage",
                                 "/status/suspicious/list",
                                 "/user/studentWithClasses"
