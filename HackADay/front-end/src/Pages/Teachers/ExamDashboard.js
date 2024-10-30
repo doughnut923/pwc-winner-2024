@@ -6,18 +6,6 @@ import { TextField, Box, TableHead, TableRow, Table, TableBody, TableCell,  Icon
 import Carousel from 'react-material-ui-carousel';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
-
 const ExamDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,13 +14,13 @@ const ExamDashboard = () => {
 
     const token = localStorage.getItem('token');
 
+    // Get the exam's name from previous page
     const { examName } = location.state || {};
+
+    // Fetch the exam information (starting time and ending time)
     const [examStartTime, setExamStartTime] = useState();
     const [examEndTime, setExamEndTime] = useState();
-    const [timeLeft, setTimeLeft] = useState("");
-    const [timeStatus, setTimeStatus] = useState("Not Started!");
-
-    const examContent = async () => {
+    const examInfo = async () => {
         const token = localStorage.getItem('token');
         let resp = await fetch(`http://localhost:8081/exam/examContent/${examName}`, {
             method: 'GET',
@@ -46,9 +34,11 @@ const ExamDashboard = () => {
         setExamEndTime(contentData.endingTime);
     }
 
-    examContent();
+    examInfo();
 
-
+    // Countdown Timer
+    const [timeLeft, setTimeLeft] = useState("");
+    const [timeStatus, setTimeStatus] = useState("Not Started!");
     useEffect(() => {
         const interval = setInterval(() => {
             const now = new Date();
@@ -73,12 +63,8 @@ const ExamDashboard = () => {
         return () => clearInterval(interval);
     }, [examStartTime, examEndTime]);
 
-    const [open, setOpen] = useState(false);
-    const [modelId, setModelId] = useState(0);
-
-
+    // Get exam's participants
     const [students, setStudents] = useState([]);
-    const [itemList, setItemList] = useState([]);
 
     useEffect(() => {
         const fetchStudentList = async () => {
@@ -103,6 +89,7 @@ const ExamDashboard = () => {
         fetchStudentList();
     }, [examName, token]);
 
+    // Function to fetch suspicious images
     const fetchSuspiciousImagesForStudent = async (studentName) => {
         try {
             let response = await fetch(`http://localhost:8081/status/suspiciousImage?classname=${examName}&username=${studentName}`, {
@@ -123,6 +110,8 @@ const ExamDashboard = () => {
         }
     };
 
+    // Function to fetch images and place to the right student/exam participant
+    const [itemList, setItemList] = useState([]);
     const fetchAllSuspiciousImages = async () => {
         const imagePromises = students.map(async (student) => {
             const images = await fetchSuspiciousImagesForStudent(student);
@@ -140,6 +129,8 @@ const ExamDashboard = () => {
         setItemList(newItemList);
     };
 
+
+    // Fetch suspicious images every 30 seconds
     useEffect(() => {
         if (students.length) {
             fetchAllSuspiciousImages(); // Initial fetch
@@ -152,29 +143,39 @@ const ExamDashboard = () => {
         }
     }, [students]);
 
+    // Search Filter component
     const [searchTerm, setSearchTerm] = useState('');
 
+    // Search Function
     const filteredItems = itemList.filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Clear Search
     const clearFilters = () => {
         setSearchTerm('');
     };
 
+    const [open, setOpen] = useState(false); // Handle Modal
+    const [modelId, setModelId] = useState(0); // Ensure the modal opened belongs to the student
+
+    // Open Modal
     const handleOpen = (id) => {
         setOpen(true);
-        setModelId(id);
+        setModelId(id); // Ensure the modal opened belongs to the student
     }
 
+    // Close Modal
     const handleClose = () => {
         setOpen(false);
-        setModelId(0);
+        setModelId(0); // Set the modal index to default (set to 0)
     }
 
     return (
         <StyledContainer>
             <InsideContainer maxWidth="xl" style={{ padding: '60px' }}>
+
+                {/* Timer */}
                 <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                 <div onClick={() => navigate('/teacher-exam-option')} style={{ color: 'gray', fontSize: 20, marginLeft: 30, marginTop: 20, wordSpacing: 10, fontWeight: 700, fontFamily: 'monospace', cursor: 'pointer' }}>{'< BACK'}</div>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
@@ -182,6 +183,8 @@ const ExamDashboard = () => {
                     {timeStatus === "Exam in Progress" ? <div style={{ fontSize: 100, fontWeight: 200 }}>{timeLeft}</div> :
                         <div style={{ fontSize: 80, fontWeight: 200 }}>{timeStatus}</div>}
                 </div>
+
+                {/* Search Bar */}
                 <Box
                     component="form"
                     sx={{
@@ -204,6 +207,8 @@ const ExamDashboard = () => {
                         </IconButton>
                     </Box>
                 </Box>
+
+                {/* Exam Participant List */}
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -223,6 +228,8 @@ const ExamDashboard = () => {
                         ))}
                     </TableBody>
                 </Table>
+
+                {/* Can Only be opened when, the alert is more than 0 */}
                 <Modal
                     open={open}
                     onClose={handleClose}
