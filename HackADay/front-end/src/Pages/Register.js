@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Typography, Box, CardContent, Alert, Grow } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import logo from "../logo.svg"; // Adjust the path to your logo image
+import logo from "../logo.svg";
 import BiometricSetup from '../Components/BiometricSetup';
 import Slide from '@mui/material/Slide';
 
@@ -24,7 +24,6 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle login logic here
         setRegisterState(1);
     };
 
