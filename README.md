@@ -21,7 +21,7 @@ You may need to add sudo in front of the command if you haven't set up docker us
 
 A teacher account should first be created in order to create and assign the class the the student. once your reach `{your_address}/`, you will be greeted with a login page. Click Sign Up and enter the credentials, click Sign up again. Then you will be prompted to provide face ID, make sure you gave access to the application to access your camera, after aligning the camera to your face, Click done. Then a account would be created.
 
-![SignUp](Teacher_signup.png)
+![SignUp](asset/Teacher_signup.png)
 
 ### 2. Adding a Teacher Role
 
@@ -33,34 +33,55 @@ This application is still in development. To add teacher authority to a user
 
 Create a student account just like creating a teacher account, but without changing the authority group in sql, as new users are defaulted to be students.
 
-![SignUp](Teacher_signup.png)
+![SignUp](asset/Teacher_signup.png)
 
 ### 4. Create and assgining classes
 Login with a teacher's account to access the Teacher's main page.
 
-![alt text](image-1.png)
+![alt text](asset/image-1.png)
 
 click Create Class to create a exam, enter the classname and exam start time and click submit class, go back to the teacher's main page and you should see a class show up.
 
-![alt text](image-2.png)
+![alt text](asset/image-2.png)
 
 Then click assign classes, click the `+` button on the student you would like to aassign class for. Select the class your would like to add and the class permission should be added.  **(KNOWN BUG: Sometimes newly assigned class would not be displayed. Don't assign same class to people multiple times.)**
 
-![alt text](image-3.png)
+![alt text](asset/image-3.png)
 
 ### 5. Access the class
 
 For students, they can now see the class they are able to take. Click on one of the classes and they should be good to go.
 
-![alt text](image-4.png)
+![alt text](asset/image-4.png)
 
 ### 6. Taking the exam
 After redirected to the exampage. They are allow to check if their camera works. If the exam has not started yet, you will be greeted with a countdown page. Once the countdown is reached, it automatically refereshes and shows the questions. Once the exam end time is reached, the students are not allowed to access the exam anymore and be redirected to the login page.
 
-![alt text](image-5.png)
+![alt text](asset/image-5.png)
 
 ### 7. Monitoring the Exam
 
 For the teacher, in the teach's main page, click on the class created. A dashboard could be seen and student cheating could be inspected by clicking on alerts.
-![alt text](image-6.png)
-![alt text](image-7.png)
+![alt text](asset/image-6.png)
+![alt text](asset/image-7.png)
+
+## User Flow Diagrams
+
+![alt text](asset/UserFlowLogin.png)
+
+### Teacher Flow
+
+#### Teacher Page
+
+![alt text](asset/Zen1thUserFlowTeacherOptions.png)
+
+#### Teacher Dashboard
+
+![alt text](asset/Zen1thUserFlowTeacherDashboard.png)
+
+## API Flows
+
+![alt text](asset/Zen1th_Create_Class_API_flow.png) 
+![alt text](asset/Zen1thAssignClassAPIFlow.png) 
+![alt text](asset/Zen1thLoginAPIflow.png) 
+![alt text](asset/Zen1thStudentExamAPIFlow.png)
