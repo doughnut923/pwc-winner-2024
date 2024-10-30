@@ -13,6 +13,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Handle store and retrieve of image to s3
+ */
 @Slf4j
 @Component
 public class S3Util {

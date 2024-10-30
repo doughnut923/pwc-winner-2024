@@ -15,7 +15,33 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.time.Duration;
-
+/**
+ * A filter that implements DDoS protection by limiting the number of requests
+ * from a single IP address within a specified time frame.
+ *
+ * <p>This class is configured using properties with the prefix <code>ddosconfig</code> in application.yaml.</p>
+ *
+ * <h3>Configuration Properties:</h3>
+ * <ul>
+ *     <li><code>boolean ddosON</code>: Flag to enable or disable DDoS protection. (true now)</li>
+ *     <li><code>long ddosTimeLimit</code>: Time limit (in milliseconds) for which
+ *         the request count is tracked. (500 milli now)</li>
+ * </ul>
+ *
+ * <h3>Filter Logic:</h3>
+ * <ol>
+ *     <li>Handles preflight requests (HTTP OPTIONS) by allowing them to pass
+ *         through without further processing.</li>
+ *     <li>If DDoS protection is disabled, all requests are allowed without
+ *         limitation.</li>
+ *     <li>For each request, increments the request count for the client's
+ *         remote address stored in Redis.</li>
+ *     <li>Sets the expiration time for the request count if it's the first
+ *         request from that IP address.</li>
+ *     <li>Checks if the request count exceeds a predefined limit. If it does,
+ *         responds with a <code>503 Service Unavailable</code> status.</li>
+ * </ol>
+ */
 @Component
 @ConfigurationProperties(prefix = "ddosconfig")
 @Data

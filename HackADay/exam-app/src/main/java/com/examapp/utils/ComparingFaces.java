@@ -18,6 +18,9 @@ import software.amazon.awssdk.services.rekognition.model.*;
 
 import java.util.List;
 
+/**
+ * Handle the calling of aws rekognition to compare input image and stored image
+ */
 @Component
 @Data
 @AllArgsConstructor

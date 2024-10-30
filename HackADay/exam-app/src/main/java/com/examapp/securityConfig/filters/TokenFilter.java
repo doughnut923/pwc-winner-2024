@@ -25,7 +25,32 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.time.Duration;
-
+/**
+ * A filter that validates JSON Web Tokens (JWT) {@link JwtUtil} for user authentication
+ * and sets the security context for authenticated users.
+ *
+ * <p>This class is responsible for extracting the JWT from the
+ * Authorization header, validating it, and authenticating the user
+ * based on the token.</p>
+ *
+ * <h3>Filter Logic:</h3>
+ * <ol>
+ *     <li>Handles preflight requests (HTTP OPTIONS) by allowing them
+ *         to pass through without further processing.</li>
+ *     <li>Checks for the presence of the Authorization header and
+ *         validates that it starts with "Bearer ". If not, the request
+ *         is allowed to proceed without authentication.</li>
+ *     <li>Extracts the JWT from the Authorization header and checks
+ *         if it exists in Redis. If the token is missing from Redis,
+ *         the request is allowed to proceed.</li>
+ *     <li>Extends the expiration time of the token in Redis if it is
+ *         found.</li>
+ *     <li>Extracts the username from the JWT. If the user is not
+ *         already authenticated, retrieves  {@link SecurityUser} (holding username and permission) from the database.</li>
+ *     <li>Validates the JWT against the {@link SecurityUser}. If valid,
+ *         creates an authentication that hold JWT and {@link SecurityUser} and sets it in the {@link SecurityContextHolder}.</li>
+ * </ol>
+ */
 @Component
 public class TokenFilter extends OncePerRequestFilter {
     @Resource

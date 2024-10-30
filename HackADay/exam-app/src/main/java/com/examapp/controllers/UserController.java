@@ -54,9 +54,8 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
     /**
      * POST - User login requests with image verification.
-     * This method processes POST requests to the "/login" endpoint, expecting a
-     * multipart form-data request that includes an image file and user information
-     * in JSON format. It first checks if the uploaded image file is empty and
+     * This method processes POST requests to the "user/login" endpoint
+     * It first checks if the uploaded image file is empty and
      * returns a 400 Bad Request response if it is. If the file is valid, it prepares
      * a User object from the provided JSON and retrieves the corresponding stored
      * image from S3 using the user's username.
@@ -200,6 +199,57 @@ public class UserController {
         authority.setPermission(AuthorityConstants.STUDENT);
         return authorityService.save(authority);
     }
+    /**
+     * GET - Retrieve a paginated list of students along with their associated classes.
+     *
+     * <p>This method maps to the "/studentWithClasses" endpoint.</p>
+     *
+     * <p>It retrieves a list of students with their corresponding classes enrolled, returning the results in a paginated format
+     * based on the provided page number.</p>
+     *
+     * <p>The method uses the {@link UserService} to fetch students with their classes for the specified page.</p>
+     *
+     * <p>Return values:</p>
+     * <ul>
+     *     <li>200 OK with a list of {@link User} objects representing students and their classes.</li>
+     * </ul>
+     *
+     * <p><strong>
+     *     This is considered as an expensive operation on sql as it involve retrieving the joint table of user and authority
+     *     Pagination is thus required to avoid excessive retrieval.
+     * </strong></p>
+     * <p><strong>Pagination:</strong>
+     * The method accepts a <code>pageNum</code> parameter to determine which page of results to return.
+     * The page size is defined by the constant <code>AuthorityConstants.pageSize</code>.</p>
+     *
+     * <p>Example response:</p>
+     * <pre>
+     * [
+     *     {
+     *         "username": "Jacky",
+     *         "authorities": [
+     *             {
+     *                 "permission": "Linear algebra"
+     *             },
+     *             {
+     *                 "permission": "English"
+     *             },
+     *             {
+     *                 "permission": "University Calculus"
+     *             }
+     *         ]
+     *     },
+     *     {
+     *         "username": "Jacky3",
+     *         "authorities": []
+     *     },
+     * ]
+     * </pre>
+     * @param pageNum The page number to retrieve, starting from 1.
+     *
+     * @return ResponseEntity<List<User>> A response entity containing a list of users
+     *         with their associated classes.
+     */
     @GetMapping("studentWithClasses")
     public ResponseEntity<List<User>> getStudentWithClasses(@RequestParam int pageNum){
         List<User> userListWithClasses = userService.getStudentWithClasses(pageNum, AuthorityConstants.pageSize);
