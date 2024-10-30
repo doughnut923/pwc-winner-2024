@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { TextField,Card,  Button, Typography, Box, Grid, IconButton } from '@mui/material';
+import { TextField, Card, Button, Typography, Box, Grid, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 import { StyledContainer } from "../ExamOptionStyledElements"
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import moment from 'moment';
 
 const AddClass = () => {
     const [classname, setClassname] = useState('');
@@ -16,13 +17,12 @@ const AddClass = () => {
     const navigate = useNavigate()
 
     const addClassToServer = async () => {
-
         console.log(JSON.stringify({
             classname: classname,
             startingTime: startTime,
             endingTime: endTime,
             content: JSON.stringify(questions),
-        }),)
+        }));
 
         try {
             const response = await fetch("http://localhost:8081/exam/update", {
@@ -70,14 +70,60 @@ const AddClass = () => {
         setQuestions(newQuestions);
     };
 
+    // Handle start time change with validation
+    const handleStartTimeChange = (newValue) => {
+        // Convert newValue to a moment object
+        const startTimeMoment = moment(newValue);
+    
+        // Check if the startTimeMoment is valid
+        if (!startTimeMoment.isValid()) {
+            alert('Invalid start time. Please enter a valid date and time.');
+            return;
+        }
+    
+        // Check if the start time is in the past
+        if (startTimeMoment.isBefore(moment())) {
+            alert('Start time cannot be in the past.');
+            return;
+        }
+    
+        // If all checks pass, set the start time
+        setStartTime(startTimeMoment);
+    };
+
+    // Handle end time change with validation
+    const handleEndTimeChange = (newValue) => {
+        // Convert newValue to a moment object
+        const endTimeMoment = moment(newValue);
+    
+        // Check if the endTimeMoment is valid
+        if (!endTimeMoment.isValid()) {
+            alert('Please use the pop-up calendar!');
+            return;
+        }
+    
+        // Validate against startTime
+        if (startTime && endTimeMoment.isBefore(moment(startTime))) {
+            alert('End time cannot be before start time');
+            return;
+        }
+        
+        setEndTime(endTimeMoment);
+    };
+
+    // Function to check if end time is valid
+    const isEndTimeValid = (time) => {
+        const timeMoment = moment(time);
+        if (time > startTime) return true; // allow anytime after start time
+        return timeMoment.isSameOrAfter(moment(startTime));
+    };
+
     return (
         <StyledContainer maxWidth="sm" sx={{
             overflowY: 'hidden',
             height: '100vh',
         }}>
-
-            <Card sx={{ marginTop: "50px", padding: "2rem", borderRadius: "30px", width:"80%", backgroundColor:"white", height:"80vh", overflowY:"scroll"}}>
-                {/* add a back button to return to /teacher-exam-option */}
+            <Card sx={{ marginTop: "50px", padding: "2rem", borderRadius: "30px", width: "80%", backgroundColor: "white", height: "80vh", overflowY: "scroll" }}>
                 <Button onClick={() => navigate('/teacher-exam-option')} startIcon={<ArrowBackIosNewIcon />}>Go Back</Button>
                 <Typography variant="h4" gutterBottom >
                     Add Class
@@ -94,7 +140,7 @@ const AddClass = () => {
                         <Typography variant="h5">Start Time</Typography>
                         <Datetime
                             value={startTime}
-                            onChange={(newValue) => setStartTime(newValue)}
+                            onChange={handleStartTimeChange}
                             inputProps={{ placeholder: 'Select Start Time' }}
                         />
                     </Box>
@@ -102,8 +148,9 @@ const AddClass = () => {
                         <Typography variant="h5">End Time</Typography>
                         <Datetime
                             value={endTime}
-                            onChange={(newValue) => setEndTime(newValue)}
+                            onChange={handleEndTimeChange}
                             inputProps={{ placeholder: 'Select End Time' }}
+                            isValidDate={isEndTimeValid} // Disable dates before start time
                         />
                     </Box>
                     <Typography variant="h6" gutterBottom>
