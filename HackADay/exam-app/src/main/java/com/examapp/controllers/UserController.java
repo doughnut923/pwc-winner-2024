@@ -2,8 +2,7 @@ package com.examapp.controllers;
 
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+
 import com.examapp.entity.Authority;
 import com.examapp.entity.User;
 import com.examapp.predefinedConstant.AuthorityConstants;
@@ -19,7 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +42,6 @@ public class UserController {
     @Resource
     private AuthorityService authorityService;
     @Resource
-    private JwtUtil jwtUtil;
-    @Resource
     private ComparingFaces comparingFaces;
     @Resource
     private ObjectMapper objectMapper;
@@ -58,14 +54,12 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
     /**
      * POST - User login requests with image verification.
-     *
      * This method processes POST requests to the "/login" endpoint, expecting a
      * multipart form-data request that includes an image file and user information
      * in JSON format. It first checks if the uploaded image file is empty and
      * returns a 400 Bad Request response if it is. If the file is valid, it prepares
      * a User object from the provided JSON and retrieves the corresponding stored
      * image from S3 using the user's username.
-     *
      * The method then compares the uploaded image with the stored image. If the
      * faces do not match, it returns a 403 Forbidden response. If the faces match,
      * it authenticates the user and retrieves their role (either Teacher or Student).
@@ -124,6 +118,7 @@ public class UserController {
         String token = userService.authenticate(user);
         // redis control expiration of token
         stringRedisTemplate.opsForValue().set(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + token, "1", Duration.ofSeconds(RedisConstant.TOKEN_STORAGE_DURATION));
+
         String role = authorityService.checkTeacherOrStudentByUsername(user.getUsername());
         Map map = new HashMap();
         map.put("token", token);
@@ -133,9 +128,7 @@ public class UserController {
 
     /**
      * POST - Registers a new user with an uploaded image.
-     *
      * Username with ':' is not allowed to avoid conflicts in Redis or S3.
-     *
      * This method processes POST requests to the "/register" endpoint, expecting a
      * multipart form-data request that includes an image file and user details in JSON format.
      * It checks if the uploaded image file is present and validates the username before
@@ -155,7 +148,7 @@ public class UserController {
      * <p>Expected Status Codes:</p>
      * <ul>
      *     <li>201 Created: User registered successfully.</li>
-     *     <li>400 Bad Request: If the image file is missing.</li>
+     *     <li>400 Bad Request: If the image file is missing or username not valid (has ':').</li>
      *     <li>409 Conflict: If the username already exists.</li>
      * </ul>
      *
@@ -173,7 +166,7 @@ public class UserController {
         User user = objectMapper.readValue(userJson, User.class);
         // not allowing username with ':' to avoid conflicts
         if(user.getUsername().contains(":")){
-            return ResponseEntity.status(HttpServletResponse.SC_CONFLICT).build();
+            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
         }
         s3Utils.storeInS3(imageFile.getBytes(), user.getUsername());
         /*
@@ -198,8 +191,7 @@ public class UserController {
     @Transactional
     protected boolean handleRegister(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        boolean flag = false;
-        flag = userService.save(user);
+        boolean flag = userService.save(user);
         if(!flag){
             return false;
         }

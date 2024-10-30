@@ -27,14 +27,10 @@ public class DdosFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // Allow preflight requests
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Allow your frontend origin
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
-        response.setHeader("Access-Control-Allow-Credentials", "true"); // Allow credentials if needed
 
         // Handle pre-flight requests
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
+            filterChain.doFilter(request, response);
             return; // Skip further processing for pre-flight requests
         }
 

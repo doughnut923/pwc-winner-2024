@@ -14,7 +14,7 @@ const CheckCamera = ({ handleBlob }) => {
                 textAlign: 'center', // Center the text inside the box
                 padding: '20px', // Add some padding
                 borderRadius: '8px', // Optional: Add rounded corners
-                height: '60%', // Optional: Set the height
+
             }}
         >
             <img
