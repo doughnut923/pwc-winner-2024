@@ -1,6 +1,11 @@
-version: '3.8'
-
 services:
+
+  redis-db:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
 
   # MySQL Serice
   examapp-mysql:
@@ -18,7 +23,7 @@ services:
 
   # Backend Service
   springboot-backend:
-    build: ./HackADay/exam-app
+    build: /HackADay/exam-app
     container_name: backend-container
     ports:
       - "8081:8081"
@@ -43,3 +48,4 @@ services:
 
 volumes:
   mysql-data:
+  redis-data:
