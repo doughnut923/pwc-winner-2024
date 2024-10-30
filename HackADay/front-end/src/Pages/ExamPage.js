@@ -12,7 +12,7 @@ const ExamPage = () => {
     //data from the previous page
     const location = useLocation();
     const { examName } = location.state || {};
-    
+
     // fetch exam details (end time and start time)
     const examInfo = async () => {
         const token = localStorage.getItem('token');
@@ -24,10 +24,16 @@ const ExamPage = () => {
             }
         })
         let contentData = await resp.json();
+
+        console.log("Data : " + JSON.stringify(contentData));
+        if (contentData.content === null) {
+            return
+        }
         // console.log(contentData);
         localStorage.setItem('examStartTime', Date.parse(contentData.startingTime));
         localStorage.setItem('examEndTime', Date.parse(contentData.endingTime));
         localStorage.setItem('examName', examName);
+        initExamDetails();
     }
 
     // const examName = "Computer Science";
@@ -67,13 +73,19 @@ const ExamPage = () => {
         if (response.ok) {
             const data = await response.json();
 
-            if(data.content === null){
+            if (data.content === null) {
                 navigate("/student-exam-option")
             }
 
+            console.log("Name " + data.classname);
+            console.log("Start Time " + data.startingTime);
+            console.log("End Time " + data.endingTime);
             console.log(JSON.parse(data.content));
 
             const temp = examDetails;
+            temp.examName = data.classname;
+            temp.examTime = data.startingTime;
+            temp.examEndTime = data.endingTime;
             temp.examQuestions = JSON.parse(data.content);
             setExamDetails(temp);
         }
@@ -98,7 +110,7 @@ const ExamPage = () => {
 
     const initExamDetails = () => {
 
-        if (localStorage.getItem("examName") === null ||  localStorage.getItem("examStartTime") === null || localStorage.getItem("examEndTime") === null) {
+        if (localStorage.getItem("examName") === null || localStorage.getItem("examStartTime") === null || localStorage.getItem("examEndTime") === null) {
             navigate('/student-exam-option');
             return;
         }
@@ -112,18 +124,11 @@ const ExamPage = () => {
     }
 
     useEffect(() => {
-        const fetchExamInfo = async () => {
-            await examInfo();
-            initExamDetails();
-        };
-        fetchExamInfo();
+        examInfo();
 
-        const intervalId = setInterval(fetchExamInfo, 30000);
 
-        return () => clearInterval(intervalId);
+    }, []);
 
-    },[]);
-    
     const theme = useTheme();
 
     //render corresponding UI based on the UIState
@@ -187,8 +192,8 @@ const ExamPage = () => {
                 </Box>
             </>
         );
-    } 
-    
+    }
+
     else if (UIState === "Question") {
         return (
             <>
@@ -213,7 +218,7 @@ const ExamPage = () => {
                         <Box sx={{ position: 'absolute', top: 30, left: 50 }}>
                             <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                         </Box>
-                        <Question exam={examDetails}></Question>
+                        <Question exam={examDetails} getExamQuestions={getExamQuestions}></Question>
                     </Paper>
                 </Box>
             </>
