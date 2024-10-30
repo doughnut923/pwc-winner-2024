@@ -14,11 +14,13 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
 
-    const [showRegisterAlert, setShowRegisterAlert] = useState(false);
-
     const [registerState, setRegisterState] = useState(0);
 
     const navigate = useNavigate();
+
+    const [showDuplicateAlert, setShowDuplicateAlert] = useState(false);
+
+    const [showInvalidAlert, setShowInvalidAlert] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -54,15 +56,31 @@ const Register = () => {
         if(result.ok){
             navigate('/');
         }
+
+        if (result.status == "400") {
+            navigate('/signup');
+            setShowInvalidAlert(true);
+        }
+        if (result.status == "403") {
+            navigate('/signup');
+            setShowDuplicateAlert(true);
+        }
     }
 
     //return the Register form
     return (
         <StyledContainer maxWidth="sm">
-            {showRegisterAlert &&
-                <Slide in={showRegisterAlert}>
-                    <Alert variant={"filled"} onClose={() => setShowRegisterAlert(false)} severity={"error"} sx={{ position: 'absolute', top: 24, borderRadius: "30px", padding: "3px 10px" }}>
-                        Login Failed
+            {showInvalidAlert &&
+                <Slide in={showInvalidAlert}>
+                    <Alert variant={"filled"} onClose={() => setShowInvalidAlert(false)} severity={"error"} sx={{ position: 'absolute', top: 24, borderRadius: "30px", padding: "3px 10px" }}>
+                        Username containing ":" is not allowed!
+                    </Alert>
+                </Slide>
+            }
+            {showDuplicateAlert &&
+                <Slide in={showDuplicateAlert}>
+                    <Alert variant={"filled"} onClose={() => setShowDuplicateAlert(false)} severity={"error"} sx={{ position: 'absolute', top: 24, borderRadius: "30px", padding: "3px 10px" }}>
+                        Username already exist!
                     </Alert>
                 </Slide>
             }
@@ -79,7 +97,7 @@ const Register = () => {
                             <img src={logo} alt="Logo" style={{ maxWidth: '150px' }} />
                         </Box>
                         <Typography pl="4px" component="h1" variant="h5" align="left" color='primary' sx={{ fontWeight: 600 }}>
-                            Login
+                            Register
                         </Typography>
                         <StyledForm component="form" onSubmit={handleSubmit}>
                             <StyledTextField
