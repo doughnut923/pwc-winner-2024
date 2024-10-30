@@ -18,6 +18,25 @@ import java.util.List;
 import static com.examapp.predefinedConstant.AuthorityConstants.STUDENT;
 import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
 
+/**
+ * <ul>
+ *   <li>Handles information about exam lists and exam content.</li>
+ *   <li>APIs available:
+ *     <ol>
+ *       <li>create or update exam info (<code>update</code>)</li>
+ *       <li>get the list of exams (<code>getExamList</code>)</li>
+ *       <li>retrieve exam content (<code>getExamContent</code>)</li>
+ *     </ol>
+ *   </li>
+ *   <li>Available to teachers only:
+ *     <ul>
+ *       <li><code>update</code></li>
+ *       <li><code>getExamList</code>: shows all exams to teachers while only permitted exams are shown to students.</li>
+ *       <li><code>getExamContent</code>: shows content to teachers at all times while masking content for students outside of allowed timing.</li>
+ *     </ul>
+ *   </li>
+ * </ul>
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("exam")
@@ -28,16 +47,16 @@ public class ExamController {
     private ExamMapper examMapper;
 
     /**
-     * Handles PUT requests to update an existing exam or create a new exam if it doesn't exist.
+     * PUT - update an existing exam or create a new exam if it doesn't exist.
      *
-     * This method uses the examService to perform the save or update operation.
-     * If the operation is successful, it returns a 200 OK response. If the operation
-     * fails due to an unexpected condition (e.g., server crash or programming bug),
-     * it returns a 500 Internal Server Error response.
+     * <p>This method maps to "/exam/update" to perform the save or update operation.
+     * If the operation is successful, it returns a 200 OK response. If the operation fails due to
+     * an unexpected condition (e.g., server crash or programming bug), it returns a
+     * 500 Internal Server Error response.</p>
      *
-     *      <p>Note: This operation can only be performed by a teacher.</p>
+     * <p><strong>Note:</strong> This operation can only be performed by a teacher and requires a Bearer token for authentication.</p>
      *
-     * @param exam The Exam object containing the exam details to be updated.
+     * @param exam The {@link Exam} object containing the exam details to be updated.
      *             Example JSON representation:
      *             <pre>
      *             {
@@ -48,10 +67,13 @@ public class ExamController {
      *             }
      *             </pre>
      *
-     * @return ResponseEntity<Void> A response entity indicating the result of the update operation.
-     *         - Returns 200 OK if the update is successful.
-     *         - Returns 500 Internal Server Error if an unexpected error occurs during the update.
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
      *
+     * @return ResponseEntity<Void> A response entity indicating the result of the update operation.
+     *         <ul>
+     *         <li>Returns 200 OK if the update is successful.</li>
+     *         <li>Returns 500 Internal Server Error if an unexpected error occurs during the update.</li>
+     *         </ul>
      */
     @PutMapping("update")
     public ResponseEntity<Void> update(@RequestBody Exam exam) {
@@ -134,7 +156,7 @@ public class ExamController {
      * <p>Example response for a successful retrieval:</p>
      * <pre>
      * {
-     *     "className": "Mathematics",
+     *     "classname": "Mathematics",
      *     "startingTime": "2024-10-01T09:00:00.000+00:00",
      *     "endingTime": "2024-11-25T11:00:00.000+00:00",
      *     "content": "Final Exam covering chapters 1-10."
