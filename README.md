@@ -85,3 +85,4 @@ For the teacher, in the teach's main page, click on the class created. A dashboa
 ![alt text](asset/Zen1thAssignClassAPIFlow.png) 
 ![alt text](asset/Zen1thLoginAPIflow.png) 
 ![alt text](asset/Zen1thStudentExamAPIFlow.png)
+![alt text](asset/Zen1thTeacherDashboardAPIflow.png)
