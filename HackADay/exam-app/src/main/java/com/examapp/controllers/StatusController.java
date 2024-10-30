@@ -11,7 +11,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * <ul>
+ *   <li>Handles operations related to student verification and suspicious image management.</li>
+ *   <li>APIs available:
+ *     <ol>
+ *       <li>check if the input image matches the stored user image (<code>checkFaces</code>)</li>
+ *       <li>retrieve a list of suspicious images for a specific user and class (<code>getSuspiciousImageList</code>)</li>
+ *       <li>retrieve a list of students along with their suspicious status (<code>getSuspiciousList</code>)</li>
+ *     </ol>
+ *   </li>
+ *   <li>Available to teachers only:
+ *     <ul>
+ *       <li><code>getSuspiciousImageList</code>: allows teachers to view images flagged as suspicious for students.</li>
+ *       <li><code>getSuspiciousList</code>: enables teachers to obtain a list of students with their suspicious status.</li>
+ *     </ul>
+ *   </li>
+ * </ul>
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("status")
