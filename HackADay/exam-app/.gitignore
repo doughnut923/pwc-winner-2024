@@ -43,6 +43,8 @@ secrets.yml
 .git-hooks/
 node_modules
 
+application-local.yaml
+
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

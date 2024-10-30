@@ -5,7 +5,7 @@ spring:
     active: local
   datasource:
     username: ${examapp.sql.username}
-    url: jdbc:mysql://${examapp.sql.host}/${examapp.sql.db}
+    url: jdbc:mysql://${examapp.sql.host}:${examapp.sql.port}/${examapp.sql.db}
     password: ${examapp.sql.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
