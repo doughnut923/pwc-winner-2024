@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, List, ListItem, ListItemText, CircularProgress, Box } from '@mui/material';
+import { Typography, List, ListItem, Box } from '@mui/material';
 
 const AssignClassSelector = ({ setOnAdd, student, assignclasss }) => {
     const [classes, setClasses] = useState([]);

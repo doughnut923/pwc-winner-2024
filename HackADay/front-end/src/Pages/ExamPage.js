@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Box, checkboxClasses, Fade, Grow, Paper } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Box, Paper } from '@mui/material';
 import { useTheme, } from '@mui/material/styles';
-import { redirect, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CheckCamera from '../Components/CheckCamera';
 import WaitingPage from '../Components/WaitingPage';
 import Question from '../Components/Question';

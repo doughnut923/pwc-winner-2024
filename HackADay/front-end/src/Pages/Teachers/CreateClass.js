@@ -6,7 +6,6 @@ import "react-datetime/css/react-datetime.css";
 import { StyledContainer } from "../ExamOptionStyledElements"
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { useTheme } from '@emotion/react';
 
 const AddClass = () => {
     const [classname, setClassname] = useState('');
@@ -71,15 +70,13 @@ const AddClass = () => {
         setQuestions(newQuestions);
     };
 
-    const theme = useTheme();
-
     return (
         <StyledContainer maxWidth="sm" sx={{
             overflowY: 'hidden',
             height: '100vh',
         }}>
 
-            <Card sx={{ marginTop: "50px", backgroundColor: "#EBEDDF", padding: "2rem", borderRadius: "30px", width:"80%", backgroundColor:"white", height:"80vh", overflowY:"scroll"}}>
+            <Card sx={{ marginTop: "50px", padding: "2rem", borderRadius: "30px", width:"80%", backgroundColor:"white", height:"80vh", overflowY:"scroll"}}>
                 {/* add a back button to return to /teacher-exam-option */}
                 <Button onClick={() => navigate('/teacher-exam-option')} startIcon={<ArrowBackIosNewIcon />}>Go Back</Button>
                 <Typography variant="h4" gutterBottom >

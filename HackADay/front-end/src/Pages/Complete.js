@@ -4,7 +4,6 @@ import logo from "../logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
 import { StyledContainer, StyledCard, StyledButton } from "./LoginStyledElements"
 import ConfettiExplosion from 'react-confetti-explosion';
-import useState from 'react';
 
 
 const Complete = () => {

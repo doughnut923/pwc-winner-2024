@@ -10,7 +10,7 @@ const ExamDashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const role = localStorage.getItem('role');
-    if (role != "teacher") navigate('/');
+    if (role !== "teacher") navigate('/');
 
     const token = localStorage.getItem('token');
 
@@ -222,7 +222,7 @@ const ExamDashboard = () => {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>
                                     {item.alerts !== "0" ?
-                                        (<a style={{ color: "red", cursor: "pointer" }} onClick={() => handleOpen(item.id)}>{item.alerts}</a>) : <a>{item.alerts}</a>}
+                                        (<div style={{ color: "red", cursor: "pointer" }} onClick={() => handleOpen(item.id)}>{item.alerts}</div>) : <div>{item.alerts}</div>}
                                 </TableCell>
                             </TableRow>
                         ))}
