@@ -6,7 +6,7 @@ spring:
     active: local
   datasource:
     username: ${SRPING_DATASOURCE_USERNAME}
-    url: ${jdbc:mysql://examapp-mysql:3306/examappdb}
+    url: ${SPRING_DATASOURCE_URL}
     password: ${SRPING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
