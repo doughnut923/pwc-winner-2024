@@ -184,7 +184,7 @@ const Question = ({exam}) => {
                 Question {currentQuestionIndex + 1}
             </Typography>
             <Typography variant="body1" gutterBottom>
-                {currentQuestion.question}
+                {currentQuestion.examQuestions}
             </Typography>
             <FormControl component="fieldset">
                 <FormLabel component="legend">Options</FormLabel>

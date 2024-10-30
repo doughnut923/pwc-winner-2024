@@ -61,7 +61,7 @@ const Register = () => {
             navigate('/signup');
             setShowInvalidAlert(true);
         }
-        if (result.status == "403") {
+        if (result.status == "409") {
             navigate('/signup');
             setShowDuplicateAlert(true);
         }
