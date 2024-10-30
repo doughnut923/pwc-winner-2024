@@ -8,7 +8,9 @@ The application consists of a SQL Database, a Redis Cache, a Springboot Backend 
 git clone https://github.com/doughnut923/pwc-winner-2024.git
 ```
 2. Install [docker](https://docs.docker.com/get-started/get-docker/). 
-3. Run the server.
+3. Setup [AWS Rekignition](https://docs.aws.amazon.com/rekognition/latest/dg/setting-up.html)
+4. Change the necessary variables in `compose.yaml` especially the AWS credentials. 
+5. Run the server.
 ```sh
 docker-compose up -d
 ```
