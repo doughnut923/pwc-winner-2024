@@ -2,12 +2,12 @@ examapp:
   sql:
     username: root
     host: localhost
-    password: root
+    password: 232005
+    port: 3300
     db: examappdb
   redis:
     port: 6379
-    host: 192.168.91.129
-    password: 123456
+    host: localhost
 logging:
   level:
     root: info

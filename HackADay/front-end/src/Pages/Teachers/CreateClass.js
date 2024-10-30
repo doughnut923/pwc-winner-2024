@@ -6,7 +6,7 @@ import "react-datetime/css/react-datetime.css";
 import { StyledContainer } from "../ExamOptionStyledElements"
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import moment from 'moment'; // parse dates from various formats
+import moment from 'moment'; 
 
 const AddClass = () => {
     const [classname, setClassname] = useState('');
