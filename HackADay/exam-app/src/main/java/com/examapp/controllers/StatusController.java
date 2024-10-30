@@ -24,7 +24,7 @@ public class StatusController {
      *
      * This method retrieves the user's image from S3 based on the username obtained
      * from the security context. It then compares the provided image file. If the faces
-     * do not match, the input image is uploaded to S3 and remains there for 30 days.
+     * do not match or error encounter in image rekognition, the input image is uploaded to S3 and remains there for 30 days.
      * The corresponding image path and timestamp are stored in Redis.
      *
      * @param imageFile The image file uploaded as part of the request, representing
