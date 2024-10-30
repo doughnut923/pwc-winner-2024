@@ -12,7 +12,7 @@ COPY package.json /app/
 # Install dependencies
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 80
 
 # Expose the port the app runs on
 CMD ["npm", "start"]

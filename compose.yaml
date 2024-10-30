@@ -23,7 +23,7 @@ services:
 
   # Backend Service
   springboot-backend:
-    build: /HackADay/exam-app
+    build: ./HackADay/exam-app
     container_name: backend-container
     ports:
       - "8081:8081"
@@ -45,7 +45,7 @@ services:
     build: ./HackADay/front-end
     container_name: frontend-container
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - springboot-backend
       - redis-db
