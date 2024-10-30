@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/Authority.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/Authority.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/Exam.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/Exam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/ExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/examapp/service/impl/ExamServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/ExamDashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/CreateClass.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/Pages/Teachers/CreateClass.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../dump.rdb" beforeDir="false" afterPath="$PROJECT_DIR$/../../dump.rdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +60,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.ExamAppApplication.executor&quot;: &quot;Run&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;finals-deployment&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/michael/Documents/HackADay/HackADay/exam-app&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -58,14 +72,8 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql_aurora&quot;,
-      &quot;mysql&quot;
-    ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Spring Boot.ExamAppApplication">
     <configuration name="generated-requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="5" requestIdentifier="#5" runType="Run single request">
       <method v="2" />

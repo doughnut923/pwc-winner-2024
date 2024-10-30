@@ -1,5 +1,12 @@
 examapp:
-  db:
+  sql:
+    username: root
+    host: localhost
+    password: 232005
+    port: 3300
+    db: examappdb
+  redis:
+    port: 6379
     host: localhost
 logging:
   level:

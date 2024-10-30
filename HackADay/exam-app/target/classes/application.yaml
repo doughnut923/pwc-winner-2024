@@ -16,8 +16,9 @@ spring:
       max-request-size: 100MB
   data:
     redis:
-      port: ${REDIS_PORT}
-      host: ${REDIS_HOST}
+      port: 6379
+      password: 123456
+      host: 127.0.0.1
       lettuce:
         pool:
           max-active: 10
