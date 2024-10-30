@@ -6,7 +6,7 @@ import "react-datetime/css/react-datetime.css";
 import { StyledContainer } from "../ExamOptionStyledElements"
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import moment from 'moment';
+import moment from 'moment'; // parse dates from various formats
 
 const AddClass = () => {
     const [classname, setClassname] = useState('');
@@ -107,7 +107,7 @@ const AddClass = () => {
             alert('End time cannot be before start time');
             return;
         }
-        
+
         setEndTime(endTimeMoment);
     };
 
