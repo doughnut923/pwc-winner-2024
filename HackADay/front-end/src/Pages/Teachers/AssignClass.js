@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Box, Container, Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import logo from "../../logo.svg"; // Adjust the path to your logo image
 import { StyledContainer } from "../ExamOptionStyledElements"
-import { useNavigate } from 'react-router-dom';
 import MyTableRow from '../../Components/MyTableRow';
 import { useTheme } from '@emotion/react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -10,7 +9,6 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 //List out all students in the system, teacher is allowed to click the student and assign him to an avaliable class.
 const AssignClass = ({ handleBack }) => {
 
-    const navigate = useNavigate();
     const [refresh, setRefresh] = useState(false); // State variable to trigger useEffect
 
     const [currentPage, setPage] = useState(0);

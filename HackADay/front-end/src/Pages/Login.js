@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box, Card, CardContent, Alert, Fade, Slide, Grow } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Typography, Box, CardContent, Alert, Slide, Grow } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import logo from "../logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
