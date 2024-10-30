@@ -29,6 +29,7 @@ services:
       - "8081:8081"
     depends_on:
       - examapp-mysql
+      - redis-db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://examapp-mysql:3306/examappdb
       SPRING_DATASOURCE_USERNAME: root
