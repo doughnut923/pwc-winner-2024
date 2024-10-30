@@ -28,6 +28,7 @@ The `Question` component displays exam questions, and integrates webcam function
 - Answer Selection: Users select answers via radio buttons, which are stored and managed in the state.
 - Timer: A countdown timer displays the remaining exam time.
 - Webcam Integration: Periodically captures and sends images to the backend for monitoring purposes.
+- Auto Submission: The exam will only be submitted when the timer reaches 0.
 
 <br />
 **Note:** This component is accessible to students only.
