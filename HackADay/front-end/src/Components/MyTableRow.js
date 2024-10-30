@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TableRow, TableCell, Button, Chip } from '@mui/material';
+import React from 'react';
+import { TableRow, TableCell, Chip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton } from '@mui/material';
 import AssignClassSelector from './AssignClassSelector';
@@ -20,7 +20,7 @@ const MyTableRow = ({ index, student, assignStudent }) => {
     return (
         // <></>
         <TableRow>
-            <TableCell>{index}</TableCell>
+            <TableCell>{index + 1}</TableCell>
             <TableCell>{student.name}</TableCell>
             <TableCell>
                 {

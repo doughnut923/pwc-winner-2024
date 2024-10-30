@@ -11,13 +11,25 @@ const TeacherExamOption = () => {
     const navigate = useNavigate();
     const [assignClass, setAssignClass] = useState(0);
 
+    // Check user role every 60 seconds
     useEffect(() => {
-        const userRole = localStorage.getItem('role');
-        if (userRole != "teacher") navigate('/');
-    })
+        const checkUserRole = () => {
+            const userRole = localStorage.getItem('role');
+            if (userRole !== "teacher") {
+                navigate('/');
+            }
+        };
+
+        checkUserRole(); // Initial check when component mounts
+
+        const interval = setInterval(checkUserRole, 60000); // Check every 60 seconds
+
+        return () => clearInterval(interval); // Cleanup on component unmount
+    }, [navigate]);
 
     const [examList, setExamList] = useState([]);
-
+    
+    // Fetch the exam list every 60 seconds
     useEffect(() => {
         const fetchExams = async () => {
             const token = localStorage.getItem('token');
@@ -72,21 +84,24 @@ const TeacherExamOption = () => {
         return () => clearInterval(interval);
     }, []);
 
+    // Open Assign Class Page
     const handleClick = (e) => {
         e.preventDefault();
         setAssignClass(1);
     }
 
+    // Close Assign Class Page
     const handleBack = (e) => {
         e.preventDefault();
         setAssignClass(0);
     }
 
-    const handleExam = (i, y, z) => {
+    // Navigate to Exam Dashboard when the exam card is clicked
+    const handleExam = (i) => {
         navigate('/exam-dashboard', { state: { examName: i} }); 
     }
 
-    // Return the Dashboard form
+    // Return the Dashboard
     return (
         <StyledContainer maxWidth="sm">
             {!assignClass ? (
