@@ -30,9 +30,7 @@ public class StatusController {
      * @param imageFile The image file uploaded as part of the request, representing
      *                  the user's face for verification (required).
      * @param classname The name of the class associated with the user (required).
-     * @return A ResponseEntity containing true if the faces match; false if they do not match.
-     * @throws Exception If any error occurs during image retrieval, comparison,
-     *                   or storage operations.
+     * @return A ResponseEntity containing true if the faces match; false if they do not match or an error is encountered.
      *
      * <p>Example response for successful face match:</p>
      * <pre>
@@ -42,6 +40,13 @@ public class StatusController {
      * </pre>
      *
      * <p>Example response for face mismatch:</p>
+     * <pre>
+     * {
+     *     "result": false
+     * }
+     * </pre>
+     *
+     * <p>Example response for error in image rekognition:</p>
      * <pre>
      * {
      *     "result": false
