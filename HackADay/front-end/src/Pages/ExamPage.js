@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, checkboxClasses, Fade, Grow, Paper } from '@mui/material';
 import { useTheme, } from '@mui/material/styles';
 import { redirect, useLocation, useNavigate } from 'react-router-dom';
@@ -12,7 +11,25 @@ const ExamPage = () => {
 
     //data from the previous page
     const location = useLocation();
-    const { examName, examStartTime, examEndTime } = location.state || {};
+    const { examName } = location.state || {};
+    
+    // fetch exam details (end time and start time)
+    const examInfo = async () => {
+        const token = localStorage.getItem('token');
+        let resp = await fetch(`http://localhost:8081/exam/examContent/${examName}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        let contentData = await resp.json();
+        // console.log(contentData);
+        localStorage.setItem('examStartTime', Date.parse(contentData.startingTime));
+        localStorage.setItem('examEndTime', Date.parse(contentData.endingTime));
+        localStorage.setItem('examName', examName);
+    }
+
     // const examName = "Computer Science";
     // const examStartTime = Date.now() + 10000;
     // const examEndTime = Date.now() + 100000;
@@ -79,32 +96,9 @@ const ExamPage = () => {
         setUIState("Question");
     }
 
-    async function checkAuthority() {
-        // const result = await fetch("http://localhost:8081/status/checkFaces", {
-        //     method: 'POST',
-        //     headers:{
-        //         Authorization: "Bearer" + localStorage.getItem("token"),
-        //     }
-        // });
-
-        if (true /*result.ok*/) {
-            return true;
-        }
-        else {
-            return false
-        }
-
-    }
-
     const initExamDetails = () => {
 
-        if (examName && examStartTime && examEndTime) {
-            localStorage.setItem("examName", examName);
-            localStorage.setItem("examStartTime", Date.parse(examStartTime));
-            localStorage.setItem("examEndTime", Date.parse(examEndTime));
-        }
-
-        if (localStorage.getItem("examName") === null) {
+        if (localStorage.getItem("examName") === null ||  localStorage.getItem("examStartTime") === null || localStorage.getItem("examEndTime") === null) {
             navigate('/student-exam-option');
             return;
         }
@@ -118,23 +112,18 @@ const ExamPage = () => {
     }
 
     useEffect(() => {
-        //check if user have authority to access the page
-        const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-        //if yes, fetch the exam details
-        //if not, redirect to the login page
+        const fetchExamInfo = async () => {
+            await examInfo();
+            initExamDetails();
+        };
+        fetchExamInfo();
 
-        const haveAuthority = checkAuthority();
-        if (!haveAuthority) {
-            navigate('/login');
-            return;
-        }
+        const intervalId = setInterval(fetchExamInfo, 30000);
 
-        initExamDetails();
-    },
-        []
-    )
+        return () => clearInterval(intervalId);
 
+    },[]);
+    
     const theme = useTheme();
 
     //render corresponding UI based on the UIState
@@ -198,7 +187,9 @@ const ExamPage = () => {
                 </Box>
             </>
         );
-    } else if (UIState === "Question") {
+    } 
+    
+    else if (UIState === "Question") {
         return (
             <>
                 <Box
