@@ -35,6 +35,7 @@ The `Question` component displays exam questions, and integrates webcam function
 ### ShowWebcam.js
 The `ShowWebcam` component initializes and displays a webcam feed, and captures a snapshot upon user request.
 
+<br />
 
 ## Pages Folder
 
