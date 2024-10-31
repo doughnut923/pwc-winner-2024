@@ -1,7 +1,6 @@
 # FrontEnd Components
 We separated the components into two segments: `Components` and `Pages`. For your information, `class` is an `exam`. We will be using those two terms interchangeably.
 
-
 ## Components Folder
 
 ### AssignClassSelector.js
