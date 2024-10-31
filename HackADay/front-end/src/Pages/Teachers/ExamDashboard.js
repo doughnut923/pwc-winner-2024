@@ -34,7 +34,7 @@ const ExamDashboard = () => {
         setExamEndTime(contentData.endingTime);
     }
 
-    useEffect(() =>{examInfo();}, []);
+    examInfo()
 
     // Countdown Timer
     const [timeLeft, setTimeLeft] = useState("");
