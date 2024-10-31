@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from "../../logo.svg"; // Adjust the path to your logo image
 import { useNavigate, useLocation } from 'react-router-dom';
 import { StyledContainer, InsideContainer } from "./ExamDashboardStyledElements";
-import { TextField, Box, TableHead, TableRow, Table, TableBody, TableCell,  IconButton, Modal } from '@mui/material';
+import { TextField, Box, TableHead, TableRow, Table, TableBody, TableCell, IconButton, Modal } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
@@ -32,9 +32,18 @@ const ExamDashboard = () => {
         let contentData = await resp.json();
         setExamStartTime(contentData.startingTime);
         setExamEndTime(contentData.endingTime);
+
+        fetchStudentList()
     }
 
-    examInfo()
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            examInfo();
+        }, 30000); // 30 seconds
+        examInfo(); // Initial fetch
+
+        return () => clearInterval(intervalId); 
+    }, []);
 
     // Countdown Timer
     const [timeLeft, setTimeLeft] = useState("");
@@ -66,27 +75,27 @@ const ExamDashboard = () => {
     // Get exam's participants
     const [students, setStudents] = useState([]);
 
-    useEffect(() => {
-        const fetchStudentList = async () => {
-            try {
-                let response = await fetch(`http://52.64.153.206:8081/authority/studentList/${examName}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+    const fetchStudentList = async () => {
+        try {
+            let response = await fetch(`http://52.64.153.206:8081/authority/studentList/${examName}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
                 }
-                let data = await response.json();
-                setStudents(data);
-            } catch (error) {
-                console.error("Error fetching student list:", error);
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        };
+            let data = await response.json();
+            setStudents(data);
+        } catch (error) {
+            console.error("Error fetching student list:", error);
+        }
+    };
 
-        fetchStudentList();
+    useEffect(() => {
+
     }, [examName, token]);
 
     // Function to fetch suspicious images
@@ -267,9 +276,9 @@ const ExamDashboard = () => {
                                             <div key={i} style={{ textAlign: 'center', alignContent: 'center', color: 'black' }}>
                                                 <img src={`data:image/jpeg;base64,${item.image.imageFile}`} alt={`Suspicious activity - ${i} @ ${item.image.timestamp}`} />
                                                 <p>{`Suspicious activity - ${i} @ ${new Date(item.image.timestamp).toLocaleString('en-us', {
-                                                    year : 'numeric',
-                                                    month : 'long',
-                                                    day : 'numeric',
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
                                                     hour: '2-digit',
                                                     minute: '2-digit',
                                                     second: '2-digit'
