@@ -10,6 +10,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Handle the retrieval of permission and username stored in {@link SecurityContextHolder}
+ * TokenFilter store permission and username in {@link SecurityContextHolder} corresponding to token for caching
+ * This prevents repeated retrieval from sql
+ */
 public class SecurityContextHolderUtil {
     /**
      * Retrieves a list of authorities from the SecurityContextHolder.

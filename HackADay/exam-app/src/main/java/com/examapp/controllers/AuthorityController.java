@@ -14,7 +14,24 @@ import java.util.List;
 
 
 
-
+/**
+ * <ul>
+ *   <li>Handles operations related to student authority management.</li>
+ *   <li>APIs available:
+ *     <ol>
+ *       <li>Retrieve a list of students for a specified class (<code>getStudentList</code>)</li>
+ *       <li>Grant permissions to students based on provided authority list (<code>setAuthorities</code>)</li>
+ *     </ol>
+ *   </li>
+ *   <li>All endpoint require token obtained from logging in</li>
+ *   <li>Teacher specific:
+ *     <ul>
+ *       <li><code>getStudentList</code>
+ *       <li><code>setAuthorities</code>
+ *     </ul>
+ *   </li>
+ * </ul>
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("authority")
@@ -27,13 +44,15 @@ public class AuthorityController {
     /**
      * GET - Handles requests to retrieve a list of students for a specified class.
      *
-     * This method maps to the endpoint "/studentList/{classname}" and retrieves
+     * This method maps to the endpoint "/authority/studentList/{classname}" and retrieves
      * the student list associated with the provided class name. It uses the
      * authorityMapper to access the data layer and fetch the relevant
      * student information.
      *
-     * <p>Note: This operation can only be performed by a teacher.</p>
+     * <p><strong>Note:</strong> <em>This operation can only be performed by a teacher.</em></p>
      *
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
+
      * <p>Return values:</p>
      * <ul>
      *     <li>200 OK with a list of student names if the retrieval is successful.</li>
@@ -57,7 +76,7 @@ public class AuthorityController {
      * @param classname The name of the class for which to retrieve the student list.
      * @return A ResponseEntity containing a list of student names as strings.
      */
-    @GetMapping("studentList/{classname}")
+    @GetMapping("/authoritystudentList/{classname}")
     public ResponseEntity<List<String>> getStudentList(@PathVariable("classname") String classname) {
         List<String> studentList = authorityService.getStudentListByClassname(classname);
         return ResponseEntity.ok(studentList);
@@ -67,12 +86,14 @@ public class AuthorityController {
     /**
      * PUT - Grants permissions to students for a specified class based on the provided authority list.
      *
-     * This method handles requests to the "/setAuthorities" endpoint. It checks
+     * This method handles requests to the "/authority/setAuthorities" endpoint. It checks
      * the provided list of authorities to ensure that all users in the list are recorded
      * as students in the database. If any user is not found or if the input list is
      * invalid (null or empty), the request will be rejected with a 400 Bad Request response.
      *
-     * <p>Note: This operation can only be performed by a teacher.</p>
+     * <p><strong>Note:</strong> <em>This operation can only be performed by a teacher.</em></p>
+     *
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
      *
      * @param authorityList A list of Authority objects representing the students and
      *                      their associated permissions. Each Authority must correspond
