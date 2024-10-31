@@ -1,10 +1,10 @@
 com.examapp
+com.examapp.config
 com.examapp.controllers
 com.examapp.entity
 com.examapp.mapper
 com.examapp.predefinedConstant
 com.examapp.securityConfig
-com.examapp.securityConfig.authentications
 com.examapp.securityConfig.filters
 com.examapp.securityConfig.securityDto
 com.examapp.service

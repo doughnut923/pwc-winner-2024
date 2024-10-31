@@ -28,7 +28,8 @@ import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
  *       <li>retrieve exam content (<code>getExamContent</code>)</li>
  *     </ol>
  *   </li>
- *   <li>Available to teachers only:
+ *   <li>All endpoint require token obtained from logging in</li>
+ *   <li>Teacher specific:
  *     <ul>
  *       <li><code>update</code></li>
  *       <li><code>getExamList</code>: shows all exams to teachers while only permitted exams are shown to students.</li>
@@ -47,16 +48,20 @@ public class ExamController {
     private ExamMapper examMapper;
 
     /**
-     * PUT - update an existing exam or create a new exam if it doesn't exist.
+     * PUT - Update an existing exam or create a new exam if it doesn't exist.
      *
-     * <p>This method maps to "/exam/update" to perform the save or update operation.
-     * If the operation is successful, it returns a 200 OK response. If the operation fails due to
-     * an unexpected condition (e.g., server crash or programming bug), it returns a
+     * <p>This method maps to "/exam/update" to perform the save or update operation.</p>
+     * <p>Exam content is cached in Redis with expiration time covered until 7 days after exam ended</p>
+     * <p>If the exam is not present in the exam table, it will be inserted; otherwise, the existing entry will be updated.</p>
+     * <p>If the operation is successful, it returns a 200 OK response.</p>
+     * <p>If the operation fails due to an unexpected condition (e.g., server crash or programming bug), it returns a
      * 500 Internal Server Error response.</p>
      *
-     * <p><strong>Note:</strong> This operation can only be performed by a teacher and requires a Bearer token for authentication.</p>
+     * <p><strong>Note:</strong> <em>This operation can only be performed by a teacher.</em></p>
      *
-     * @param exam The {@link Exam} object containing the exam details to be updated.
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
+     *
+     * @param exam The {@link Exam} object containing the exam details to be updated.  (required)
      *             Example JSON representation:
      *             <pre>
      *             {
@@ -66,8 +71,6 @@ public class ExamController {
      *                 "content": "Final exam covering chapters 1-5."
      *             }
      *             </pre>
-     *
-     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
      *
      * @return ResponseEntity<Void> A response entity indicating the result of the update operation.
      *         <ul>
@@ -86,13 +89,23 @@ public class ExamController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
     /**
-     * GET - retrieve a list of exam class names based on user authority.
+     * GET - Retrieve a list of exam class names based on user authority.
      *
-     * This method maps to the "/examList" endpoint and retrieves the user's
-     * authorities from the security context. If the authority list is empty,
-     * it returns a 401 Unauthorized response. If the user has the "TEACHER"
-     * authority, it fetches and returns a list of complete exam class names from the
-     * database. If the user is not a teacher, the method only returns the relevant exam class
+     * <p>This method maps to the "/exam/examList" endpoint.</p>
+     * <p>If a teacher account accesses this endpoint, all exam classes will be retrieved from the exam table in SQL.</p>
+     * <p>If a student account accesses this endpoint, only exams accessible by the student will be retrieved.</p>
+     * <p>If the authority list is empty, it returns a 401 Unauthorized response.</p>
+     *
+     * <p><strong>High Concurrency:</strong>
+     * <em>
+     *     This is considered a hotspot endpoint.
+     *     Note that students retrieve the exam list through SecurityContextHolder, which is cached in session storage.
+     *     Frequent access to the SQL table is thus avoided.
+     * </em></p>
+     *
+     * <p><strong>Note:</strong> <em>This operation can only be performed by a teacher.</em></p>
+     *
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
      *
      * <p>Return values:</p>
      * <ul>
@@ -108,6 +121,14 @@ public class ExamController {
      *     "Science",
      *     "History"
      * ]
+     * </pre>
+     * <p>Example response for a student:</p>
+     * <pre>
+     * [
+     *     "Mathematics",
+     *     "Science"
+     * ]
+     * (only shows exams accessible by the logged-in student)
      * </pre>
      *
      * @return A ResponseEntity containing a list of exam class names as strings
@@ -130,7 +151,7 @@ public class ExamController {
             /*
              permission field in Authority store info exam options and the role as teacher / student
              exam options are permission list with student / teacher removed,
-             this only left the exam that the student has permission
+             this only left the exam that the student has permission for
              */
             permissionlist.remove(STUDENT);
         }
@@ -139,11 +160,24 @@ public class ExamController {
     /**
      * GET - Retrieve exam content for a specified class.
      *
-     * This method processes POST requests to the "examContent" endpoint. It checks
+     * This method maps to the "/exam/examContent/{classname}" endpoint. It checks
      * the user's authority to determine whether the request is made by a teacher or a student,
      * and then fetches the corresponding exam content.
+     * If the user is student, exam content will be removed if it is not within exam time
      *
-     * @param classname
+     * <p><strong>High Concurrency:</strong>
+     * <em>
+     *     This is considered a hotspot endpoint.
+     *     Note that examContent is cache in Redis with expiration time covered until 7 days after exam ended
+     *     This is expected to cover the period in which the endpoint is under frequent access
+     *     Frequent access to sql is thus avoided.
+     * </em></p>
+     *
+     * <p><strong>Note:</strong> <em>This operation can only be performed by a teacher.</em></p>
+     *
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
+     *
+     * @param classname in url path
      *
      * @return A ResponseEntity containing the Exam object if found and accessible, or
      *         an appropriate HTTP status code:

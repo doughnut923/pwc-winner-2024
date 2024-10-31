@@ -31,7 +31,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * <ul>
+ *   <li>Handles operations related to user authentication and registration.</li>
+ *   <li>APIs available:
+ *     <ol>
+ *       <li>User login requests with image verification (<code>login</code>)</li>
+ *       <li>Registers a new user with an uploaded image (<code>register</code>)</li>
+ *       <li>Retrieve a paginated list of students along with their associated classes (<code>getStudentWithClasses</code>)</li>
+ *     </ol>
+ *   </li>
+ *   <li>login and register are the only endpoint that does not require logging in. GetStudentWithClasses require token obtained from logging in</li>
+ *   <li>Teacher specific:
+ *     <ul>
+ *       <li><code>getStudentWithClasses</code>: Displays a paginated list of students and their classes.</li>
+ *     </ul>
+ *   </li>
+ * </ul>
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("user")
@@ -54,17 +71,20 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
     /**
      * POST - User login requests with image verification.
-     * This method processes POST requests to the "/login" endpoint, expecting a
-     * multipart form-data request that includes an image file and user information
-     * in JSON format. It first checks if the uploaded image file is empty and
-     * returns a 400 Bad Request response if it is. If the file is valid, it prepares
-     * a User object from the provided JSON and retrieves the corresponding stored
-     * image from S3 using the user's username.
-     * The method then compares the uploaded image with the stored image. If the
-     * faces do not match, it returns a 403 Forbidden response. If the faces match,
-     * it authenticates the user and retrieves their role (either Teacher or Student).
-     * Finally, it returns a response containing an authentication token and the user's role.
      *
+     * <p>This method processes POST requests to the <code>/user/login</code> endpoint.</p>
+     *
+     * <p>It first checks if the uploaded image file is empty and
+     * returns a <code>400 Bad Request</code> response if it is.</p>
+     *
+     * <p>If the file is valid, it prepares a <code>User</code> object from the provided JSON
+     * and retrieves the corresponding stored image from S3 using the user's username.</p>
+     *
+     * <p>The method then compares the uploaded image with the stored image. If the
+     * faces do not match, it returns a <code>403 Forbidden</code> response. If the faces match,
+     * it authenticates the user and retrieves their role (either Teacher or Student).</p>
+     *
+     * <p>Finally, it returns a response containing an authentication token and the user's role.</p>
      * <p>Return values:</p>
      * <ul>
      *     <li>200 OK with a map containing the authentication token and user role if
@@ -74,9 +94,10 @@ public class UserController {
      * </ul>
      *
      * @param imageFile The image file uploaded as part of the request, representing
-     *                  the user's face for verification.
+     *                  the user's face for verification. (required)
      * @param userJson A JSON string containing user information, which is converted
-     *                 to a User object for authentication purposes. Example JSON format:
+     *                 to a User object for authentication purposes.  (required)
+     *                 Example JSON format:
      *                 <pre>
      *                 {
      *                     "username": "john_doe",
@@ -128,11 +149,13 @@ public class UserController {
 
     /**
      * POST - Registers a new user with an uploaded image.
-     * Username with ':' is not allowed to avoid conflicts in Redis or S3.
-     * This method processes POST requests to the "/register" endpoint, expecting a
-     * multipart form-data request that includes an image file and user details in JSON format.
-     * It checks if the uploaded image file is present and validates the username before
-     * proceeding with the registration process.
+     * <p><strong>Note:</strong> Username with ':' is not allowed to avoid conflicts in Redis or S3.</p>
+     *
+     * <p>This method processes POST requests to the <code>/user/register</code> endpoint, expecting a
+     * multipart form-data request that includes an image file and user details in JSON format.</p>
+     *
+     * <p>It checks if the uploaded image file is present and validates the username before
+     * proceeding with the registration process.</p>
      *
      * @param imageFile the image file uploaded by the user (required)
      * @param userJson  the user details in JSON format (required). Example JSON format:
@@ -200,6 +223,57 @@ public class UserController {
         authority.setPermission(AuthorityConstants.STUDENT);
         return authorityService.save(authority);
     }
+    /**
+     * GET - Retrieve a paginated list of students along with their associated classes.
+     *
+     * <p>This method maps to the "/user/studentWithClasses" endpoint.</p>
+     *
+     * <p>It retrieves a list of students with their corresponding classes enrolled, returning the results in a paginated format
+     * based on the provided page number.</p>
+     *
+     * <p>The method uses the {@link UserService} to fetch students with their classes for the specified page.</p>
+     *
+     * <p>Return values:</p>
+     * <ul>
+     *     <li>200 OK with a list of {@link User} objects representing students and their classes.</li>
+     * </ul>
+     *
+     * <p><strong>
+     *     This is considered as an expensive operation on sql as it involve retrieving the joint table of user and authority
+     *     Pagination is thus required to avoid excessive retrieval.
+     * </strong></p>
+     * <p><strong>Pagination:</strong>
+     * The method accepts a <code>pageNum</code> parameter to determine which page of results to return.
+     * The page size is defined by the constant <code>AuthorityConstants.pageSize</code>.</p>
+     *
+     * @param pageNum The page number to retrieve, starting from 1.
+     *
+     * @return ResponseEntity<List<User>> A response entity containing a list of users
+     *         with their associated classes.
+     * <p>Example response:</p>
+     * <pre>
+     * [
+     *     {
+     *         "username": "Jacky",
+     *         "authorities": [
+     *             {
+     *                 "permission": "Linear algebra"
+     *             },
+     *             {
+     *                 "permission": "English"
+     *             },
+     *             {
+     *                 "permission": "University Calculus"
+     *             }
+     *         ]
+     *     },
+     *     {
+     *         "username": "Jacky3",
+     *         "authorities": []
+     *     },
+     * ]
+     * </pre>
+     */
     @GetMapping("studentWithClasses")
     public ResponseEntity<List<User>> getStudentWithClasses(@RequestParam int pageNum){
         List<User> userListWithClasses = userService.getStudentWithClasses(pageNum, AuthorityConstants.pageSize);
