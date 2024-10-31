@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 //         examQuestions: []
 //     }
 // );
-const Question = ({exam}) => {
+const Question = ({exam, getExamQuestions}) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState(Array(exam.examQuestions.length).fill(null));
     const currentQuestion = exam.examQuestions[currentQuestionIndex];
@@ -25,8 +25,8 @@ const Question = ({exam}) => {
     const navigate = useNavigate();
 
     const [timeLeft, setTimeLeft] = useState(() => {
-        const examEndTime = new Date(parseInt(exam.examEndTime)).getTime();
-        const examTime = new Date(parseInt(exam.examTime)).getTime();
+        const examEndTime = new Date(exam.examEndTime).getTime();
+        const examTime = new Date(exam.examTime).getTime();
         return Math.floor((examEndTime - new Date()) / 1000); // Time difference in seconds
     });
 
@@ -80,6 +80,22 @@ const Question = ({exam}) => {
     useEffect(() => {
         console.log(answers);
     }, [answers]);
+
+    useEffect(() => {
+        console.log(currentQuestion);
+    }, [currentQuestion]);
+
+    useEffect(() => {
+        const fetchExamInfo = async () => {
+            getExamQuestions();
+            console.log(currentQuestion);
+        };
+
+        const intervalId = setInterval(fetchExamInfo, 30000);
+
+        return () => clearInterval(intervalId);
+
+    }, []);
 
     //snaps a photo from webcam and sends it to backend server
     useEffect(() => {
@@ -184,7 +200,7 @@ const Question = ({exam}) => {
                 Question {currentQuestionIndex + 1}
             </Typography>
             <Typography variant="body1" gutterBottom>
-                {currentQuestion.question}
+                {currentQuestion["content"]}
             </Typography>
             <FormControl component="fieldset">
                 <FormLabel component="legend">Options</FormLabel>

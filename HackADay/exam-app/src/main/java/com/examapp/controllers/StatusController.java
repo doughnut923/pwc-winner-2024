@@ -24,15 +24,13 @@ public class StatusController {
      *
      * This method retrieves the user's image from S3 based on the username obtained
      * from the security context. It then compares the provided image file. If the faces
-     * do not match, the input image is uploaded to S3 and remains there for 30 days.
+     * do not match or error encounter in image rekognition, the input image is uploaded to S3 and remains there for 30 days.
      * The corresponding image path and timestamp are stored in Redis.
      *
      * @param imageFile The image file uploaded as part of the request, representing
      *                  the user's face for verification (required).
      * @param classname The name of the class associated with the user (required).
-     * @return A ResponseEntity containing true if the faces match; false if they do not match.
-     * @throws Exception If any error occurs during image retrieval, comparison,
-     *                   or storage operations.
+     * @return A ResponseEntity containing true if the faces match; false if they do not match or an error is encountered.
      *
      * <p>Example response for successful face match:</p>
      * <pre>
@@ -42,6 +40,13 @@ public class StatusController {
      * </pre>
      *
      * <p>Example response for face mismatch:</p>
+     * <pre>
+     * {
+     *     "result": false
+     * }
+     * </pre>
+     *
+     * <p>Example response for error in image rekognition:</p>
      * <pre>
      * {
      *     "result": false

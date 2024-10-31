@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="" />
+    <list default="true" id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/Dockerfile" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,21 +16,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="KubernetesApiPersistence">{}</component>
-  <component name="KubernetesApiProvider">{
-  &quot;isMigrated&quot;: true
-}</component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
+  &quot;associatedIndex&quot;: 5
 }</component>
-  <component name="ProjectId" id="2o41hprGlDJH7glmcqk6PIO0gSz" />
+  <component name="ProjectId" id="2oBQdI5GcziehlXuRY85D4ww795" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,6 +27,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
     &quot;Application.ExamAppApplication.executor&quot;: &quot;Run&quot;,
     &quot;HTTP Request.generated-requests | #5.executor&quot;: &quot;Run&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
@@ -44,7 +37,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.ExamAppApplication.executor&quot;: &quot;Run&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;finals-deployment&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/michael/Documents/HackADay/HackADay/exam-app&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -56,6 +49,11 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="RunManager" selected="Spring Boot.ExamAppApplication">
@@ -100,34 +98,16 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="bd79798a-edd8-4899-af4a-bafe5e3b178d" name="Changes" comment="" />
-      <created>1730114156876</created>
+      <created>1730340580200</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1730114156876</updated>
-      <workItem from="1730114158819" duration="200000" />
-      <workItem from="1730114393252" duration="116000" />
-      <workItem from="1730114513454" duration="213000" />
-      <workItem from="1730114733845" duration="974000" />
-      <workItem from="1729857008313" duration="1491000" />
-      <workItem from="1729858561465" duration="1055000" />
-      <workItem from="1729860200486" duration="2336000" />
-      <workItem from="1729863558510" duration="42000" />
-      <workItem from="1729955042827" duration="43000" />
-      <workItem from="1730034690759" duration="8313000" />
-      <workItem from="1730058657630" duration="295000" />
-      <workItem from="1730082671153" duration="645000" />
-      <workItem from="1730091379831" duration="3119000" />
-      <workItem from="1730096638500" duration="719000" />
-      <workItem from="1730101476093" duration="404000" />
-      <workItem from="1730113995934" duration="2092000" />
-      <workItem from="1730271821171" duration="8634000" />
+      <updated>1730340580200</updated>
+      <workItem from="1730340581705" duration="29000" />
+      <workItem from="1730340657146" duration="204000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

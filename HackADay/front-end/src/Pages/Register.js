@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Typography, Box, CardContent, Alert, Grow } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import logo from "../logo.svg";
+import logo from "../logo.svg"; 
 import BiometricSetup from '../Components/BiometricSetup';
 import Slide from '@mui/material/Slide';
 
@@ -56,7 +56,7 @@ const Register = () => {
             navigate('/');
         }
 
-        if (result.status == "400") {
+        if (result.status === "400") {
             navigate('/signup');
             setShowInvalidAlert(true);
         }

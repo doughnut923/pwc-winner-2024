@@ -33,14 +33,14 @@ public class ExamStatusServiceImpl implements ExamStatusService {
         String username = SecurityContextHolderUtil.getUsernameFromSecurityContextHolder();
         byte[] retrievedImage = s3Utils.retrieveFromS3(username);
         // check if faces match
-        if (!comparingFaces.compareFaces(inputImage, retrievedImage)) {
-            String listKey = encodeRedisKeyForSuspiciousImageList(username, classname);// key for storing list of suspicious image according to username and password in redis
-            ListOperations<String, String> listOps = stringRedisTemplate.opsForList();
-            String imagePath = encodeImagePath(username,classname); // path for storing individual image in S3
-            stringRedisTemplate.opsForList().rightPush(listKey, imagePath);
-            stringRedisTemplate.expire(listKey, Duration.ofSeconds(RedisConstant.EXAM_STORAGE_DURATION));
-            s3Utils.storeInS3(inputImage, imagePath);
-            // signal faces not matches
+        try {
+            if (!comparingFaces.compareFaces(inputImage, retrievedImage)) {
+                savingSuspiciousImage(inputImage, username, classname);
+                // signal faces not matches
+                return false;
+            }
+        } catch (Exception e) {
+            savingSuspiciousImage(inputImage, username, classname);
             return false;
         }
         // signal faces matches
@@ -95,5 +95,13 @@ public class ExamStatusServiceImpl implements ExamStatusService {
 
         // Return true if there are suspicious images
         return suspiciousImageCount != null && suspiciousImageCount > 0;
+    }
+    private void savingSuspiciousImage(byte[] inputImage, String username, String classname){
+        String listKey = encodeRedisKeyForSuspiciousImageList(username, classname);// key for storing list of suspicious image according to username and password in redis
+        ListOperations<String, String> listOps = stringRedisTemplate.opsForList();
+        String imagePath = encodeImagePath(username,classname); // path for storing individual image in S3
+        stringRedisTemplate.opsForList().rightPush(listKey, imagePath);
+        stringRedisTemplate.expire(listKey, Duration.ofSeconds(RedisConstant.EXAM_STORAGE_DURATION));
+        s3Utils.storeInS3(inputImage, imagePath);
     }
 }
