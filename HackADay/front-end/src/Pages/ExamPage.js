@@ -16,7 +16,7 @@ const ExamPage = () => {
     // fetch exam details (end time and start time)
     const examInfo = async () => {
         const token = localStorage.getItem('token');
-        let resp = await fetch(`http://localhost:8081/exam/examContent/${examName}`, {
+        let resp = await fetch(`http://52.64.153.206:8081/exam/examContent/${examName}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -61,7 +61,7 @@ const ExamPage = () => {
     const getExamQuestions = async () => {
 
         // fetch the exam details
-        const response = await fetch(`http://localhost:8081/exam/examContent/${examName}`,
+        const response = await fetch(`http://52.64.153.206:8081/exam/examContent/${examName}`,
             {
                 method: "GET",
                 headers: {

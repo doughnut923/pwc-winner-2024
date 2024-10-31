@@ -11,25 +11,13 @@ const TeacherExamOption = () => {
     const navigate = useNavigate();
     const [assignClass, setAssignClass] = useState(0);
 
-    // Check user role every 60 seconds
     useEffect(() => {
-        const checkUserRole = () => {
-            const userRole = localStorage.getItem('role');
-            if (userRole !== "teacher") {
-                navigate('/');
-            }
-        };
-
-        checkUserRole(); // Initial check when component mounts
-
-        const interval = setInterval(checkUserRole, 60000); // Check every 60 seconds
-
-        return () => clearInterval(interval); // Cleanup on component unmount
-    }, [navigate]);
+        const userRole = localStorage.getItem('role');
+        if (userRole != "teacher") navigate('/');
+    })
 
     const [examList, setExamList] = useState([]);
-    
-    // Fetch the exam list every 60 seconds
+
     useEffect(() => {
         const fetchExams = async () => {
             const token = localStorage.getItem('token');
@@ -40,7 +28,7 @@ const TeacherExamOption = () => {
             }
     
             try {
-                let response = await fetch("http://localhost:8081/exam/examList", {
+                let response = await fetch(`http://52.64.153.206:8081/exam/examList`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -54,7 +42,7 @@ const TeacherExamOption = () => {
                 console.log(data);
     
                 const contentPromises = data.map(async (exam) => {
-                    let resp = await fetch(`http://localhost:8081/exam/examContent/${exam}`, {
+                    let resp = await fetch(`http://${process.env.REACT_APP_BACKEND_URL}/exam/examContent/${exam}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -84,26 +72,24 @@ const TeacherExamOption = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Open Assign Class Page
     const handleClick = (e) => {
         e.preventDefault();
         setAssignClass(1);
     }
 
-    // Close Assign Class Page
     const handleBack = (e) => {
         e.preventDefault();
         setAssignClass(0);
     }
 
-    // Navigate to Exam Dashboard when the exam card is clicked
-    const handleExam = (i) => {
+    const handleExam = (i, y, z) => {
         navigate('/exam-dashboard', { state: { examName: i} }); 
     }
 
-    // Return the Dashboard
+    // Return the Dashboard form
     return (
         <StyledContainer maxWidth="sm">
+            
             {!assignClass ? (
                 <div>
                     <Box sx={{ position: 'absolute', top: 16, left: 16, display: 'flex', alignItems: 'center', gap: 3 }}>

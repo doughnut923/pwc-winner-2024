@@ -13,7 +13,7 @@ const AssignClassSelector = ({ setOnAdd, student, assignclasss }) => {
             return;
         }
 
-        const result = await fetch('http://localhost:8081/exam/examList', {
+        const result = await fetch(`http://52.64.153.206:8081/exam/examList`, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }

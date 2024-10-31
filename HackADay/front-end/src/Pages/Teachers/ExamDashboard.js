@@ -22,7 +22,7 @@ const ExamDashboard = () => {
     const [examEndTime, setExamEndTime] = useState();
     const examInfo = async () => {
         const token = localStorage.getItem('token');
-        let resp = await fetch(`http://localhost:8081/exam/examContent/${examName}`, {
+        let resp = await fetch(`http://52.64.153.206:8081/exam/examContent/${examName}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -69,7 +69,7 @@ const ExamDashboard = () => {
     useEffect(() => {
         const fetchStudentList = async () => {
             try {
-                let response = await fetch(`http://localhost:8081/authority/studentList/${examName}`, {
+                let response = await fetch(`http://52.64.153.206:8081/authority/studentList/${examName}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -92,7 +92,7 @@ const ExamDashboard = () => {
     // Function to fetch suspicious images
     const fetchSuspiciousImagesForStudent = async (studentName) => {
         try {
-            let response = await fetch(`http://localhost:8081/status/suspiciousImage?classname=${examName}&username=${studentName}`, {
+            let response = await fetch(`http://52.64.153.206:8081/status/suspiciousImage?classname=${examName}&username=${studentName}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
