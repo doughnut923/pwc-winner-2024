@@ -73,9 +73,10 @@ public class UserController {
      * </ul>
      *
      * @param imageFile The image file uploaded as part of the request, representing
-     *                  the user's face for verification.
+     *                  the user's face for verification. (required)
      * @param userJson A JSON string containing user information, which is converted
-     *                 to a User object for authentication purposes. Example JSON format:
+     *                 to a User object for authentication purposes.  (required)
+     *                 Example JSON format:
      *                 <pre>
      *                 {
      *                     "username": "john_doe",

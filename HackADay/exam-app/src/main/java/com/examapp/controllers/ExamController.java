@@ -60,7 +60,7 @@ public class ExamController {
      *
      * <p>Ensure to include a Bearer token in the request header for authentication.</p>
      *
-     * @param exam The {@link Exam} object containing the exam details to be updated.
+     * @param exam The {@link Exam} object containing the exam details to be updated.  (required)
      *             Example JSON representation:
      *             <pre>
      *             {

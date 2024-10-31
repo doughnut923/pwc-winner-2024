@@ -37,14 +37,19 @@ public class StatusController {
     @Resource
     private ExamStatusService examStatusService;
     /**
-     * GET - Retrieves a list of student with suspicious marked.
+     * GET - Checks if the input face image matches the image stored during examination.
      *
-     * This method processes GET requests to the "/suspcious/list" endpoint.
-     * Retrieves a list of students from a specified class along with their suspicious status.
+     * <p>This method maps to the "/status/suspicious/checkFaces" endpoint.</p>
+     * <p>
+     *     It compares the input image with the stored image. If the faces do not match,
+     * or if multiple people are present in the image, the image will be stored in S3 for one month.
+     * </p>
+     * <p>Additionally, the username and the image path will be stored in Redis as part of the "suspicious list."</p>
      *
-     * @param classname the name of the class for which to retrieve the suspicious student list
-     * @return a list of maps, where each map contains the username of a student and a boolean indicating
-     *         whether the student has suspicious images
+     * @param imageFile The image file uploaded for comparison (required).
+     * @param classname The name of the exam class (required).
+     *
+     * @return A ResponseEntity containing a boolean indicating whether the image is suspicious.
      *
      * <p>Ensure to include a Bearer token in the request header for authentication.</p>
      *
@@ -52,16 +57,7 @@ public class StatusController {
      *
      * <p>Example response:</p>
      * <pre>
-     * [
-     *     {
-     *         "username": "student name 1",
-     *         "suspicious": true
-     *     },
-     *     {
-     *         "username": "student name 2",
-     *         "suspicious": false
-     *     }
-     * ]
+     *      false
      * </pre>
      */
     @PostMapping(value = "/checkFaces", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -87,10 +83,9 @@ public class StatusController {
     /**
      * GET - Retrieves a list of suspicious images for a specified class and user.
      *
-     * This method processes GET requests to the "/status/suspiciousImage" endpoint.
-     * It fetches a list of images flagged as suspicious based on the provided
-     * class name and username. The method returns the list of suspicious images
-     * in a structured format.
+     * This method maps to the "/status/suspiciousImage" endpoint.
+     * It fetches a list of suspicious image stored in Redis based on the provided
+     * class name and username.
      *
      * <p>Ensure to include a Bearer token in the request header for authentication.</p>
      *
@@ -122,7 +117,7 @@ public class StatusController {
     /**
      * GET - Retrieves a list of student with suspicious marked.
      *
-     * This method processes GET requests to the "/status/suspicious/list" endpoint.
+     * This method maps to the "/status/suspicious/list" endpoint.
      * Retrieves a list of students from a specified class along with their suspicious status.
      *
      * <p>Ensure to include a Bearer token in the request header for authentication.</p>
