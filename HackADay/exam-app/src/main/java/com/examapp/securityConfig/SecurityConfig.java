@@ -24,7 +24,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
 
-
+/**
+ * Here configure DdosFilter and TokenFilter for spring security.
+ * Method securityFilterChain define endpoint that can only be accessed with authentication (token)
+ * and/or teacher role
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

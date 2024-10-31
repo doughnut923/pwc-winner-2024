@@ -1,3 +1,4 @@
+package com.examapp.controllers;
 /**
  * <p>
  * This package stores APIs that the frontend interacts with.
@@ -83,7 +84,6 @@
  *   </li>
  * </ul>
  */
-package com.examapp.controllers;
 
 public class packageInfo {
 }

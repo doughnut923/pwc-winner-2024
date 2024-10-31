@@ -16,7 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-
+/**
+ * Handle token definition, validation and username extraction
+ */
 @Component
 @PropertySource("classpath:application.yaml")
 public class JwtUtil {

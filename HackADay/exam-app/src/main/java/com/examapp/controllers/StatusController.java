@@ -11,7 +11,25 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * <ul>
+ *   <li>Handles operations related to student verification and suspicious image management.</li>
+ *   <li>APIs available:
+ *     <ol>
+ *       <li>check if the input image matches the stored user image (<code>checkFaces</code>)</li>
+ *       <li>retrieve a list of suspicious images for a specific user and class (<code>getSuspiciousImageList</code>)</li>
+ *       <li>retrieve a list of students along with their suspicious status (<code>getSuspiciousList</code>)</li>
+ *     </ol>
+ *   </li>
+ *   <li>All endpoint require token obtained from logging in</li>
+ *   <li>Teacher specific:
+ *     <ul>
+ *       <li><code>getSuspiciousImageList</code>:
+ *       <li><code>getSuspiciousList</code>
+ *     </ul>
+ *   </li>
+ * </ul>
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("status")
@@ -20,37 +38,27 @@ public class StatusController {
     @Resource
     private ExamStatusService examStatusService;
     /**
-     * POST - Checks if the input image matches the user's stored image retrieved from S3.
+     * GET - Checks if the input face image matches the image stored during examination.
      *
-     * This method retrieves the user's image from S3 based on the username obtained
-     * from the security context. It then compares the provided image file. If the faces
-     * do not match or error encounter in image rekognition, the input image is uploaded to S3 and remains there for 30 days.
-     * The corresponding image path and timestamp are stored in Redis.
+     * <p>This method maps to the "/status/suspicious/checkFaces" endpoint.</p>
+     * <p>
+     *     It compares the input image with the stored image. If the faces do not match,
+     * or if multiple people are present in the image, the image will be stored in S3 for one month.
+     * </p>
+     * <p>Additionally, the username and the image path will be stored in Redis as part of the "suspicious list."</p>
      *
-     * @param imageFile The image file uploaded as part of the request, representing
-     *                  the user's face for verification (required).
-     * @param classname The name of the class associated with the user (required).
-     * @return A ResponseEntity containing true if the faces match; false if they do not match or an error is encountered.
+     * @param imageFile The image file uploaded for comparison (required).
+     * @param classname The name of the exam class (required).
      *
-     * <p>Example response for successful face match:</p>
+     * @return A ResponseEntity containing a boolean indicating whether the image is suspicious.
+     *
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
+     *
+     * <p>Note: This operation can only be performed by a teacher.</p>
+     *
+     * <p>Example response:</p>
      * <pre>
-     * {
-     *     "result": true
-     * }
-     * </pre>
-     *
-     * <p>Example response for face mismatch:</p>
-     * <pre>
-     * {
-     *     "result": false
-     * }
-     * </pre>
-     *
-     * <p>Example response for error in image rekognition:</p>
-     * <pre>
-     * {
-     *     "result": false
-     * }
+     *      false
      * </pre>
      */
     @PostMapping(value = "/checkFaces", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -76,17 +84,18 @@ public class StatusController {
     /**
      * GET - Retrieves a list of suspicious images for a specified class and user.
      *
-     * This method processes GET requests to the "/suspiciousImage" endpoint.
-     * It fetches a list of images flagged as suspicious based on the provided
-     * class name and username. The method returns the list of suspicious images
-     * in a structured format.
+     * This method maps to the "/status/suspiciousImage" endpoint.
+     * It fetches a list of suspicious image stored in Redis based on the provided
+     * class name and username.
+     *
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
+     *
+     * <p>Note: This operation can only be performed by a teacher.</p>
      *
      * @param classname The name of the class for which to retrieve suspicious images (required).
      * @param username The username of the user for whom suspicious images are being retrieved (required).
      * @return A ResponseEntity containing a list of maps, where each map represents
      *         a suspicious image with relevant details.
-     *
-     *      <p>Note: This operation can only be performed by a teacher.</p>
      *
      * <p>Example response:</p>
      * <pre>
@@ -109,13 +118,16 @@ public class StatusController {
     /**
      * GET - Retrieves a list of student with suspicious marked.
      *
-     * This method processes GET requests to the "/suspcious/list" endpoint.
+     * This method maps to the "/status/suspicious/list" endpoint.
      * Retrieves a list of students from a specified class along with their suspicious status.
+     *
+     * <p>Ensure to include a Bearer token in the request header for authentication.</p>
+     *
+     * <p>Note: This operation can only be performed by a teacher.</p>
      *
      * @param classname the name of the class for which to retrieve the suspicious student list
      * @return a list of maps, where each map contains the username of a student and a boolean indicating
      *         whether the student has suspicious images
-     *      <p>Note: This operation can only be performed by a teacher.</p>
      *
      * <p>Example response:</p>
      * <pre>
