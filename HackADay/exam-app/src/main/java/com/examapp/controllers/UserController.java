@@ -71,16 +71,20 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
     /**
      * POST - User login requests with image verification.
-     * This method processes POST requests to the "/user/login" endpoint
-     * It first checks if the uploaded image file is empty and
-     * returns a 400 Bad Request response if it is. If the file is valid, it prepares
-     * a User object from the provided JSON and retrieves the corresponding stored
-     * image from S3 using the user's username.
-     * The method then compares the uploaded image with the stored image. If the
-     * faces do not match, it returns a 403 Forbidden response. If the faces match,
-     * it authenticates the user and retrieves their role (either Teacher or Student).
-     * Finally, it returns a response containing an authentication token and the user's role.
      *
+     * <p>This method processes POST requests to the <code>/user/login</code> endpoint.</p>
+     *
+     * <p>It first checks if the uploaded image file is empty and
+     * returns a <code>400 Bad Request</code> response if it is.</p>
+     *
+     * <p>If the file is valid, it prepares a <code>User</code> object from the provided JSON
+     * and retrieves the corresponding stored image from S3 using the user's username.</p>
+     *
+     * <p>The method then compares the uploaded image with the stored image. If the
+     * faces do not match, it returns a <code>403 Forbidden</code> response. If the faces match,
+     * it authenticates the user and retrieves their role (either Teacher or Student).</p>
+     *
+     * <p>Finally, it returns a response containing an authentication token and the user's role.</p>
      * <p>Return values:</p>
      * <ul>
      *     <li>200 OK with a map containing the authentication token and user role if
@@ -145,11 +149,13 @@ public class UserController {
 
     /**
      * POST - Registers a new user with an uploaded image.
-     * Username with ':' is not allowed to avoid conflicts in Redis or S3.
-     * This method processes POST requests to the "/user/register" endpoint, expecting a
-     * multipart form-data request that includes an image file and user details in JSON format.
-     * It checks if the uploaded image file is present and validates the username before
-     * proceeding with the registration process.
+     * <p><strong>Note:</strong> Username with ':' is not allowed to avoid conflicts in Redis or S3.</p>
+     *
+     * <p>This method processes POST requests to the <code>/user/register</code> endpoint, expecting a
+     * multipart form-data request that includes an image file and user details in JSON format.</p>
+     *
+     * <p>It checks if the uploaded image file is present and validates the username before
+     * proceeding with the registration process.</p>
      *
      * @param imageFile the image file uploaded by the user (required)
      * @param userJson  the user details in JSON format (required). Example JSON format:
@@ -240,6 +246,10 @@ public class UserController {
      * The method accepts a <code>pageNum</code> parameter to determine which page of results to return.
      * The page size is defined by the constant <code>AuthorityConstants.pageSize</code>.</p>
      *
+     * @param pageNum The page number to retrieve, starting from 1.
+     *
+     * @return ResponseEntity<List<User>> A response entity containing a list of users
+     *         with their associated classes.
      * <p>Example response:</p>
      * <pre>
      * [
@@ -263,10 +273,6 @@ public class UserController {
      *     },
      * ]
      * </pre>
-     * @param pageNum The page number to retrieve, starting from 1.
-     *
-     * @return ResponseEntity<List<User>> A response entity containing a list of users
-     *         with their associated classes.
      */
     @GetMapping("studentWithClasses")
     public ResponseEntity<List<User>> getStudentWithClasses(@RequestParam int pageNum){
