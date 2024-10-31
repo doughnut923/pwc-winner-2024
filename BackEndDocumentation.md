@@ -4,6 +4,17 @@
 - **Tech stack**: Java Spring Boot + Spring Security + MyBatis-Plus.
 - **Documentation**: Detailed descriptions of methods are available in Javadoc.
 - **Recommendation**: Check **com.examapp.controllers** in Javadoc for API endpoints open to the frontend. Click here: [https://wondrous-beignet-cd0513.netlify.app/]
+- important javadoc:
+- Controllers : [file:///Users/michael/Documents/HackADay/HackADay/javadoc/com/examapp/securityConfig/filters/package-summary.html]
+  - package info : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/controllers/packageinfo]
+  - UserController : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/controllers/usercontroller]
+  - AuthorityController : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/controllers/authoritycontroller]
+  - ExamController : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/controllers/examcontroller]
+  - StatusController : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/controllers/statuscontroller]
+  
+- Security filters : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/securityconfig/filters/package-summary]
+  - ddosFilter : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/securityconfig/filters/ddosfilter]
+  - TokenFilter : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/securityconfig/filters/tokenfilter]
 
 ## Cloud Architecture
 ![AWS Cloud](/asset/AWS_Cloud.png)
@@ -14,7 +25,7 @@ The application uses MySQL, Redis, and S3 for data storage.
 - **MySQL**: Stores permanent data with three tables:
   - **t_user**
   - **t_authority**
-  - **t_exam
+  - **t_exam**
 - **Redis**: Stores temporary data including exam status and caches hotspot data from MySQL.
 - **S3**: Handles all image storage.
 
