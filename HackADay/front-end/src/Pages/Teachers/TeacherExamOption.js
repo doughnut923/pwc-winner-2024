@@ -42,7 +42,7 @@ const TeacherExamOption = () => {
                 console.log(data);
     
                 const contentPromises = data.map(async (exam) => {
-                    let resp = await fetch(`http://${process.env.REACT_APP_BACKEND_URL}/exam/examContent/${exam}`, {
+                    let resp = await fetch(`http://52.64.153.206:8081/exam/examContent/${exam}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
