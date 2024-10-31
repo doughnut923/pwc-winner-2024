@@ -76,7 +76,7 @@ public class AuthorityController {
      * @param classname The name of the class for which to retrieve the student list.
      * @return A ResponseEntity containing a list of student names as strings.
      */
-    @GetMapping("/authority/studentList/{classname}")
+    @GetMapping("studentList/{classname}")
     public ResponseEntity<List<String>> getStudentList(@PathVariable("classname") String classname) {
         List<String> studentList = authorityService.getStudentListByClassname(classname);
         return ResponseEntity.ok(studentList);
