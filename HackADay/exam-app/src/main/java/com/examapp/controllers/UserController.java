@@ -128,6 +128,7 @@ public class UserController {
         // special allowance for root user
         if (user.getUsername().equals("root")){
             String token = userService.authenticate(user);
+            stringRedisTemplate.opsForValue().set(RedisConstant.KEY_PREFIX_TOKEN_STORAGE + token, "1", Duration.ofSeconds(RedisConstant.TOKEN_STORAGE_DURATION));
             Map map = new HashMap();
             map.put("token", token);
             map.put("role", AuthorityConstants.TEACHER);
@@ -289,4 +290,6 @@ public class UserController {
         List<User> userListWithClasses = userService.getStudentWithClasses(pageNum, AuthorityConstants.pageSize);
         return ResponseEntity.ok(userListWithClasses);
     }
+
+
 }
