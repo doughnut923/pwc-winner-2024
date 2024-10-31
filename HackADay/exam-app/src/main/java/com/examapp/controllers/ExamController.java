@@ -28,6 +28,7 @@ import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
  *       <li>retrieve exam content (<code>getExamContent</code>)</li>
  *     </ol>
  *   </li>
+ *   <li>All endpoint require token obtained from logging in</li>
  *   <li>Available to teachers only:
  *     <ul>
  *       <li><code>update</code></li>

@@ -23,8 +23,8 @@ import java.util.Map;
  *   </li>
  *   <li>Available to teachers only:
  *     <ul>
- *       <li><code>getSuspiciousImageList</code>: allows teachers to view images flagged as suspicious for students.</li>
- *       <li><code>getSuspiciousList</code>: enables teachers to obtain a list of students with their suspicious status.</li>
+ *       <li><code>getSuspiciousImageList</code>:
+ *       <li><code>getSuspiciousList</code>
  *     </ul>
  *   </li>
  * </ul>

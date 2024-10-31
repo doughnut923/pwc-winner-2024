@@ -14,7 +14,24 @@ import java.util.List;
 
 
 
-
+/**
+ * <ul>
+ *   <li>Handles operations related to student authority management.</li>
+ *   <li>APIs available:
+ *     <ol>
+ *       <li>Retrieve a list of students for a specified class (<code>getStudentList</code>)</li>
+ *       <li>Grant permissions to students based on provided authority list (<code>setAuthorities</code>)</li>
+ *     </ol>
+ *   </li>
+ *   <li>All endpoint require token obtained from logging in</li>
+ *   <li>Available to teachers only:
+ *     <ul>
+ *       <li><code>getStudentList</code>
+ *       <li><code>setAuthorities</code>
+ *     </ul>
+ *   </li>
+ * </ul>
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("authority")
