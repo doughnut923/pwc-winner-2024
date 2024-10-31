@@ -1,7 +1,6 @@
 # FrontEnd Components
 We separated the components into two segments: `Components` and `Pages`. For your information, `class` is an `exam`. We will be using those two terms interchangeably.
 
-
 ## Components Folder
 
 ### AssignClassSelector.js
@@ -61,7 +60,7 @@ This page allows teachers to create a class (exam) with functionalities as follo
 ### ./Teachers/ExamDashboard.js
 This page displays the countdown timer for the exam and list of exam takers that can take the exam/class and allows teachers to see suspicious images detected by the webcam of each exam takers in the form of carousel.
 <br/><br/>
-**Note:** This page is accessible to teachers only.
+**Note:** This page is accessible to teachers only. **Please escape the modal and reopen it, if the picture shown is cropped.**
 
 ### ./Teachers/TeacherExamOption.js
 The purpose of this page is to display the list of all exams.  Each card contains the exam name, start time, and end time. The teacher can click a card to enter the `ExamDashboard.js` page of each exam. When the teacher navigates to the `ExamDashboard.js` page, the examName will be stored in the local storage to be used to fetch the exam details from the backend.

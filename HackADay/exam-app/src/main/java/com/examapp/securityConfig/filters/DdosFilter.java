@@ -43,13 +43,12 @@ import java.time.Duration;
  * </ol>
  */
 @Component
-@ConfigurationProperties(prefix = "ddosconfig")
 @Data
 public class DdosFilter extends OncePerRequestFilter {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
-    boolean ddosON;
-    long ddosTimeLimit;
+    boolean ddosON = true;
+    long ddosTimeLimit = 500L;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // Allow preflight requests

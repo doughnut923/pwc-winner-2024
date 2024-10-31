@@ -16,6 +16,10 @@ const Login = () => {
     const [loginState, setLoginState] = useState(0);
 
     const [showLoginAlert, setShowLoginAlert] = useState(false);
+    
+    localStorage.removeItem('examName');
+    localStorage.removeItem('examEndTime');
+    localStorage.removeItem('examStartTime');
 
     const loginUser = async (imageblob, filename) => {
         // Create a FormData object
