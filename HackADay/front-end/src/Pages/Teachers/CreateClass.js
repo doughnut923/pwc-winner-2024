@@ -25,7 +25,7 @@ const AddClass = () => {
         }));
 
         try {
-            const response = await fetch("http://localhost:8081/exam/update", {
+            const response = await fetch(`http://52.64.153.206:8081/exam/update`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

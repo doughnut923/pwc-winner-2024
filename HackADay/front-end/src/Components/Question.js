@@ -38,7 +38,7 @@ const Question = ({exam, getExamQuestions}) => {
             formData.append('imageFile', await blob);
             formData.append('classname', exam.examName);
 
-            const response = await fetch('http://localhost:8081/status/checkFaces', {
+            const response = await fetch(`http://52.64.153.206:8081/status/checkFaces`, {
                 method: 'POST',
                 body: formData,
                 headers:{

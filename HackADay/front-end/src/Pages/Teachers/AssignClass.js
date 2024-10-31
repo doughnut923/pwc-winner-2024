@@ -47,7 +47,7 @@ const AssignClass = ({ handleBack }) => {
         // then fetch all the student data and store to local array
         console.log("Fetching Students");
         try {
-            const result = await fetch(`http://localhost:8081/user/studentWithClasses?pageNum=${currentPage}`, {
+            const result = await fetch(`http://52.64.153.206:8081/user/studentWithClasses?pageNum=${currentPage}`, {
                 method: 'GET',
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -120,7 +120,7 @@ const AssignClass = ({ handleBack }) => {
         }
 
         try {
-            const result = await fetch('http://localhost:8081/authority/setAuthorities', {
+            const result = await fetch(`http://52.64.153.206:8081/authority/setAuthorities`, {
                 method: 'PUT',
                 body: JSON.stringify([{
                     username: student.name,

@@ -43,7 +43,7 @@ const Register = () => {
         formData.append('imageFile', await imageblob);
 
         // Send the form data to the server using fetch
-        const result = await fetch('http://localhost:8081/user/register', {
+        const result = await fetch(`http://52.64.153.206:8081/user/register`, {
             method: 'POST',
             body: formData,
         })
