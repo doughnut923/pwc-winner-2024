@@ -38,7 +38,7 @@ const Question = ({exam, getExamQuestions}) => {
             formData.append('imageFile', await blob);
             formData.append('classname', exam.examName);
 
-            const response = await fetch('http://localhost:8081/status/checkFaces', {
+            const response = await fetch(`http://52.64.153.206:8081/status/checkFaces`, {
                 method: 'POST',
                 body: formData,
                 headers:{
@@ -88,6 +88,7 @@ const Question = ({exam, getExamQuestions}) => {
     useEffect(() => {
         const fetchExamInfo = async () => {
             getExamQuestions();
+            console.log(currentQuestion);
         };
 
         const intervalId = setInterval(fetchExamInfo, 30000);
@@ -199,7 +200,7 @@ const Question = ({exam, getExamQuestions}) => {
                 Question {currentQuestionIndex + 1}
             </Typography>
             <Typography variant="body1" gutterBottom>
-                {currentQuestion.question}
+                {currentQuestion["content"]}
             </Typography>
             <FormControl component="fieldset">
                 <FormLabel component="legend">Options</FormLabel>

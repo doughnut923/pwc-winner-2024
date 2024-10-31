@@ -40,7 +40,7 @@ const StudentExamOption = () => {
             }
 
             try {
-                let response = await fetch("http://localhost:8081/exam/examList", {
+                let response = await fetch(`http://52.64.153.206:8081/exam/examList`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -54,7 +54,7 @@ const StudentExamOption = () => {
                 console.log(data);
 
                 const contentPromises = data.map(async (exam) => {
-                    let resp = await fetch(`http://localhost:8081/exam/examContent/${exam}`, {
+                    let resp = await fetch(`http://52.64.153.206:8081/exam/examContent/${exam}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
