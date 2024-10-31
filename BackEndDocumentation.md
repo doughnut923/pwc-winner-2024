@@ -15,6 +15,24 @@
 - Security filters : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/securityconfig/filters/package-summary]
   - ddosFilter : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/securityconfig/filters/ddosfilter]
   - TokenFilter : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/securityconfig/filters/tokenfilter]
+- utils : [https://wondrous-beignet-cd0513.netlify.app/com/examapp/utils/package-summary]
+
+
+## General file structure of backend:
+- MVC structure:
+  - each table has a corresponding controller, service and mapper class
+  - controller provide api accessed by frontend
+  - service handle processing logic
+  - mapper handle sql statement
+- utils folder handle repeated logic used in other places, including:
+  - ComparingFaces : handle logic for face rekognition
+  - S3Util : handle logic for storage and retrieval of images in s3
+  - JwtUtil : Handle token definition, validation and username extraction
+  - SecurityContextHolderUtil : Handle retrieval of username and permission from SecurityContextHolder with token
+- PredefinedConstant stores global constant, including:
+  - AuthorityConstants
+  - RedisConstants
+- SecurityConfig: stores all components and filters used by spring security
 
 ## Cloud Architecture
 ![AWS Cloud](/asset/AWS_Cloud.png)
@@ -107,5 +125,6 @@ Redis operates on RAM (Random Access Memory), providing high resistance in high 
 - **Examples**:
   - `getExamList`: Retrieves class names from `SecurityContextHolder` (stored in thread-local storage in RAM after user login)
   - `getExamContent`: Fetches exam content from Redis (also in RAM)
+  -  `checkFaces` : store image path of suspicious image on redis
 
 
