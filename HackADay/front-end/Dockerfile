@@ -1,18 +1,31 @@
 # Description: Dockerfile for the front-end of the HackADay project
 
 # Use the official Node.js 18 image
-FROM node:20-alpine
+FROM node:20-alpine as build
 
-#use the /app directory as the working directory
+# Set the working directory in the container
 WORKDIR /app
-COPY public/ /app/public
-COPY src/ /app/src
-COPY package.json /app/
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
+# Copy the entire application code to the container
+COPY . .
+
+# Build the React app for production
+RUN npm run build
+
+# Use Nginx as the production server
+FROM nginx:1.27.2-alpine-slim
+
+# Copy the built React app to Nginx's web server directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80 for the Nginx server
 EXPOSE 80
 
-# Expose the port the app runs on
-CMD ["npm", "start"]
+# Start Nginx when the container runs
+CMD ["nginx", "-g", "daemon off;"]
