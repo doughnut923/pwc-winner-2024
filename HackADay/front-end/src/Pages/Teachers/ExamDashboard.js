@@ -255,8 +255,8 @@ const ExamDashboard = () => {
                     >
                         <Box
                             sx={{
-                                width: '50%',
-                                height: '50%',
+                                width: '90%',
+                                height: '90%',
                                 bgcolor: 'background.paper',
                                 boxShadow: 24,
                                 p: 4,
