@@ -25,7 +25,7 @@ The application uses MySQL, Redis, and S3 for data storage.
 - **MySQL**: Stores permanent data with three tables:
   - **t_user**
   - **t_authority**
-  - **t_exam
+  - **t_exam**
 - **Redis**: Stores temporary data including exam status and caches hotspot data from MySQL.
 - **S3**: Handles all image storage.
 
