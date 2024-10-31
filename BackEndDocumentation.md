@@ -3,7 +3,7 @@
 ## BackEnd
 - **Tech stack**: Java Spring Boot + Spring Security + MyBatis-Plus.
 - **Documentation**: Detailed descriptions of methods are available in Javadoc.
-- **Recommendation**: Check **com.examapp.controllers** in Javadoc for API endpoints open to the frontend.
+- **Recommendation**: Check **com.examapp.controllers** in Javadoc for API endpoints open to the frontend. Click here: [https://wondrous-beignet-cd0513.netlify.app/]
 
 ## Cloud Architecture
 ![AWS Cloud](/asset/AWS_Cloud.png)
