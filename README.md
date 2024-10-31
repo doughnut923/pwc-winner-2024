@@ -1,5 +1,6 @@
 # Team Zen1th - Online Exam Cheating Detection
-We created a platform for teachers to monitor students in an online exam and check the whether the student is cheating in the exam 
+We created a platform for teachers to monitor students in an online exam and check the whether the student is cheating in the exam.<br/>
+**Please refresh if something doesn't go as intended!**
 
 ## Running the Application
 The application consists of a SQL Database, a Redis Cache, a Springboot Backend and a React Frontend. Which could be simply ran with docker compose.
