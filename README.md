@@ -19,26 +19,28 @@ You may need to add sudo in front of the command if you haven't set up docker us
 
 
 ## Using the Application
+Webpage Link: [http://ec2-52-64-153-206.ap-southeast-2.compute.amazonaws.com:3000/] <br/>
+- Please use Google Chrome to access this page.
+- Before accessing the webpage, access [chrome://flags/#unsafely-treat-insecure-origin-as-secure]
+- Add the address of the web
+![Setup_Chrome](asset/Setup_Chrome.png)
+- Click relaunch
+- Access the webpage
 
-### 1. Registering for a Teacher Account
+### 1. Sign in to root account
+- Username: root
+- Password: root
+- The face ID is bypassed for this account, as this account is for demonstration purposes only.
 
-A teacher account should first be created in order to create and assign the class the the student. once your reach `{your_address}/`, you will be greeted with a login page. Click Sign Up and enter the credentials, click Sign up again. Then you will be prompted to provide face ID, make sure you gave access to the application to access your camera, after aligning the camera to your face, Click done. Then a account would be created.
+<br/> P.S. This is a demo account, please do not implement this for any real-world application.
 
-![SignUp](asset/Teacher_signup.png)
-
-### 2. Adding a Teacher Role
-
-This application is still in development. To add teacher authority to a user
-1. Connect to the SQL Database named `examappdb` with `localhost:3306` with the password and username shown in `compose.yaml` using a method of interest(e.g. [sqlyog](https://github.com/webyog/sqlyog-community/wiki/Downloads))
-2. Under the `t_authority` table, change the value of `permission` to `teacher` for the newly create account. Then apply the changes to the database.
-
-### 3. Create student accounts
+### 2. Create student accounts
 
 Create a student account just like creating a teacher account, but without changing the authority group in sql, as new users are defaulted to be students.
 
-![SignUp](asset/Teacher_signup.png)
+![alt_text](asset/Zen1th_sign-up.png)
 
-### 4. Create and assgining classes
+### 3. Create and assgining classes
 Login with a teacher's account to access the Teacher's main page.
 
 ![alt text](asset/image-1.png)
@@ -51,18 +53,18 @@ Then click assign classes, click the `+` button on the student you would like to
 
 ![alt text](asset/image-3.png)
 
-### 5. Access the class
+### 4. Access the class
 
 For students, they can now see the class they are able to take. Click on one of the classes and they should be good to go.
 
 ![alt text](asset/image-4.png)
 
-### 6. Taking the exam
+### 5. Taking the exam
 After redirected to the exampage. They are allow to check if their camera works. If the exam has not started yet, you will be greeted with a countdown page. Once the countdown is reached, it automatically refereshes and shows the questions. Once the exam end time is reached, the students are not allowed to access the exam anymore and be redirected to the login page.
 
 ![alt text](asset/image-5.png)
 
-### 7. Monitoring the Exam
+### 6. Monitoring the Exam
 
 For the teacher, in the teach's main page, click on the class created. A dashboard could be seen and student cheating could be inspected by clicking on alerts.
 ![alt text](asset/image-6.png)
