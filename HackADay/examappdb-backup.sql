@@ -34,7 +34,8 @@ insert  into `t_authority`(`id`,`username`,`permission`) values
 (1849733467670900739,'Jacky','student'),
 (1849733605411844099,'Teacher Jacky','teacher'),
 (1849779717833355266,'Jacky','Linear algebra'),
-(1849779717833355267,'Jacky','University Calculus');
+(1849779717833355267,'Jacky','University Calculus'),
+(1851945353590145026,'root','teacher');
 
 /*Table structure for table `t_exam` */
 
@@ -50,10 +51,17 @@ CREATE TABLE `t_exam` (
 
 /*Data for the table `t_exam` */
 
+<<<<<<< HEAD
 insert into `t_exam`(`classname`,`starting_time`,`ending_time`,`content`) values 
 ('Linear algebra','2024-11-12 17:00:00','2024-11-25 19:00:00','[{"content":"Hello hihihhi","options":["1","2","3","4"]},{"content":"wuyfwifilai","options":["828","wii","if","gar"]}]'),
 ('Probability','2024-09-21 17:00:00','2024-09-25 19:00:00','[{"content":"Hello hihihhi","options":["1","2","3","4"]},{"content":"wuyfwifilai","options":["828","wii","if","gar"]}]'),
 ('University Calculus','2024-10-29 17:00:00','2024-11-25 19:00:00','[{"content":"Hello hihihhi","options":["1","2","3","4"]},{"content":"wuyfwifilai","options":["828","wii","if","gar"]}]');
+=======
+insert  into `t_exam`(`classname`,`starting_time`,`ending_time`,`content`) values 
+('Linear algebra','2024-11-12 17:00:00','2024-11-25 19:00:00','[{\"content\":\"Hello hihihhi\",\"options\":[\"1\",\"2\",\"3\",\"4\"]},{\"content\":\"wuyfwifilai\",\"options\":[\"828\",\"wii\",\"if\",\"gar\"]}]'),
+('Probability','2024-09-21 17:00:00','2024-09-25 19:00:00','[{\"content\":\"Hello hihihhi\",\"options\":[\"1\",\"2\",\"3\",\"4\"]},{\"content\":\"wuyfwifilai\",\"options\":[\"828\",\"wii\",\"if\",\"gar\"]}]'),
+('University Calculus','2024-10-29 17:00:00','2024-11-25 19:00:00','[{\"content\":\"Hello hihihhi\",\"options\":[\"1\",\"2\",\"3\",\"4\"]},{\"content\":\"wuyfwifilai\",\"options\":[\"828\",\"wii\",\"if\",\"gar\"]}]');
+>>>>>>> 949a1b0e853cd4f106f4f69c5fe0c4220f04c946
 
 /*Table structure for table `t_user` */
 
@@ -72,7 +80,8 @@ CREATE TABLE `t_user` (
 insert  into `t_user`(`id`,`username`,`password`) values 
 (1849733385672257538,'Jacky2','$2a$10$bRXDh/wNT3oVZH2u6DyHSOm8Y9pvG44eZc8ZbnE64N2BJyqoGglFe'),
 (1849733467670900738,'Jacky','$2a$10$E8k97zrYvQXc.LU7rqDnBeX5PJqjHCj.3n/ETQGwxQIYkBOQAohrq'),
-(1849733605411844098,'Teacher Jacky','$2a$10$VaCUvmhF1XCYUWBo/9faT.QicKLJmZX1DSoKOfzFJXZCIM0y/wgWm');
+(1849733605411844098,'Teacher Jacky','$2a$10$VaCUvmhF1XCYUWBo/9faT.QicKLJmZX1DSoKOfzFJXZCIM0y/wgWm'),
+(1851945353485287425,'root','$2a$10$YrfS7Usr1qLtltoK8N8zJ.inrpP/dNlotEzTQdw3ASpHRnEKiAtoS');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
