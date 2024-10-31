@@ -29,7 +29,7 @@ import static com.examapp.predefinedConstant.AuthorityConstants.TEACHER;
  *     </ol>
  *   </li>
  *   <li>All endpoint require token obtained from logging in</li>
- *   <li>Available to teachers only:
+ *   <li>Teacher specific:
  *     <ul>
  *       <li><code>update</code></li>
  *       <li><code>getExamList</code>: shows all exams to teachers while only permitted exams are shown to students.</li>

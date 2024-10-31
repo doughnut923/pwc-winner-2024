@@ -24,7 +24,7 @@ import java.util.List;
  *     </ol>
  *   </li>
  *   <li>All endpoint require token obtained from logging in</li>
- *   <li>Available to teachers only:
+ *   <li>Teacher specific:
  *     <ul>
  *       <li><code>getStudentList</code>
  *       <li><code>setAuthorities</code>

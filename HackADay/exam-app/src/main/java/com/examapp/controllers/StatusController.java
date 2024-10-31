@@ -21,7 +21,8 @@ import java.util.Map;
  *       <li>retrieve a list of students along with their suspicious status (<code>getSuspiciousList</code>)</li>
  *     </ol>
  *   </li>
- *   <li>Available to teachers only:
+ *   <li>All endpoint require token obtained from logging in</li>
+ *   <li>Teacher specific:
  *     <ul>
  *       <li><code>getSuspiciousImageList</code>:
  *       <li><code>getSuspiciousList</code>

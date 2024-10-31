@@ -31,7 +31,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * <ul>
+ *   <li>Handles operations related to user authentication and registration.</li>
+ *   <li>APIs available:
+ *     <ol>
+ *       <li>User login requests with image verification (<code>login</code>)</li>
+ *       <li>Registers a new user with an uploaded image (<code>register</code>)</li>
+ *       <li>Retrieve a paginated list of students along with their associated classes (<code>getStudentWithClasses</code>)</li>
+ *     </ol>
+ *   </li>
+ *   <li>login and register are the only endpoint that does not require logging in. GetStudentWithClasses require token obtained from logging in</li>
+ *   <li>Teacher specific:
+ *     <ul>
+ *       <li><code>getStudentWithClasses</code>: Displays a paginated list of students and their classes.</li>
+ *     </ul>
+ *   </li>
+ * </ul>
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("user")
@@ -54,7 +71,7 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
     /**
      * POST - User login requests with image verification.
-     * This method processes POST requests to the "user/login" endpoint
+     * This method processes POST requests to the "/user/login" endpoint
      * It first checks if the uploaded image file is empty and
      * returns a 400 Bad Request response if it is. If the file is valid, it prepares
      * a User object from the provided JSON and retrieves the corresponding stored
@@ -129,7 +146,7 @@ public class UserController {
     /**
      * POST - Registers a new user with an uploaded image.
      * Username with ':' is not allowed to avoid conflicts in Redis or S3.
-     * This method processes POST requests to the "/register" endpoint, expecting a
+     * This method processes POST requests to the "/user/register" endpoint, expecting a
      * multipart form-data request that includes an image file and user details in JSON format.
      * It checks if the uploaded image file is present and validates the username before
      * proceeding with the registration process.
@@ -203,7 +220,7 @@ public class UserController {
     /**
      * GET - Retrieve a paginated list of students along with their associated classes.
      *
-     * <p>This method maps to the "/studentWithClasses" endpoint.</p>
+     * <p>This method maps to the "/user/studentWithClasses" endpoint.</p>
      *
      * <p>It retrieves a list of students with their corresponding classes enrolled, returning the results in a paginated format
      * based on the provided page number.</p>
