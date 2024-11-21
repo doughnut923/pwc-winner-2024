@@ -37,7 +37,7 @@ class ExamAppApplicationTests {
     @Test
     void contextLoads() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encode = encoder.encode("123456");
+        String encode = encoder.encode("student");
         log.info(encode);
         boolean matches = encoder.matches("123456", "$2a$10$VwgOZzM/LNiKrHrsrU55zONE3tMW1TA2pPorFvfXEhD36ZXnVrMZa");
         log.info("{}",matches);
