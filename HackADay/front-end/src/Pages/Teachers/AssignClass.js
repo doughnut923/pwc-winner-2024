@@ -5,6 +5,7 @@ import { StyledContainer } from "../ExamOptionStyledElements"
 import MyTableRow from '../../Components/MyTableRow';
 import { useTheme } from '@emotion/react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { API_BASE_URL } from '../../config'; // Import the API base URL
 
 //List out all students in the system, teacher is allowed to click the student and assign him to an avaliable class.
 const AssignClass = ({ handleBack }) => {
@@ -47,7 +48,7 @@ const AssignClass = ({ handleBack }) => {
         // then fetch all the student data and store to local array
         console.log("Fetching Students");
         try {
-            const result = await fetch(`http://52.64.153.206:8081/user/studentWithClasses?pageNum=${currentPage}`, {
+            const result = await fetch(`${API_BASE_URL}/user/studentWithClasses?pageNum=${currentPage}`, { // Use API_BASE_URL
                 method: 'GET',
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -120,7 +121,7 @@ const AssignClass = ({ handleBack }) => {
         }
 
         try {
-            const result = await fetch(`http://52.64.153.206:8081/authority/setAuthorities`, {
+            const result = await fetch(`${API_BASE_URL}/authority/setAuthorities`, { // Use API_BASE_URL
                 method: 'PUT',
                 body: JSON.stringify([{
                     username: student.name,

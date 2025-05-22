@@ -1,20 +1,20 @@
 package com.examapp.securityConfig.filters;
 
+import java.io.IOException;
+import java.time.Duration;
+
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
 import com.examapp.predefinedConstant.RedisConstant;
+
 import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
-import java.time.Duration;
 /**
  * A filter that implements DDoS protection by limiting the number of requests
  * from a single IP address within a specified time frame.
@@ -47,7 +47,7 @@ import java.time.Duration;
 public class DdosFilter extends OncePerRequestFilter {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
-    boolean ddosON = true;
+    boolean ddosON = false;
     long ddosTimeLimit = 500L;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

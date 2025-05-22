@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, List, ListItem, Box } from '@mui/material';
+import { API_BASE_URL } from '../config'; // Adjust the path as needed
 
 const AssignClassSelector = ({ setOnAdd, student, assignclasss }) => {
     const [classes, setClasses] = useState([]);
@@ -13,7 +14,7 @@ const AssignClassSelector = ({ setOnAdd, student, assignclasss }) => {
             return;
         }
 
-        const result = await fetch(`http://52.64.153.206:8081/exam/examList`, {
+        const result = await fetch(`${API_BASE_URL}/exam/examList`, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }

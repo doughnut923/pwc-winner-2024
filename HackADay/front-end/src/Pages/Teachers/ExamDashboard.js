@@ -5,6 +5,7 @@ import { StyledContainer, InsideContainer } from "./ExamDashboardStyledElements"
 import { TextField, Box, TableHead, TableRow, Table, TableBody, TableCell,  IconButton, Modal } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import { API_BASE_URL } from '../../config'; // Import the API base URL
 
 const ExamDashboard = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const ExamDashboard = () => {
     const [examEndTime, setExamEndTime] = useState();
     const examInfo = async () => {
         const token = localStorage.getItem('token');
-        let resp = await fetch(`http://52.64.153.206:8081/exam/examContent/${examName}`, {
+        let resp = await fetch(`${API_BASE_URL}/exam/examContent/${examName}`, { // Use API_BASE_URL
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -69,7 +70,7 @@ const ExamDashboard = () => {
     useEffect(() => {
         const fetchStudentList = async () => {
             try {
-                let response = await fetch(`http://52.64.153.206:8081/authority/studentList/${examName}`, {
+                let response = await fetch(`${API_BASE_URL}/authority/studentList/${examName}`, { // Use API_BASE_URL
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -92,7 +93,7 @@ const ExamDashboard = () => {
     // Function to fetch suspicious images
     const fetchSuspiciousImagesForStudent = async (studentName) => {
         try {
-            let response = await fetch(`http://52.64.153.206:8081/status/suspiciousImage?classname=${examName}&username=${studentName}`, {
+            let response = await fetch(`${API_BASE_URL}/status/suspiciousImage?classname=${examName}&username=${studentName}`, { // Use API_BASE_URL
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

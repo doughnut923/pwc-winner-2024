@@ -7,6 +7,7 @@ import Slide from '@mui/material/Slide';
 
 import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config'; // Import the API base URL
 
 const Register = () => {
 
@@ -43,7 +44,7 @@ const Register = () => {
         formData.append('imageFile', await imageblob);
 
         // Send the form data to the server using fetch
-        const result = await fetch(`http://52.64.153.206:8081/user/register`, {
+        const result = await fetch(`${API_BASE_URL}/user/register`, { // Use API_BASE_URL
             method: 'POST',
             body: formData,
         })

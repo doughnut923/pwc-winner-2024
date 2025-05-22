@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import logo from "../../logo.svg";
 import { StyledContainer, StyledCard, InsideContainer, CardBox } from "./StudentExamOptionStyledElements"
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../config'; // Adjust the path as needed
 
 
 
@@ -40,7 +41,7 @@ const StudentExamOption = () => {
             }
 
             try {
-                let response = await fetch(`http://52.64.153.206:8081/exam/examList`, {
+                let response = await fetch(`${API_BASE_URL}/exam/examList`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -54,7 +55,7 @@ const StudentExamOption = () => {
                 console.log(data);
 
                 const contentPromises = data.map(async (exam) => {
-                    let resp = await fetch(`http://52.64.153.206:8081/exam/examContent/${exam}`, {
+                    let resp = await fetch(`${API_BASE_URL}/exam/examContent/${exam}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,

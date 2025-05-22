@@ -5,7 +5,7 @@ import logo from "../logo.svg"; // Adjust the path to your logo image
 import { useNavigate } from 'react-router-dom';
 import { StyledContainer, StyledCard, FormContainer, StyledForm, StyledTextField, StyledButton } from "./LoginStyledElements"
 import BiometricLogin from '../Components/BiometricLogin';
-
+import { API_BASE_URL } from '../config'; // Import the API base URL
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -38,7 +38,7 @@ const Login = () => {
         formData.append('imageFile', await imageblob);
 
         // Send the form data to the server using fetch
-        const result = await fetch(`http://52.64.153.206:8081/user/login`, {
+        const result = await fetch(`${API_BASE_URL}/user/login`, { // Use API_BASE_URL
             method: 'POST',
             body: formData,
         })

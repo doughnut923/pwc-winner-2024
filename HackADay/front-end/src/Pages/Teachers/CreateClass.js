@@ -3,10 +3,11 @@ import { TextField, Card, Button, Typography, Box, Grid, IconButton } from '@mui
 import DeleteIcon from '@mui/icons-material/Delete';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
-import { StyledContainer } from "../ExamOptionStyledElements"
+import { StyledContainer } from "../ExamOptionStyledElements";
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import moment from 'moment'; 
+import moment from 'moment';
+import { API_BASE_URL } from '../../config'; // Import the API base URL
 
 const AddClass = () => {
     const [classname, setClassname] = useState('');
@@ -14,7 +15,7 @@ const AddClass = () => {
     const [endTime, setEndTime] = useState(null);
     const [questions, setQuestions] = useState([]);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const addClassToServer = async () => {
         console.log(JSON.stringify({
@@ -25,7 +26,7 @@ const AddClass = () => {
         }));
 
         try {
-            const response = await fetch(`http://52.64.153.206:8081/exam/update`, {
+            const response = await fetch(`${API_BASE_URL}/exam/update`, { // Use API_BASE_URL
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,37 +73,30 @@ const AddClass = () => {
 
     // Handle start time change with validation
     const handleStartTimeChange = (newValue) => {
-        // Convert newValue to a moment object
         const startTimeMoment = moment(newValue);
-    
-        // Check if the startTimeMoment is valid
+
         if (!startTimeMoment.isValid()) {
             alert('Invalid start time. Please enter a valid date and time.');
             return;
         }
-    
-        // Check if the start time is in the past
+
         if (startTimeMoment.isBefore(moment())) {
             alert('Start time cannot be in the past.');
             return;
         }
-    
-        // If all checks pass, set the start time
+
         setStartTime(startTimeMoment);
     };
 
     // Handle end time change with validation
     const handleEndTimeChange = (newValue) => {
-        // Convert newValue to a moment object
         const endTimeMoment = moment(newValue);
-    
-        // Check if the endTimeMoment is valid
+
         if (!endTimeMoment.isValid()) {
             alert('Please use the pop-up calendar!');
             return;
         }
-    
-        // Validate against startTime
+
         if (startTime && endTimeMoment.isBefore(moment(startTime))) {
             alert('End time cannot be before start time');
             return;
@@ -111,10 +105,9 @@ const AddClass = () => {
         setEndTime(endTimeMoment);
     };
 
-    // Function to check if end time is valid
     const isEndTimeValid = (time) => {
         const timeMoment = moment(time);
-        if (time > startTime) return true; // allow anytime after start time
+        if (time > startTime) return true;
         return timeMoment.isSameOrAfter(moment(startTime));
     };
 
@@ -125,7 +118,7 @@ const AddClass = () => {
         }}>
             <Card sx={{ marginTop: "50px", padding: "2rem", borderRadius: "30px", width: "80%", backgroundColor: "white", height: "80vh", overflowY: "scroll" }}>
                 <Button onClick={() => navigate('/teacher-exam-option')} startIcon={<ArrowBackIosNewIcon />}>Go Back</Button>
-                <Typography variant="h4" gutterBottom >
+                <Typography variant="h4" gutterBottom>
                     Add Class
                 </Typography>
                 <Box component="form" noValidate autoComplete="off">

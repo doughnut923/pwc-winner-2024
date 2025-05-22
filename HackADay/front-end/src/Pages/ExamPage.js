@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { Box, Paper } from '@mui/material';
-import { useTheme, } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CheckCamera from '../Components/CheckCamera';
 import WaitingPage from '../Components/WaitingPage';
 import Question from '../Components/Question';
 import logo from "../logo.svg"; // Adjust the path to your logo image
+import { API_BASE_URL } from '../config'; // Import the API base URL
 
 const ExamPage = () => {
 
@@ -16,7 +17,7 @@ const ExamPage = () => {
     // fetch exam details (end time and start time)
     const examInfo = async () => {
         const token = localStorage.getItem('token');
-        let resp = await fetch(`http://52.64.153.206:8081/exam/examContent/${examName}`, {
+        let resp = await fetch(`${API_BASE_URL}/exam/examContent/${examName}`, { // Use API_BASE_URL
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -27,7 +28,7 @@ const ExamPage = () => {
 
         console.log("Data : " + JSON.stringify(contentData));
         if (contentData.content === null) {
-            return
+            return;
         }
         // console.log(contentData);
         localStorage.setItem('examStartTime', Date.parse(contentData.startingTime));
@@ -59,16 +60,13 @@ const ExamPage = () => {
     );
 
     const getExamQuestions = async () => {
-
-        // fetch the exam details
-        const response = await fetch(`http://52.64.153.206:8081/exam/examContent/${examName}`,
-            {
-                method: "GET",
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token'),
-                }
+        // Fetch the exam details
+        const response = await fetch(`${API_BASE_URL}/exam/examContent/${examName}`, { // Use API_BASE_URL
+            method: "GET",
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
             }
-        );
+        });
 
         if (response.ok) {
             const data = await response.json();

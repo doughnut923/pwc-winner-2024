@@ -2,17 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Container, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Box, Alert } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config'; // Import the API base URL
 
-
-// const [examDetails, setExamDetails] = React.useState(
-//     {
-//         examName: "",
-//         examTime: "",
-//         examEndTime: "",
-//         examQuestions: []
-//     }
-// );
-const Question = ({exam, getExamQuestions}) => {
+const Question = ({ exam, getExamQuestions }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState(Array(exam.examQuestions.length).fill(null));
     const currentQuestion = exam.examQuestions[currentQuestionIndex];
@@ -38,7 +30,7 @@ const Question = ({exam, getExamQuestions}) => {
             formData.append('imageFile', await blob);
             formData.append('classname', exam.examName);
 
-            const response = await fetch(`http://52.64.153.206:8081/status/checkFaces`, {
+            const response = await fetch(`${API_BASE_URL}/status/checkFaces`, { // Use API_BASE_URL
                 method: 'POST',
                 body: formData,
                 headers:{
