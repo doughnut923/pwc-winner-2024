@@ -2,7 +2,15 @@
 We created a platform for teachers to monitor students in an online exam and check the whether the student is cheating in the exam.<br/>
 **Please refresh if something doesn't go as intended!**
 
-## Running the Application
+## ## Running the Application without AWS facial recognition services
+1. Open the terminal and clone the repository.
+```sh
+git clone https://github.com/Jacky-020/PwC-2024-Hackaday---Zen1th
+```
+2. Install [docker](https://docs.docker.com/get-started/get-docker/).
+3. Run the server with docker.
+
+## Running the Application with AWS facial recognition services
 The application consists of a SQL Database, a Redis Cache, a Springboot Backend and a React Frontend. Which could be simply ran with docker compose.
 1. Open the terminal and clone the repository.
 ```sh
@@ -19,7 +27,9 @@ You may need to add sudo in front of the command if you haven't set up docker us
 
 
 ## Using the Application
-Webpage Link: [http://ec2-52-64-153-206.ap-southeast-2.compute.amazonaws.com:3000/] <br/>
+Webpage Link:  <br/>
+[http://localhost:3000/ ] (without AWS)<br/>
+[http://ec2-52-64-153-206.ap-southeast-2.compute.amazonaws.com:3000/ ]  (with AWS service set)<br/>
 - Please use Google Chrome to access this page.
 - Before accessing the webpage, access [chrome://flags/#unsafely-treat-insecure-origin-as-secure]
 - Add the address of the web
@@ -27,9 +37,15 @@ Webpage Link: [http://ec2-52-64-153-206.ap-southeast-2.compute.amazonaws.com:300
 - Click relaunch
 - Access the webpage
 
-### 1. Sign in to root account
+### 1a. Sign in to teacher account
 - Username: root
 - Password: root
+- The face ID is bypassed for this account, as this account is for demonstration purposes only.
+
+### 1b. Sign up for a student account
+
+- Username: Jacky
+- Password: 111111
 - The face ID is bypassed for this account, as this account is for demonstration purposes only.
 
 <br/> P.S. This is a demo account, please do not implement this for any real-world application.
